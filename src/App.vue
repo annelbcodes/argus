@@ -1,6 +1,5 @@
 <template>
-  <div id="app" class="flex p-5">
-    {{ mydata }}
+  <div id="app">
   </div>
 </template>
 
@@ -16,7 +15,4 @@ export default {
 </script>
 
 <style>
-body, html {
-  @apply bg-white;
-}
 </style>
