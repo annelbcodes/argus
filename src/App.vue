@@ -1,6 +1,6 @@
 <template>
-  <div id="app" class="flex p-5">
-    {{ mydata }}
+  <div id="app">
+    <router-view></router-view>
   </div>
 </template>
 
@@ -9,7 +9,6 @@ export default {
   name: 'app',
   data() {
     return {
-      mydata: 'YES',
     }
   }
 }
@@ -17,6 +16,10 @@ export default {
 
 <style>
 body, html {
-  @apply bg-white;
+  @apply text-white;
+  @apply font-sans;
+}
+button {
+  -webkit-app-region: no-drag;
 }
 </style>
