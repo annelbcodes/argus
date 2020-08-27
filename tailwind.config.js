@@ -3,6 +3,17 @@ module.exports = {
   important: false,
   separator: ':',
   theme: {
+    extend: {
+      colors: {
+        waterloo: '#7E7E8E', // grays - title text color
+        steelgray: '#42434E',  // grays - ui elements
+        midgray: '#60606F', // grays - texts content
+
+        governorbay: '#4D5CA6', // purple - ui titlebar
+        darkgreencopper: '#486D6F', // dgreen - indicator
+        nightshadz: '#A33B5C' // red - indicator
+      }
+    },
     screens: {
       sm: '480px',
       md: '768px',
@@ -128,12 +139,12 @@ module.exports = {
     },
     spacing: {
       // px: '1px',
-      // '0': '0',
-      // '1': '0.25rem',
-      // '2': '0.5rem',
+      '0': '0',
+      '1': '0.25rem',
+      '2': '0.5rem',
       // '3': '0.75rem',
-      // '4': '1rem',
-      // '5': '1.25rem',
+      '4': '1rem',
+      '5': '1.25rem',
       // '6': '1.5rem',
       // '8': '2rem',
       // '10': '2.5rem',
@@ -165,18 +176,18 @@ module.exports = {
       // contain: 'contain',
     },
     borderColor: theme => ({
-      // ...theme('colors'),
+      ...theme('colors'),
       // default: theme('colors.gray.300', 'currentColor'),
     }),
     borderRadius: {
       // none: '0',
       // sm: '0.125rem',
-      // default: '0.25rem',
+      default: '0.25rem',
       // lg: '0.5rem',
-      // full: '9999px',
+      full: '9999px',
     },
     borderWidth: {
-      // default: '1px',
+      default: '1px',
       // '0': '0',
       // '2': '2px',
       // '4': '4px',
@@ -251,9 +262,9 @@ module.exports = {
       // ],
     },
     fontSize: {
-      // xs: '0.75rem',
-      // sm: '0.875rem',
-      // base: '1rem',
+      xs: '0.75rem',
+      sm: '0.875rem',
+      base: '1rem',
       // lg: '1.125rem',
       // xl: '1.25rem',
       // '2xl': '1.5rem',
@@ -266,10 +277,10 @@ module.exports = {
       // hairline: '100',
       // thin: '200',
       // light: '300',
-      // normal: '400',
+      normal: '400',
       // medium: '500',
       // semibold: '600',
-      // bold: '700',
+      bold: '700',
       // extrabold: '800',
       // black: '900',
     },
@@ -300,13 +311,13 @@ module.exports = {
       // loose: '2',
     },
     listStyleType: {
-      // none: 'none',
+      none: 'none',
       // disc: 'disc',
       // decimal: 'decimal',
     },
     margin: (theme, { negative }) => ({
-      // auto: 'auto',
-      // ...theme('spacing'),
+      auto: 'auto',
+      ...theme('spacing'),
       // ...negative(theme('spacing')),
     }),
     maxHeight: {
@@ -370,7 +381,7 @@ module.exports = {
       // '11': '11',
       // '12': '12',
     },
-    // padding: theme => theme('spacing'),
+    padding: theme => theme('spacing'),
     // placeholderColor: theme => theme('colors'),
     // stroke: {
     //   current: 'currentColor',
@@ -405,7 +416,7 @@ module.exports = {
       // '9/12': '75%',
       // '10/12': '83.333333%',
       // '11/12': '91.666667%',
-      // full: '100%',
+      full: '100%',
       // screen: '100vw',
     }),
     zIndex: {
