@@ -5,8 +5,18 @@ Vue.use(Vuex)
 
 const state = {
     emails: [
-        'john@appleseed.com',
-        'whatsorceressisthis@wut.com'
+        {
+            address: 'john@appleseed.com',
+            status: 0, //1-positive, 0-negative
+        },
+        {
+            address: 'undefinedundefinedundefinedundefinedundefinedundefined@status.com',
+            status: null,
+        },
+        {
+            address: 'whatsorceressisthis@wut.com',
+            status: 1,
+        }
     ]
 }
 const getters = {}

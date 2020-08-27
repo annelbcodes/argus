@@ -18,6 +18,7 @@ export default {
 body, html {
   @apply text-white;
   @apply font-sans;
+  @apply select-none;
 }
 button {
   -webkit-app-region: no-drag;
