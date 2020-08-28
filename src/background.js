@@ -24,9 +24,11 @@ function createWindow() {
     title: app.name,
     width: 350,
     minWidth: 350,
+    maxWidth: 350,
     height: 'auto',
     frame: false,
     maximizable: false,
+    vibrancy: "ultra-dark",
     titleBarStyle: 'hiddenInset',
     backgroundColor: '#272735',
     webPreferences: {

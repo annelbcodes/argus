@@ -8,6 +8,8 @@ module.exports = {
         waterloo: '#7E7E8E', // grays - title text color
         steelgray: '#42434E',  // grays - ui elements
         midgray: '#60606F', // grays - texts content
+        charade: '#272735', // ui background
+        darkcharade: '#1E1E29',
 
         governorbay: '#4D5CA6', // purple - ui titlebar
         darkgreencopper: '#486D6F', // dgreen - indicator

@@ -16,7 +16,10 @@ export default {
   -webkit-app-region: drag;
   border-bottom: 1px solid;
   @apply text-center;
-  @apply py-4;
+  @apply py-2;
   @apply border-steelgray;
+  @apply bg-gradient-to-b;
+  @apply from-charade;
+  @apply to-darkcharade;
 }
 </style>
