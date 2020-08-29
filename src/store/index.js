@@ -1,6 +1,11 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import {
+    ADD_ITEM
+}
+from './mutationtypes'
+
 Vue.use(Vuex)
 
 const state = {
@@ -23,7 +28,14 @@ const state = {
     ]
 }
 const getters = {}
-const mutations = {}
+
+const mutations = {
+    [ADD_ITEM](state) {
+        console.log(state.ui.modal)
+        state.ui.modal = !state.ui.modal
+    }
+}
+
 const actions = {}
 
 export default new Vuex.Store({

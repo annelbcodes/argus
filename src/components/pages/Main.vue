@@ -2,20 +2,27 @@
   <div class="ui">
     <title-bar>EyesOnPwn</title-bar>
     <div class="ui-body">
-      <modal>
+      <modal v-if="modal">
         <monitor-popup-add></monitor-popup-add>
       </modal>
 
       <div class="ui-content">
         <title-heading>Emails</title-heading>
         <monitor-list></monitor-list>
-        <monitor-add type="email"></monitor-add>
+
+        <monitor-add
+          type="email"
+          action="add"
+        >
+        </monitor-add>
+
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import TitleBar from '../widgets/TitleBar'
 import TitleHeading from '../widgets/TitleHeading'
 import Modal from '../widgets/Modal'
@@ -31,6 +38,11 @@ export default {
     MonitorAdd,
     Modal,
     MonitorPopupAdd
+  },
+  computed: {
+    ...mapState({
+      modal: state => state.ui.modal
+    })
   },
 }
 </script>

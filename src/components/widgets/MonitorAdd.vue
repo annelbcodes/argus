@@ -1,12 +1,26 @@
 <template>
   <div class="monitor-add">
-    <a class="btn-add" href="#" @click.stop.prevent="">Add &#x002B;</a>
+    <a class="btn-add" href="#" @click.stop.prevent="itemAction()">Add &#x002B;</a>
   </div>
 </template>
 
 <script>
+import {
+  ADD_ITEM
+}
+from '../../store/mutationtypes'
+
 export default {
-  props: ['type'],
+  props: [
+    'type',
+    'action'
+  ],
+  methods: {
+    itemAction() {
+      console.log('clicked')
+      this.$store.commit(ADD_ITEM)
+    }
+  }
 }
 </script>
 
