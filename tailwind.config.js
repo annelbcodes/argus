@@ -213,7 +213,7 @@ module.exports = {
     cursor: {
       // auto: 'auto',
       // default: 'default',
-      // pointer: 'pointer',
+      pointer: 'pointer',
       // wait: 'wait',
       // text: 'text',
       // move: 'move',

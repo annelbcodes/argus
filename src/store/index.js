@@ -1,10 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import {
-    ADD_ITEM
-}
-from './mutationtypes'
+import { mType } from './mutationtypes'
 
 Vue.use(Vuex)
 
@@ -30,10 +27,10 @@ const state = {
 const getters = {}
 
 const mutations = {
-    [ADD_ITEM](state) {
-        console.log(state.ui.modal)
+    [mType.MODAL_TOGGLE](state) {
         state.ui.modal = !state.ui.modal
-    }
+    },
+
 }
 
 const actions = {}

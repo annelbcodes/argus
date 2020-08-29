@@ -1,31 +1,42 @@
 <template>
-  <div class="monitor-add">
-    <a class="btn-add" href="#" @click.stop.prevent="itemAction()">Add &#x002B;</a>
+  <div class="monitor-action">
+    <a class="btn-action cursor-pointer" @click.stop.prevent="itemAction()" v-html="this.btn_text"></a>
   </div>
 </template>
 
 <script>
-import {
-  ADD_ITEM
-}
-from '../../store/mutationtypes'
+import { mType } from '../../store/mutationtypes'
 
 export default {
   props: [
     'type',
     'action'
   ],
+  data() {
+    return {
+      btn_text: ''
+    }
+  },
+  mounted() {
+    this.checkAction()
+  },
   methods: {
+    checkAction() {
+      if (this.action === 'add') {
+        this.btn_text = 'Add &#x002B;'
+      }
+    },
     itemAction() {
-      console.log('clicked')
-      this.$store.commit(ADD_ITEM)
+      if (this.action === 'add') {
+        this.$store.commit(mType.MODAL_TOGGLE)
+      }
     }
   }
 }
 </script>
 
 <style lang="scss">
-.btn-add {
+.btn-action {
   @apply w-full;
   @apply inline-block;
   @apply p-2;

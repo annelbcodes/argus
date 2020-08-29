@@ -3,18 +3,20 @@
     <title-bar>EyesOnPwn</title-bar>
     <div class="ui-body">
       <modal v-if="modal">
-        <monitor-popup-add></monitor-popup-add>
+        <monitor-popup
+          action="add"
+        ></monitor-popup>
       </modal>
 
       <div class="ui-content">
         <title-heading>Emails</title-heading>
         <monitor-list></monitor-list>
 
-        <monitor-add
+        <monitor-action
           type="email"
           action="add"
         >
-        </monitor-add>
+        </monitor-action>
 
       </div>
     </div>
@@ -27,17 +29,17 @@ import TitleBar from '../widgets/TitleBar'
 import TitleHeading from '../widgets/TitleHeading'
 import Modal from '../widgets/Modal'
 import MonitorList from '../widgets/MonitorList'
-import MonitorAdd from '../widgets/MonitorAdd'
-import MonitorPopupAdd from '../widgets/MonitorPopupAdd'
+import MonitorAction from '../widgets/MonitorAction'
+import MonitorPopup from '../widgets/MonitorPopup'
 
 export default {
   components: {
     TitleBar,
     TitleHeading,
     MonitorList,
-    MonitorAdd,
+    MonitorAction,
     Modal,
-    MonitorPopupAdd
+    MonitorPopup
   },
   computed: {
     ...mapState({

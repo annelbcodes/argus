@@ -1,21 +1,47 @@
 <template>
-  <div class="email-popup-add">
+  <div class="email-popup">
     <div class="ui-popup">
-      <h1 class="text-left py-1">Add an item to monitor</h1>
+      <h1 class="text-left py-1">{{ title_text }}</h1>
       <input class="field mt-5" type="email" name="" id="">
-      <p class="mt-5 text-right"><a href="#" class="btn">Add</a></p>
+      <p class="mt-5 text-right">
+        <a class="btn" @click.stop.prevent="closeModal()">{{ btn_cancel }}</a>
+        <a class="btn ml-2">{{ btn_text }}</a>
+      </p>
     </div>
   </div>
 </template>
 
 <script>
-export default {
+import { mType } from '../../store/mutationtypes'
 
+export default {
+  props: ['action'],
+  data() {
+    return {
+      btn_text: '',
+      btn_cancel: 'cancel',
+      title_text: '',
+    }
+  },
+  mounted() {
+    this.checkPopupAction()
+  },
+  methods: {
+    checkPopupAction() {
+      if (this.action === 'add') {
+        this.title_text = 'Add an item to monitor'
+        this.btn_text = 'Add'
+      }
+    },
+    closeModal() {
+      this.$store.commit(mType.MODAL_TOGGLE)
+    }
+  }
 }
 </script>
 
 <style lang="scss">
-.email-popup-add {
+.email-popup {
   @apply flex;
   @apply text-center;
   @apply items-center;
@@ -54,6 +80,7 @@ export default {
   @apply border-solid;
   @apply border-vulcan;
   @apply text-sm;
+  @apply cursor-pointer;
   transition: all 0.3s ease-in-out;
 
   &:hover {
