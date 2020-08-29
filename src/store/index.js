@@ -4,6 +4,9 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 const state = {
+    ui: {
+        modal: false,
+    },
     emails: [
         {
             address: 'john@appleseed.com',

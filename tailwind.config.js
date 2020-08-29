@@ -8,12 +8,16 @@ module.exports = {
         waterloo: '#7E7E8E', // grays - title text color
         steelgray: '#42434E',  // grays - ui elements
         midgray: '#60606F', // grays - texts content
-        charade: '#272735', // ui background
-        darkcharade: '#1E1E29',
+        charade: '#272736', // ui background
+        darkcharade: '#1E1E29', // ui titlebar gradient end
+        vulcan: '#161620', // modal
 
         governorbay: '#4D5CA6', // purple - ui titlebar
         darkgreencopper: '#486D6F', // dgreen - indicator
         nightshadz: '#A33B5C' // red - indicator
+      },
+      opacity: {
+        '90': '0.90'
       }
     },
     screens: {
@@ -150,7 +154,7 @@ module.exports = {
       // '6': '1.5rem',
       // '8': '2rem',
       // '10': '2.5rem',
-      // '12': '3rem',
+      '12': '3rem',
       // '16': '4rem',
       // '20': '5rem',
       // '24': '6rem',
@@ -183,7 +187,7 @@ module.exports = {
     }),
     borderRadius: {
       // none: '0',
-      // sm: '0.125rem',
+      sm: '0.125rem',
       default: '0.25rem',
       // lg: '0.5rem',
       full: '9999px',
@@ -202,7 +206,7 @@ module.exports = {
       // xl: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
       // '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
       // inner: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
-      // outline: '0 0 0 3px rgba(66, 153, 225, 0.5)',
+      outline: '0 0 0 3px rgba(15, 15, 15, 0.5)',
       // none: 'none',
     },
     container: {},
@@ -289,8 +293,7 @@ module.exports = {
     height: theme => ({
       // auto: 'auto',
       // ...theme('spacing'),
-      // full: '100%',
-      // screen: '100vh',
+      screen: '100vh',
     }),
     inset: {
       // '0': '0',
@@ -419,7 +422,7 @@ module.exports = {
       '10/12': '83.333333%',
       // '11/12': '91.666667%',
       full: '100%',
-      // screen: '100vw',
+      screen: '100vw',
     }),
     zIndex: {
       // auto: 'auto',
@@ -428,7 +431,7 @@ module.exports = {
       // '20': '20',
       // '30': '30',
       // '40': '40',
-      // '50': '50',
+      '50': '50',
     },
   },
   variants: {

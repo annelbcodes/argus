@@ -14,12 +14,16 @@ export default {
 .titlebar {
   -webkit-user-select: none;
   -webkit-app-region: drag;
-  border-bottom: 1px solid;
+  @apply border-solid;
+  @apply border-b;
+  @apply border-vulcan;
   @apply text-center;
   @apply py-2;
-  @apply border-steelgray;
   @apply bg-gradient-to-b;
   @apply from-charade;
   @apply to-darkcharade;
+  @apply fixed;
+  @apply z-50;
+  @apply w-screen;
 }
 </style>
