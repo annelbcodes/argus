@@ -13,7 +13,7 @@ export default {
 <style>
 h2 {
     @apply text-base;
-    @apply text-waterloo;
+    @apply text-rockblue;
     @apply font-normal;
     @apply py-2;
 }

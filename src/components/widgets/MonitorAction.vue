@@ -51,8 +51,8 @@ export default {
 
   &:hover {
     @apply border-solid;
-    @apply border-waterloo;
-    @apply text-waterloo;
+    @apply border-rockblue;
+    @apply text-rockblue;
   }
 }
 </style>

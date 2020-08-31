@@ -9,7 +9,6 @@
       </modal>
 
       <div class="ui-content">
-        <title-heading>Emails</title-heading>
         <monitor-list></monitor-list>
 
         <monitor-action
@@ -26,7 +25,6 @@
 <script>
 import { mapState } from 'vuex'
 import TitleBar from '../widgets/TitleBar'
-import TitleHeading from '../widgets/TitleHeading'
 import Modal from '../widgets/Modal'
 import MonitorList from '../widgets/MonitorList'
 import MonitorAction from '../widgets/MonitorAction'
@@ -35,7 +33,6 @@ import MonitorPopup from '../widgets/MonitorPopup'
 export default {
   components: {
     TitleBar,
-    TitleHeading,
     MonitorList,
     MonitorAction,
     Modal,
@@ -53,6 +50,7 @@ export default {
 .ui-body {
   @apply text-midgray;
   @apply overflow-y-auto;
+  @apply bg-valhalla;
 }
 .ui-content {
   @apply p-5;

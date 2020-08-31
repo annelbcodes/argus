@@ -1,5 +1,5 @@
 <template>
-  <li :class="[itemClass, textClass]">
+  <li :class="['bg-licorice', textClass, { 'opacity-50': !$isLength(status) }]">
     <strong>{{ item }}</strong>
     <span :class="['self-center indicator', indicatorClass]"></span>
   </li>
@@ -13,31 +13,31 @@ export default {
   ],
   data() {
     return {
-      itemClass: 'border-',
-      indicatorClass: 'bg-',
-      textClass: 'text-'
+      indicatorClass    : 'bg-',
+      textClass         : 'text-',
+      indicatorGood     : 'lightforestgreen',
+      indicatorBad      : 'nightshadz',
+      indicatorUndefined: 'bluebayoux',
     }
   },
   mounted() {
     this.updateClasses()
+    console.log(this.$isLength(this.status), this.status)
   },
   methods: {
     updateClasses() {
       switch(this.status) {
         case 0:
-          this.itemClass      += 'darkgreencopper'
-          this.textClass      += 'darkgreencopper'
-          this.indicatorClass += 'darkgreencopper'
+          this.textClass      += this.indicatorGood
+          this.indicatorClass += this.indicatorGood
           break
         case 1:
-          this.itemClass      += 'nightshadz'
-          this.textClass      += 'nightshadz'
-          this.indicatorClass += 'nightshadz'
+          this.textClass      += this.indicatorBad
+          this.indicatorClass += this.indicatorBad
           break
         default:
-          this.itemClass      += 'steelgray'
-          this.textClass      += 'steelgray'
-          this.indicatorClass += 'steelgray'
+          this.textClass      += this.indicatorUndefined
+          this.indicatorClass += this.indicatorUndefined
       }
     },
   }
@@ -45,10 +45,11 @@ export default {
 </script>
 
 <style lang="scss">
-strong {
+.list-monitor li strong {
   @apply not-italic;
   @apply inline-block;
   @apply w-10/12;
+  @apply font-normal;
 }
 .indicator {
   height: 10px;

@@ -14,9 +14,10 @@ export default {
 .modal {
   @apply h-screen;
   @apply w-screen;
-  @apply bg-vulcan;
+  @apply bg-mirage;
   @apply bg-opacity-90;
   @apply absolute;
   @apply overflow-y-hidden;
+  @apply z-50;
 }
 </style>

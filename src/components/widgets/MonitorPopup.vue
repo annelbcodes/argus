@@ -1,7 +1,7 @@
 <template>
   <div class="email-popup">
     <div class="ui-popup">
-      <h1 class="text-left py-1">{{ title_text }}</h1>
+      <h1 class="text-left text-sm font-bold py-1">{{ title_text }}</h1>
       <input class="field mt-5" type="email" name="" id="">
       <p class="mt-5 text-right">
         <a class="btn" @click.stop.prevent="closeModal()">{{ btn_cancel }}</a>
@@ -50,7 +50,7 @@ export default {
 }
 .ui-popup {
   @apply content-center;
-  @apply bg-charade;
+  @apply bg-valhalla;
   @apply rounded;
   @apply w-10/12;
   @apply mx-auto;
@@ -70,21 +70,25 @@ export default {
 }
 .btn {
   @apply inline-block;
-  @apply p-1;
+  @apply p-2;
   @apply px-5;
   @apply bg-gradient-to-b;
-  @apply from-charade;
-  @apply to-darkcharade;
+  // @apply bg-gray-500;
+  // @apply from-governorbay;
+  // @apply to-mirage;
   @apply rounded;
   @apply border;
   @apply border-solid;
-  @apply border-vulcan;
-  @apply text-sm;
+  @apply border-mirage;
+  @apply text-xs;
+  @apply text-gray-500;
+  @apply shadow-md;
   @apply cursor-pointer;
+  @apply capitalize;
   transition: all 0.3s ease-in-out;
 
   &:hover {
-    @apply text-waterloo;
+    @apply border-governorbay;
   }
 }
 </style>

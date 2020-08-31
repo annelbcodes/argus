@@ -5,21 +5,27 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        waterloo: '#7E7E8E', // grays - title text color
-        steelgray: '#42434E',  // grays - ui elements
-        midgray: '#60606F', // grays - texts content
-        charade: '#272736', // ui background
-        darkcharade: '#1E1E29', // ui titlebar gradient end
-        vulcan: '#161620', // modal
+        // dark
+        valhalla        : '#222634', // ui background
+        mirage          : '#1A1D24', // ui dark
+        rockblue        : '#99A1BC', // title text color
 
-        governorbay: '#4D5CA6', // purple - ui titlebar
-        darkgreencopper: '#486D6F', // dgreen - indicator
-        nightshadz: '#A33B5C' // red - indicator
+        bleudefrance    : '#3481F6', // primary color
+        licorice        : '#32374D', // shade
+
+        steelgray       : '#42434E', // grays - ui elements
+        midgray         : '#60606F', // grays - texts content
+
+        governorbay     : '#4D5CA6', // purple
+        lightforestgreen: '#5AA074', // green - indicator
+        nightshadz      : '#A33B5C', // red - indicator
+        bluebayoux      : '#666C82', // undefined indicator
       },
       opacity: {
         '90': '0.90'
       }
     },
+
     screens: {
       sm: '480px',
       md: '768px',
@@ -37,7 +43,7 @@ module.exports = {
         // 200: '#edf2f7',
         // 300: '#e2e8f0',
         // 400: '#cbd5e0',
-        // 500: '#a0aec0',
+        500: '#a0aec0',
         // 600: '#718096',
         // 700: '#4a5568',
         // 800: '#2d3748',
@@ -148,7 +154,7 @@ module.exports = {
       '0': '0',
       '1': '0.25rem',
       '2': '0.5rem',
-      // '3': '0.75rem',
+      '3': '0.75rem',
       '4': '1rem',
       '5': '1.25rem',
       // '6': '1.5rem',
@@ -201,7 +207,7 @@ module.exports = {
     },
     boxShadow: {
       // default: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
-      // md: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+      md: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
       // lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
       // xl: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
       // '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
@@ -365,7 +371,7 @@ module.exports = {
     opacity: {
       // '0': '0',
       // '25': '0.25',
-      // '50': '0.5',
+      '50': '0.5',
       // '75': '0.75',
       // '100': '1',
     },

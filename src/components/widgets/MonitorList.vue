@@ -36,12 +36,10 @@ export default {
   @apply text-xs;
 
   li {
-    @apply my-2;
+    @apply my-3;
     @apply p-2;
-    @apply border;
-    @apply border-solid;
+    @apply px-3;
     @apply rounded;
-    @apply font-bold;
     @apply break-words;
     @apply flex;
     @apply self-stretch;
