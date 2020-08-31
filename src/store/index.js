@@ -9,6 +9,14 @@ Vue.use(Vuex)
 
 const ls = new SecureLS({ compression: false })
 
+const psOptions = {
+    storage: {
+      getItem: (key) => ls.get(key),
+      setItem: (key, value) => ls.set(key, value),
+      removeItem: (key) => ls.remove(key),
+    }
+}
+
 const state = {
     ui: {
         modal: false,
@@ -59,13 +67,7 @@ const actions = {
 }
 
 export default new Vuex.Store({
-    plugins: [createPersistedState({
-        storage: {
-          getItem: (key) => ls.get(key),
-          setItem: (key, value) => ls.set(key, value),
-          removeItem: (key) => ls.remove(key),
-        }
-    })],
+    plugins: [createPersistedState(psOptions)],
     strict: process.env.NODE_ENV !== 'production',
     state,
     getters,

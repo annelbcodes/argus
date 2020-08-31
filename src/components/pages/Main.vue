@@ -49,7 +49,7 @@ export default {
 
 <style lang="scss">
 .ui-body {
-  @apply text-midgray;
+  @apply text-rockblue;
   @apply overflow-y-auto;
   @apply bg-valhalla;
 }

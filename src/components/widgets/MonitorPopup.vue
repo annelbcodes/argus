@@ -1,10 +1,10 @@
 <template>
   <div class="email-popup">
     <div class="ui-popup">
-      <h1 class="text-left text-sm font-bold py-1">{{ title_text }}</h1>
+      <h1 class="text-left text-sm py-1">{{ title_text }}</h1>
       <input class="field mt-5" type="email" name="" id="" v-model="item_name">
       <p class="mt-5 text-right">
-        <a class="btn" @click.stop.prevent="closeModal()">{{ btn_cancel }}</a>
+        <a class="link-secondary mx-2" @click.stop.prevent="closeModal()">{{ btn_cancel }}</a>
         <a class="btn ml-2" @click.stop.prevent="monitorAction()">{{ btn_text }}</a>
       </p>
     </div>
@@ -68,7 +68,7 @@ export default {
   @apply w-10/12;
   @apply mx-auto;
   @apply p-5;
-  @apply shadow-outline;
+  @apply shadow-md;
 }
 .field {
   @apply w-full;
@@ -76,32 +76,44 @@ export default {
   @apply rounded-sm;
   @apply p-1;
   @apply px-2;
+  @apply border;
+  @apply border-valhalla;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    @apply shadow-outline;
+  }
 
   &:focus {
     @apply outline-none;
+    @apply shadow-outline;
+    @apply border-brightbleudefrance;
+  }
+}
+.link-secondary {
+  @apply text-xs;
+  @apply capitalize;
+  @apply cursor-pointer;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    @apply text-white;
   }
 }
 .btn {
   @apply inline-block;
   @apply p-2;
-  @apply px-5;
-  @apply bg-gradient-to-b;
-  // @apply bg-gray-500;
-  // @apply from-governorbay;
-  // @apply to-mirage;
+  @apply px-8;
   @apply rounded;
-  @apply border;
-  @apply border-solid;
-  @apply border-mirage;
   @apply text-xs;
-  @apply text-gray-500;
-  @apply shadow-md;
   @apply cursor-pointer;
   @apply capitalize;
+  @apply text-white;
+  @apply bg-bleudefrance;
   transition: all 0.3s ease-in-out;
 
   &:hover {
-    @apply border-governorbay;
+    @apply bg-bleudefrance;
   }
 }
 </style>

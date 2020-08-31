@@ -17,9 +17,7 @@ export default {
   @apply text-center;
   @apply py-3;
   @apply text-bleudefrance;
-  /* @apply bg-gradient-to-b;
-  @apply from-valhalla;
-  @apply to-mirage; */
+  @apply bg-valhalla;
   @apply fixed;
   @apply z-50;
   @apply w-screen;

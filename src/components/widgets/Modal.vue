@@ -18,6 +18,6 @@ export default {
   @apply bg-opacity-90;
   @apply absolute;
   @apply overflow-y-hidden;
-  @apply z-50;
+  @apply z-40;
 }
 </style>

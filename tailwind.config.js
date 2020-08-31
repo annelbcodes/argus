@@ -6,20 +6,21 @@ module.exports = {
     extend: {
       colors: {
         // dark
-        valhalla        : '#222634', // ui background
-        mirage          : '#1A1D24', // ui dark
-        rockblue        : '#99A1BC', // title text color
+        valhalla          : '#222634', // ui background
+        mirage            : '#1A1D24', // ui dark
+        rockblue          : '#99A1BC', // title text color
 
-        bleudefrance    : '#3481F6', // primary color
-        licorice        : '#32374D', // shade
+        bleudefrance      : '#3481F6', // primary color
+        brightbleudefrance: '#0012FF',
+        licorice          : '#32374D', // shade
 
-        steelgray       : '#42434E', // grays - ui elements
-        midgray         : '#60606F', // grays - texts content
+        steelgray         : '#42434E', // grays - ui elements
+        midgray           : '#60606F', // grays - texts content
 
-        governorbay     : '#4D5CA6', // purple
-        lightforestgreen: '#5AA074', // green - indicator
-        nightshadz      : '#A33B5C', // red - indicator
-        bluebayoux      : '#666C82', // undefined indicator
+        governorbay       : '#4D5CA6', // purple
+        lightforestgreen  : '#5AA074', // green - indicator
+        nightshadz        : '#A33B5C', // red - indicator
+        bluebayoux        : '#666C82', // undefined indicator
       },
       opacity: {
         '90': '0.90'
@@ -158,7 +159,7 @@ module.exports = {
       '4': '1rem',
       '5': '1.25rem',
       // '6': '1.5rem',
-      // '8': '2rem',
+      '8': '2rem',
       // '10': '2.5rem',
       '12': '3rem',
       // '16': '4rem',
@@ -205,16 +206,16 @@ module.exports = {
       // '4': '4px',
       // '8': '8px',
     },
-    boxShadow: {
+    boxShadow: theme => ({
       // default: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
       md: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
       // lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
       // xl: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
       // '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
       // inner: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
-      outline: '0 0 0 3px rgba(15, 15, 15, 0.5)',
-      // none: 'none',
-    },
+      outline: '0 0 0 5px '+theme('colors.bleudefrance')+'50',
+      // none: 'none'
+    }),
     container: {},
     cursor: {
       // auto: 'auto',
@@ -436,7 +437,7 @@ module.exports = {
       // '10': '10',
       // '20': '20',
       // '30': '30',
-      // '40': '40',
+      '40': '40',
       '50': '50',
     },
   },
@@ -497,7 +498,7 @@ module.exports = {
     // stroke: [],
     // tableLayout: [],
     // textAlign: [],
-    // textColor: [],
+    textColor: ['hover'],
     // textDecoration: [],
     // textTransform: [],
     // userSelect: [],
