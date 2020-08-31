@@ -1,5 +1,6 @@
 export const mType = {
   MODAL_TOGGLE: 'MODAL_TOGGLE',
-  ITEM_ADD: 'ITEM_ADD',
-  ITEM_DEL: 'ITEM_DEL'
+  ITEM_ADD    : 'ITEM_ADD',
+  ITEM_DEL    : 'ITEM_DEL',
+  ITEM_PROCESS: 'ITEM_PROCESS',
 }

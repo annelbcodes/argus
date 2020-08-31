@@ -4,6 +4,7 @@
     <div class="ui-body">
       <modal v-if="modal">
         <monitor-popup
+          type="email"
           action="add"
         ></monitor-popup>
       </modal>
@@ -11,11 +12,11 @@
       <div class="ui-content">
         <monitor-list></monitor-list>
 
-        <monitor-action
+        <monitor-btn
           type="email"
           action="add"
         >
-        </monitor-action>
+        </monitor-btn>
 
       </div>
     </div>
@@ -27,14 +28,14 @@ import { mapState } from 'vuex'
 import TitleBar from '../widgets/TitleBar'
 import Modal from '../widgets/Modal'
 import MonitorList from '../widgets/MonitorList'
-import MonitorAction from '../widgets/MonitorAction'
+import MonitorBtn from '../widgets/MonitorBtn'
 import MonitorPopup from '../widgets/MonitorPopup'
 
 export default {
   components: {
     TitleBar,
     MonitorList,
-    MonitorAction,
+    MonitorBtn,
     Modal,
     MonitorPopup
   },

@@ -22,7 +22,6 @@ export default {
   },
   mounted() {
     this.updateClasses()
-    console.log(this.$isLength(this.status), this.status)
   },
   methods: {
     updateClasses() {

@@ -1,5 +1,5 @@
 <template>
-  <div class="monitor-action">
+  <div class="monitor-btn">
     <a class="btn-action cursor-pointer" @click.stop.prevent="itemAction()" v-html="this.btn_text"></a>
   </div>
 </template>

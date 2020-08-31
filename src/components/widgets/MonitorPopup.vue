@@ -2,10 +2,10 @@
   <div class="email-popup">
     <div class="ui-popup">
       <h1 class="text-left text-sm font-bold py-1">{{ title_text }}</h1>
-      <input class="field mt-5" type="email" name="" id="">
+      <input class="field mt-5" type="email" name="" id="" v-model="item_name">
       <p class="mt-5 text-right">
         <a class="btn" @click.stop.prevent="closeModal()">{{ btn_cancel }}</a>
-        <a class="btn ml-2">{{ btn_text }}</a>
+        <a class="btn ml-2" @click.stop.prevent="monitorAction()">{{ btn_text }}</a>
       </p>
     </div>
   </div>
@@ -15,12 +15,14 @@
 import { mType } from '../../store/mutationtypes'
 
 export default {
-  props: ['action'],
+  props: ['action', 'type'],
   data() {
     return {
       btn_text: '',
       btn_cancel: 'cancel',
       title_text: '',
+      item_name: '',
+      item_action_obj: {},
     }
   },
   mounted() {
@@ -32,6 +34,17 @@ export default {
         this.title_text = 'Add an item to monitor'
         this.btn_text = 'Add'
       }
+    },
+    monitorAction() {
+      this.item_action_obj = {
+        item: this.item_name,
+        type: this.type
+      }
+      this.$store
+        .dispatch(mType.ITEM_PROCESS, this.item_action_obj)
+        .then(() => {
+          this.closeModal()
+        })
     },
     closeModal() {
       this.$store.commit(mType.MODAL_TOGGLE)
