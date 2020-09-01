@@ -12,7 +12,7 @@ module.exports = {
 
         bleudefrance      : '#3481F6', // primary color
         brightbleudefrance: '#0012FF',
-        licorice          : '#32374D', // shade
+        licorice          : '#32374D', // bg shade in items list
 
         steelgray         : '#42434E', // grays - ui elements
         midgray           : '#60606F', // grays - texts content
@@ -213,7 +213,7 @@ module.exports = {
       // xl: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
       // '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
       // inner: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
-      outline: '0 0 0 5px '+theme('colors.bleudefrance')+'50',
+      outline: '0 0 0 4px '+theme('colors.bleudefrance')+'50',
       // none: 'none'
     }),
     container: {},

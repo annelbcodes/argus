@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import App from './App'
+import Vuelidate from 'vuelidate'
 import isLength from 'lodash/isLength'
 
 import router from './router'
@@ -14,7 +15,9 @@ Object.defineProperty(Vue.prototype, '$isLength', { value: isLength })
 Vue.config.devtools      = isProd ? false : true
 Vue.config.productionTip = isProd ? false : true
 Vue.config.silent        = isProd ? true : false
-Vue.config.debug         = isProd ? false : true
+Vue.config.debug = isProd ? false : true
+
+Vue.use(Vuelidate)
 
 new Vue({
   store,

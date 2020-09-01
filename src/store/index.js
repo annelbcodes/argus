@@ -25,18 +25,22 @@ const state = {
         {
             address: 'empty@status.com',
             status: '',
+            id: 1,
         },
         {
-            address: 'nullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnull@status.com',
+            address: 'null@status.com',
             status: undefined,
+            id: 2,
         },
         {
             address: 'john@appleseed.com',
             status: 0, //1-positive, 0-negative
+            id: 3,
         },
         {
             address: 'whatsorceressisthis@wut.com',
             status: 1,
+            id: 4,
         },
     ]
 }

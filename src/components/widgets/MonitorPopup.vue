@@ -2,17 +2,35 @@
   <div class="email-popup">
     <div class="ui-popup">
       <h1 class="text-left text-sm py-1">{{ title_text }}</h1>
-      <input class="field mt-5" type="email" name="" id="" v-model="item_name">
+      <input
+        class="field-text mt-5"
+        type="email"
+        v-model.lazy.trim="$v.item_name.$model"
+        required
+        autofocus
+      >
+      <small
+          v-if="$v.item_name.$error"
+          class=""
+      >Error</small>
       <p class="mt-5 text-right">
         <a class="link-secondary mx-2" @click.stop.prevent="closeModal()">{{ btn_cancel }}</a>
-        <a class="btn ml-2" @click.stop.prevent="monitorAction()">{{ btn_text }}</a>
+        <a class="btn ml-2" @click.stop.prevent="validateFields()">{{ btn_text }}</a>
       </p>
     </div>
   </div>
 </template>
 
 <script>
+/* eslint-disable */
+
 import { mType } from '../../store/mutationtypes'
+
+import {
+    required,
+    alphaNum,
+    email,
+} from "vuelidate/lib/validators"
 
 export default {
   props: ['action', 'type'],
@@ -23,6 +41,12 @@ export default {
       title_text: '',
       item_name: '',
       item_action_obj: {},
+    }
+  },
+  validations: {
+    item_name: {
+        email,
+        required
     }
   },
   mounted() {
@@ -46,6 +70,16 @@ export default {
           this.closeModal()
         })
     },
+    validateFields() {
+      this.$v.$touch()
+
+      if (this.$v.$invalid) {
+        return false
+      }
+      else {
+        this.monitorAction()
+      }
+    },
     closeModal() {
       this.$store.commit(mType.MODAL_TOGGLE)
     }
@@ -63,14 +97,14 @@ export default {
 }
 .ui-popup {
   @apply content-center;
-  @apply bg-valhalla;
+  @apply bg-licorice;
   @apply rounded;
   @apply w-10/12;
   @apply mx-auto;
   @apply p-5;
   @apply shadow-md;
 }
-.field {
+.field-text {
   @apply w-full;
   @apply appearance-none;
   @apply rounded-sm;
@@ -78,6 +112,8 @@ export default {
   @apply px-2;
   @apply border;
   @apply border-valhalla;
+  @apply text-sm;
+  @apply text-mirage;
   transition: all 0.3s ease-in-out;
 
   &:hover {
