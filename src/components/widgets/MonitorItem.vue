@@ -9,7 +9,8 @@
 export default {
   props: [
     'item',
-    'status'
+    'status',
+    'uiid',
   ],
   data() {
     return {
@@ -18,10 +19,21 @@ export default {
       indicatorGood     : 'lightforestgreen',
       indicatorBad      : 'nightshadz',
       indicatorUndefined: 'bluebayoux',
+      rootClass: {
+        indicatorClass    : 'bg-',
+        textClass         : 'text-',
+      },
     }
   },
   mounted() {
     this.updateClasses()
+  },
+  watch: {
+    status: function() {
+      this.indicatorClass = this.rootClass.indicatorClass
+      this.textClass = this.rootClass.textClass
+      this.updateClasses()
+    }
   },
   methods: {
     updateClasses() {

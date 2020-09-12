@@ -1,6 +1,6 @@
 <template>
   <div class="ui">
-    <title-bar>EyesOnPwn</title-bar>
+    <title-bar>Monitor Emails</title-bar>
     <div class="ui-body">
       <modal v-if="modal">
         <monitor-popup
@@ -50,12 +50,13 @@ export default {
 <style lang="scss">
 .ui-body {
   @apply text-rockblue;
-  @apply overflow-y-auto;
   @apply bg-valhalla;
 }
 .ui-content {
   @apply p-5;
   @apply pt-12;
   @apply h-screen;
+  @apply pb-12;
+  @apply overflow-y-auto;
 }
 </style>

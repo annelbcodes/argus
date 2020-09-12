@@ -65,7 +65,7 @@ module.exports = {
         // 100: '#fffaf0',
         // 200: '#feebc8',
         // 300: '#fbd38d',
-        // 400: '#f6ad55',
+        400: '#f6ad55',
         // 500: '#ed8936',
         // 600: '#dd6b20',
         // 700: '#c05621',
@@ -303,8 +303,8 @@ module.exports = {
       screen: '100vh',
     }),
     inset: {
-      // '0': '0',
-      // auto: 'auto',
+      '0': '0',
+      auto: 'auto',
     },
     letterSpacing: {
       // tighter: '-0.05em',
@@ -359,7 +359,7 @@ module.exports = {
       // full: '100%',
     },
     objectPosition: {
-      // bottom: 'bottom',
+      bottom: 'bottom',
       // center: 'center',
       // left: 'left',
       // 'left-bottom': 'left bottom',

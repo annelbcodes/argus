@@ -8,7 +8,7 @@ Monitor all your emails and passwords for pwnage in one single dashboard.
 
 * No logging, no collection of any information
 
-* Only outbound communication is the required checking of your addresses via **haveibeenpwned** website. You can check their [FAQs](https://haveibeenpwned.com/FAQs) page further details.
+* The only outbound communication is the required checking of your addresses via **haveibeenpwned** website. You can check their [FAQs](https://haveibeenpwned.com/FAQs) page further details on how they check your emails/passwords/.
 
 ### Pre-requisites
 

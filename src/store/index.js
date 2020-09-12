@@ -21,6 +21,9 @@ const state = {
     ui: {
         modal: false,
     },
+    db: {
+        uiid: 4,
+    },
     emails: [
         {
             address: 'empty@status.com',
@@ -33,18 +36,19 @@ const state = {
             id: 2,
         },
         {
-            address: 'john@appleseed.com',
+            address: 'good@status.com',
             status: 0, //1-positive, 0-negative
             id: 3,
         },
         {
-            address: 'whatsorceressisthis@wut.com',
+            address: 'bad@status.com',
             status: 1,
             id: 4,
         },
     ]
 }
-const getters = {}
+const getters = {
+}
 
 const mutations = {
     [mType.MODAL_TOGGLE](state) {
@@ -53,19 +57,30 @@ const mutations = {
     [mType.ITEM_ADD](state, payload) {
         state.emails.push(payload)
     },
+    [mType.DB_INCR_UIID](state) {
+        state.db.uiid += 1
+    },
+    [mType.ITEM_UPD_STATUS](state, payload) {
+        return state.emails.filter(email => {
+            return (email.id === payload) ? email.status = 0 :  true
+        })
+    },
 }
 
 const actions = {
-    [mType.ITEM_PROCESS]({ commit }, payload) {
+    [mType.ITEM_PROCESS]({ state, commit }, payload) {
         return new Promise((resolve) => {
             if (payload.type === 'email') {
+                commit(mType.DB_INCR_UIID)
+
                 let obj = {
                     address: payload.item,
-                    status: ''
+                    status: '',
+                    id: state.db.uiid
                 }
                 commit(mType.ITEM_ADD, obj)
             }
-            resolve()
+            resolve(state.db)
         })
     }
 }
