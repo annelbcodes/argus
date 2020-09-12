@@ -23,7 +23,8 @@ module.exports = {
         bluebayoux        : '#666C82', // undefined indicator
       },
       opacity: {
-        '90': '0.90'
+        '90': '0.90',
+        '100': '1',
       }
     },
 

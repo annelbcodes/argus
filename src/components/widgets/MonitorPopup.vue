@@ -76,6 +76,7 @@ export default {
         .dispatch(mType.ITEM_PROCESS, this.item_action_obj)
         .then(data => {
           this.closeModal()
+          console.log(data.uiid)
           // setTimeout(() => {
           //   console.log(data.uiid)
           //   this.$store.commit(mType.ITEM_UPD_STATUS, data.uiid)

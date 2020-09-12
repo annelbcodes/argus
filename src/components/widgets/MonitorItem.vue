@@ -1,6 +1,6 @@
 <template>
   <div class="item-container relative">
-  <em></em>
+  <em @click.stop.prevent="removeItem()"></em>
   <li :class="['bg-licorice', textClass, { 'opacity-50': !$isLength(status) }]">
     <strong>{{ item }}</strong>
     <span :class="['self-center indicator', indicatorClass]"></span>
@@ -9,6 +9,8 @@
 </template>
 
 <script>
+import { mType } from '../../store/mutationtypes'
+
 export default {
   props: [
     'item',
@@ -22,9 +24,9 @@ export default {
       indicatorGood     : 'lightforestgreen',
       indicatorBad      : 'nightshadz',
       indicatorUndefined: 'bluebayoux',
-      rootClass: {
-        indicatorClass    : 'bg-',
-        textClass         : 'text-',
+      rootClass         : {
+        indicatorClass  : 'bg-',
+        textClass       : 'text-',
       },
     }
   },
@@ -54,6 +56,9 @@ export default {
           this.indicatorClass += this.indicatorUndefined
       }
     },
+    removeItem() {
+      this.$store.commit(mType.ITEM_DEL, this.uiid)
+    },
   }
 }
 </script>
@@ -64,7 +69,7 @@ export default {
   @apply inline-block;
   @apply w-10/12;
   @apply font-normal;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 .item-container {
   @apply flex;
@@ -76,7 +81,7 @@ export default {
   }
   &:hover em {
     @apply visible;
-    @apply opacity-90;
+    @apply opacity-100;
   }
 }
 .item-container em {
