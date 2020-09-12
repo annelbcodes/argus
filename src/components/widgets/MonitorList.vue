@@ -37,13 +37,14 @@ export default {
   @apply text-xs;
 
   li {
-    @apply my-3;
+    @apply my-2;
     @apply p-2;
     @apply px-3;
     @apply rounded;
     @apply break-words;
     @apply flex;
-    @apply self-stretch;
+    // @apply self-stretch;
+    @apply w-full;
   }
 }
 </style>
