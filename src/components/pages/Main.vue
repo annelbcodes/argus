@@ -1,6 +1,6 @@
 <template>
   <div class="ui">
-    <title-bar>Monitor Emails</title-bar>
+    <title-bar>EyesOnPwn</title-bar>
     <div class="ui-body">
       <modal v-if="modal">
         <monitor-popup

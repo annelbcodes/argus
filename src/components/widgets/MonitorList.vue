@@ -6,7 +6,8 @@
         :key="n+i"
         :item="n.address"
         :status="n.status"
-        :uiid="i"
+        :uiid="n.uiid"
+        :id="i"
       ></monitor-item>
     </ul>
   </div>

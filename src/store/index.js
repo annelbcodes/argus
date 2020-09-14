@@ -4,7 +4,7 @@ import createPersistedState from 'vuex-persistedstate'
 import SecureLS from 'secure-ls'
 
 import { mType } from './mutationtypes'
-import { splice } from 'core-js/fn/array'
+// import { splice } from 'core-js/fn/array'
 
 Vue.use(Vuex)
 
@@ -23,7 +23,7 @@ const state = {
         modal: false,
     },
     db: {
-        uiid: 0,
+        uiid: 100000,
     },
     emails: [
         {
@@ -58,12 +58,13 @@ const mutations = {
         state.db.uiid += 1
     },
     [mType.ITEM_UPD_STATUS](state, payload) {
-        console.log(state.emails.length)
+        // using UIID (unique assigned id) to filter email and update status
         return state.emails.filter(email => {
             return (email.id === payload) ? email.status = 0 : true
         })
     },
     [mType.ITEM_DEL](state, payload) {
+        // using ID (index) to remove item
         state.emails.splice(payload, 1)
     },
 }

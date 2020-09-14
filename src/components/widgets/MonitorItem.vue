@@ -16,6 +16,7 @@ export default {
     'item',
     'status',
     'uiid',
+    'id',
   ],
   data() {
     return {
@@ -57,7 +58,7 @@ export default {
       }
     },
     removeItem() {
-      this.$store.commit(mType.ITEM_DEL, this.uiid)
+      this.$store.commit(mType.ITEM_DEL, this.id)
     },
   }
 }

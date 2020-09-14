@@ -9,6 +9,7 @@
           id="email"
           v-model.lazy.trim="$v.item_name.$model"
           @change="validationFieldTexts()"
+          @keyup="submitValidateFields($event)"
           required
           autofocus
         >
@@ -76,7 +77,6 @@ export default {
         .dispatch(mType.ITEM_PROCESS, this.item_action_obj)
         .then(data => {
           this.closeModal()
-          console.log(data.uiid)
           // setTimeout(() => {
           //   console.log(data.uiid)
           //   this.$store.commit(mType.ITEM_UPD_STATUS, data.uiid)
@@ -91,6 +91,11 @@ export default {
       }
       else {
         this.monitorAction()
+      }
+    },
+    submitValidateFields(e) {
+      if(e.key === 'Enter' || e.keyCode === 13) {
+        this.validateFields()
       }
     },
     validationFieldTexts() {
