@@ -1,41 +1,51 @@
 <template>
   <div :class='"widget-monitor-list-"+_uid'>
-    <ul v-for="(n,i) in emails" :key="n+i" class="list-monitor">
-      <li class="border-steelgray">{{ n }} <span class="indicator bg-steelgray"></span></li>
+    <ul class="list-monitor">
+      <monitor-item
+        v-for="(n,i) in emails"
+        :key="n+i"
+        :item="n.address"
+        :status="n.status"
+        :uiid="n.uiid"
+        :id="i"
+      ></monitor-item>
     </ul>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import MonitorItem from './MonitorItem'
 
 export default {
+  components: {
+    MonitorItem
+  },
+  data() {
+    return {
+    }
+  },
   computed: {
     ...mapState([
       'emails'
-    ])
+    ]),
   }
 }
 </script>
 
 <style lang="scss">
 .list-monitor {
-  @apply my-2;
   @apply text-xs;
 
   li {
-    @apply p-4;
-    @apply border;
-    @apply border-solid;
+    @apply my-2;
+    @apply p-2;
+    @apply px-3;
     @apply rounded;
+    @apply break-words;
+    @apply flex;
+    // @apply self-stretch;
+    @apply w-full;
   }
-}
-.indicator {
-  height: 10px;
-  width: 10px;
-  @apply mt-1;
-  @apply inline-block;
-  @apply rounded-full;
-  @apply float-right;
 }
 </style>

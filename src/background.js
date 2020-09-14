@@ -22,8 +22,10 @@ function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({
     title: app.name,
-    width: 400,
-    height: 800,
+    width: 350,
+    minWidth: 350,
+    maxWidth: 350,
+    height: 'auto',
     frame: false,
     maximizable: false,
     titleBarStyle: 'hiddenInset',
@@ -31,7 +33,8 @@ function createWindow() {
     webPreferences: {
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
-      nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION
+      nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
+      spellcheck: false
     }
   })
 

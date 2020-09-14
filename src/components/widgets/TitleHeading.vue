@@ -12,9 +12,9 @@ export default {
 
 <style>
 h2 {
-    -webkit-user-select: none;
     @apply text-base;
-    @apply text-waterloo;
+    @apply text-rockblue;
     @apply font-normal;
+    @apply py-2;
 }
 </style>

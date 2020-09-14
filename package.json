@@ -1,13 +1,14 @@
 {
   "name": "eyesonpwn",
   "version": "0.1.0",
+  "license": "GPL-3.0-or-later",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "electron:build": "vue-cli-service electron:build",
-    "electron:serve": "vue-cli-service electron:serve",
+    "eb": "vue-cli-service electron:build",
+    "es": "vue-cli-service electron:serve",
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps"
   },
@@ -26,13 +27,17 @@
     "electron-devtools-installer": "^3.1.0",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
+    "lodash": "^4.17.20",
     "sass": "^1.26.10",
     "sass-loader": "^10.0.1",
+    "secure-ls": "^1.2.6",
     "vue-cli-plugin-electron-builder": "^2.0.0-rc.4",
     "vue-cli-plugin-tailwind": "^1.4.2",
     "vue-router": "^3.4.3",
     "vue-template-compiler": "^2.6.10",
-    "vuex": "^3.5.1"
+    "vuelidate": "^0.7.5",
+    "vuex": "^3.5.1",
+    "vuex-persistedstate": "^3.1.0"
   },
   "eslintConfig": {
     "root": true,
