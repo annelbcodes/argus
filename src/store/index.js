@@ -2,9 +2,9 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 import SecureLS from 'secure-ls'
+import { breachedAccount } from 'hibp'
 
 import { mType } from './mutationtypes'
-// import { splice } from 'core-js/fn/array'
 
 Vue.use(Vuex)
 
@@ -16,6 +16,12 @@ const psOptions = {
       setItem: (key, value) => ls.set(key, value),
       removeItem: (key) => ls.remove(key),
     }
+}
+
+const hibpSearchOptions = {
+    apiKey: process.env.VUE_APP_APIHIBP,
+    userAgent: 'eyesonpwn-0.0.1',
+    truncate: true,
 }
 
 const state = {
@@ -60,7 +66,7 @@ const mutations = {
     [mType.ITEM_UPD_STATUS](state, payload) {
         // using UIID (unique assigned id) to filter email and update status
         return state.emails.filter(email => {
-            return (email.id === payload) ? email.status = 0 : true
+            return (email.id === payload.uiid) ? email.status = payload.status : true
         })
     },
     [mType.ITEM_DEL](state, payload) {
@@ -70,8 +76,8 @@ const mutations = {
 }
 
 const actions = {
-    [mType.ITEM_PROCESS]({ state, commit }, payload) {
-        return new Promise((resolve) => {
+    [mType.ITEM_PROCESS]({ state, commit, dispatch }, payload) {
+        return new Promise(resolve => {
             if (payload.type === 'email') {
                 commit(mType.DB_INCR_UIID)
 
@@ -82,7 +88,30 @@ const actions = {
                 }
                 commit(mType.ITEM_ADD, obj)
             }
-            resolve(state.db)
+            dispatch(mType.API_REQ_HIBP, payload.item)
+                .then(data => {
+                    let dataReply = {
+                        uiid: state.db.uiid,
+                        status: data
+                    }
+                    setTimeout(() => {
+                        commit(mType.ITEM_UPD_STATUS, dataReply)
+                    }, 2600)
+                    resolve()
+                })
+        })
+    },
+    // eslint-disable-next-line
+    [mType.API_REQ_HIBP]({}, payload) {
+        return new Promise((resolve, reject) => {
+            breachedAccount(payload, hibpSearchOptions)
+                .then(data => {
+                    let status = (data) ? 1 : 0
+                    resolve(status)
+                })
+                .catch(err => {
+                    reject(err)
+                })
         })
     }
 }

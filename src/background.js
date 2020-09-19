@@ -18,6 +18,12 @@ protocol.registerSchemesAsPrivileged([
 
 debug()
 
+// Append a switch (with optional value) to Chromium's command line.
+// Disabling CORS temp
+if (process.env.NODE_ENV !== 'production') {
+  app.commandLine.appendSwitch("disable-features", "OutOfBlinkCors")
+}
+
 function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({
@@ -34,7 +40,8 @@ function createWindow() {
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
       nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
-      spellcheck: false
+      spellcheck: false,
+      webSecurity: process.env.NODE_ENV === 'production' ? true : false,
     }
   })
 

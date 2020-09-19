@@ -7,5 +7,5 @@ export const mType = {
   ITEM_UPD_STATUS: 'ITEM_UPD_STATUS',
 
   DB_INCR_UIID   : 'DB_INCR_UIID',
-  DB_DECR_UIID   : 'DB_DECR_UIID',
+  API_REQ_HIBP   : 'API_REQ_HIBP',
 }

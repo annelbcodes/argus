@@ -1,5 +1,4 @@
 const isProd = process.env.NODE_ENV === 'production'
-
 module.exports = {
   chainWebpack: config => {
     config.module

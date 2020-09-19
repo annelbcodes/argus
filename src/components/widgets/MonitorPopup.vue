@@ -73,15 +73,8 @@ export default {
         item: this.item_name,
         type: this.type
       }
-      this.$store
-        .dispatch(mType.ITEM_PROCESS, this.item_action_obj)
-        .then(data => {
-          this.closeModal()
-          // setTimeout(() => {
-          //   console.log(data.uiid)
-          //   this.$store.commit(mType.ITEM_UPD_STATUS, data.uiid)
-          // }, 2600)
-        })
+      this.$store.dispatch(mType.ITEM_PROCESS, this.item_action_obj)
+      this.closeModal()
     },
     validateFields() {
       this.$v.$touch()
