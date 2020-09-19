@@ -1,34 +1,33 @@
 <template>
   <div class="email-popup">
     <div class="ui-popup">
-      <h1 class="text-left text-xs py-1">{{ title_text }}</h1>
+      <h1 class="text-left text-xs py-1">{{ default_texts.title }}</h1>
       <div class="field-area">
         <input
           class="field-text mt-5"
           type="email"
           id="email"
-          v-model.lazy.trim="$v.item_name.$model"
-          @change="validationFieldTexts()"
-          @keyup="submitValidateFields($event)"
+          v-model.trim="$v.item_name.$model"
+          @keyup="onEnterKey($event)"
           required
           autofocus
         >
         <small
             v-if="$v.item_name.required"
             class="field-alert-error"
-            v-text="text_error"
+            v-text="message_alert"
         ></small>
       </div>
       <p class="mt-5 text-right">
-        <a class="link-secondary mx-2" @click.stop.prevent="closeModal()">{{ btn_cancel }}</a>
-        <a class="btn ml-2" @click.stop.prevent="validateFields()">{{ btn_text }}</a>
+        <a class="link-secondary mx-2" @click.stop.prevent="closeModal()">{{ default_texts.cancel }}</a>
+        <a class="btn ml-2" @click.stop.prevent="validateFields()">{{ default_texts.btn }}</a>
       </p>
     </div>
   </div>
 </template>
 
 <script>
-/* eslint-disable */
+// import { mapGetters } from 'vuex'
 
 import { mType } from '../../store/mutationtypes'
 
@@ -42,12 +41,22 @@ export default {
   props: ['action', 'type'],
   data() {
     return {
-      btn_text: '',
-      btn_cancel: 'cancel',
-      title_text: '',
       item_name: '',
-      item_action_obj: {},
-      text_error: '',
+      item_action_obj: {
+        item: '',
+        type: '',
+      },
+      message_alert: '',
+      messages: {
+        default: '',
+        error_added: 'Email already added',
+        error_invalid: 'Must be a valid email address'
+      },
+      default_texts: {
+        cancel: 'cancel',
+        btn: 'add',
+        title: 'Add an email to monitor',
+      },
     }
   },
   validations: {
@@ -58,44 +67,54 @@ export default {
     }
   },
   mounted() {
-    this.checkPopupAction()
     document.getElementById('email').focus();
   },
+  watch: {
+    item_name: function() {
+      this.item_name = (this.item_name).toLowerCase()
+      this.findDuplicates()
+    }
+  },
+  computed: {
+    get_duplicates() { return this.$store.getters.item_get(this.item_name) }
+  },
   methods: {
-    checkPopupAction() {
-      if (this.action === 'add') {
-        this.title_text = 'Add an email to monitor'
-        this.btn_text = 'Add'
-      }
-    },
     monitorAction() {
-      this.item_action_obj = {
-        item: this.item_name,
-        type: this.type
-      }
+      this.item_action_obj.item = (this.item_name).toLowerCase()
+      this.item_action_obj.type = this.type
+
       this.$store.dispatch(mType.ITEM_PROCESS, this.item_action_obj)
       this.closeModal()
     },
+    findDuplicates() {
+      if(this.get_duplicates.length) {
+        this.message_alert = this.messages.error_added
+        return false
+      } else {
+        this.message_alert = this.messages.default
+        return true
+      }
+    },
     validateFields() {
-      this.$v.$touch()
+      if(this.findDuplicates()) {
+        this.$v.$touch()
+      } else {
+        return false
+      }
 
       if (this.$v.item_name.$invalid) {
-        this.validationFieldTexts()
+        this.message_alert = this.messages.error_invalid
       }
       else {
+        this.message_alert = this.messages.default
         this.monitorAction()
       }
     },
-    submitValidateFields(e) {
+    onEnterKey(e) {
+      // if triggered key is Enter
       if(e.key === 'Enter' || e.keyCode === 13) {
         this.validateFields()
       }
-    },
-    validationFieldTexts() {
-      if (this.$v.item_name.$invalid) {
-        this.text_error = 'Must be a valid email address'
-      }
-      else this.text_error = ''
     },
     closeModal() {
       this.$store.commit(mType.MODAL_TOGGLE)

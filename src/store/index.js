@@ -31,26 +31,14 @@ const state = {
     db: {
         uiid: 100000,
     },
-    emails: [
-        {
-            address: 'empty@status.com',
-            status: '',
-        },
-        {
-            address: 'null@status.com',
-            status: undefined,
-        },
-        {
-            address: 'good@status.com',
-            status: 0, //1-positive, 0-negative
-        },
-        {
-            address: 'bad@status.com',
-            status: 1,
-        },
-    ]
+    emails: []
 }
 const getters = {
+    item_get: (state) => (payload) => {
+        return state.emails.filter(email => {
+            return (email.address === payload) ? true : false
+        })
+    }
 }
 
 const mutations = {
@@ -113,7 +101,7 @@ const actions = {
                     reject(err)
                 })
         })
-    }
+    },
 }
 
 export default new Vuex.Store({
