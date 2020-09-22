@@ -6,7 +6,6 @@
         :key="n+i"
         :item="n.address"
         :status="n.status"
-        :uiid="n.uiid"
         :id="i"
       ></monitor-item>
     </ul>
@@ -26,7 +25,7 @@ export default {
     return {
     }
   },
-  mounted() {
+  created() {
    this.intervalChecks()
   },
   computed: {
@@ -41,7 +40,7 @@ export default {
       handler(n) {
         if(n.cdw === 0) {
           console.log('interval ends, checking again...')
-          // this.$store.dispatch(mType.CD_INTERVAL_CHECKS)
+          this.$store.dispatch(mType.EMAILS_CHECK_ALL)
         }
       }
     }

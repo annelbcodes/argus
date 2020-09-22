@@ -15,7 +15,6 @@ export default {
   props: [
     'item',
     'status',
-    'uiid',
     'id',
   ],
   data() {
