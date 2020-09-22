@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import { mType } from '../../store/mutationtypes'
 import { mapState } from 'vuex'
 import MonitorItem from './MonitorItem'
 
@@ -25,11 +26,32 @@ export default {
     return {
     }
   },
+  mounted() {
+   this.intervalChecks()
+  },
   computed: {
     ...mapState([
-      'emails'
+      'emails',
+      'cd',
     ]),
-  }
+  },
+  watch: {
+    cd: {
+      deep: true,
+      handler(n) {
+        if(n.cdw === 0) {
+          console.log('interval ends, checking again...')
+          // this.$store.dispatch(mType.CD_INTERVAL_CHECKS)
+        }
+      }
+    }
+  },
+  methods: {
+    intervalChecks() {
+      console.log('interval checking...')
+      this.$store.dispatch(mType.CD_INTERVAL_CHECKS)
+    },
+  },
 }
 </script>
 

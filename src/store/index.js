@@ -31,6 +31,11 @@ const state = {
     db: {
         uiid: 100000,
     },
+    cd: {
+        t: 0,
+        cdw: 0,
+        interval: 60, // 60s | 1m
+    },
     emails: []
 }
 const getters = {
@@ -61,6 +66,16 @@ const mutations = {
         // using ID (index) to remove item
         state.emails.splice(payload, 1)
     },
+    [mType.CD_INTERVAL_CHECKS](state) {
+        state.cd.cdw += 1
+    },
+    [mType.CD_SETTIMEOUT](state, payload) {
+        state.cd.t = payload
+    },
+    [mType.CD_STOP](state) {
+        clearTimeout(state.cd.t)
+        state.cd.cdw = 0
+    },
 }
 
 const actions = {
@@ -90,7 +105,7 @@ const actions = {
         })
     },
     // eslint-disable-next-line
-    [mType.API_REQ_HIBP]({}, payload) {
+    [mType.API_REQ_HIBP]({ }, payload) {
         return new Promise((resolve, reject) => {
             breachedAccount(payload, hibpSearchOptions)
                 .then(data => {
@@ -101,6 +116,20 @@ const actions = {
                     reject(err)
                 })
         })
+    },
+    [mType.CD_INTERVAL_CHECKS]({ commit, dispatch }) {
+        commit(mType.CD_INTERVAL_CHECKS)
+        dispatch(mType.CD_SETTIMEOUT)
+    },
+    [mType.CD_SETTIMEOUT]({ state, commit, dispatch }) {
+        let timeoutID = setTimeout(() => {
+            dispatch(mType.CD_START)
+        }, 1000)
+        commit(mType.CD_SETTIMEOUT, timeoutID)
+        console.log(state.cd.cdw)
+    },
+    [mType.CD_START]({ state, commit, dispatch }) {
+         (state.cd.cdw < state.cd.interval) ? dispatch(mType.CD_INTERVAL_CHECKS) : commit(mType.CD_STOP)
     },
 }
 
