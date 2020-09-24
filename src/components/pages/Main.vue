@@ -19,6 +19,10 @@
         </monitor-btn>
 
       </div>
+
+      <div class="ui-footer">
+        <small class="text-midgray">{{ text_timeago }}</small>
+      </div>
     </div>
   </div>
 </template>
@@ -30,6 +34,7 @@ import Modal from '../widgets/Modal'
 import MonitorList from '../widgets/MonitorList'
 import MonitorBtn from '../widgets/MonitorBtn'
 import MonitorPopup from '../widgets/MonitorPopup'
+import moment from 'moment'
 
 export default {
   components: {
@@ -39,10 +44,31 @@ export default {
     Modal,
     MonitorPopup
   },
+  data() {
+    return {
+      text_timeago: ''
+    }
+  },
   computed: {
     ...mapState({
       modal: state => state.ui.modal
-    })
+    }),
+    ...mapState([
+      'cd',
+    ]),
+  },
+  watch: {
+    cd: {
+      deep: true,
+      handler(n) {
+        (n.cdi !== 0) ? this.set_text_timeago() : this.text_timeago = 'Checking...'
+      }
+    },
+  },
+  methods: {
+    set_text_timeago() {
+      this.text_timeago = moment.duration(-(this.cd.interval), 'seconds').humanize(true)
+    }
   },
 }
 </script>
@@ -58,5 +84,11 @@ export default {
   @apply h-screen;
   @apply pb-12;
   @apply overflow-y-auto;
+}
+.ui-footer {
+  bottom: 0;
+  @apply p-2;
+  @apply fixed;
+  @apply w-full;
 }
 </style>

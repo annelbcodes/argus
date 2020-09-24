@@ -25,8 +25,8 @@ export default {
     return {
     }
   },
-  created() {
-   this.intervalChecks()
+  mounted() {
+    this.$store.dispatch(mType.EMAILS_CHECK_ALL)
   },
   computed: {
     ...mapState([
@@ -38,18 +38,14 @@ export default {
     cd: {
       deep: true,
       handler(n) {
-        if(n.cdw === 0) {
+        if(n.cdi === 0) {
           console.log('interval ends, checking again...')
-          this.$store.dispatch(mType.EMAILS_CHECK_ALL)
+          // this.$store.dispatch(mType.EMAILS_CHECK_ALL) //disabled: options with manual check (refresh all) or auto check (with intervals)
         }
       }
     }
   },
   methods: {
-    intervalChecks() {
-      console.log('interval checking...')
-      this.$store.dispatch(mType.CD_INTERVAL_CHECKS)
-    },
   },
 }
 </script>
