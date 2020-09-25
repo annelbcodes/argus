@@ -38,7 +38,7 @@ const state = {
         interval: 60, // static: 60s|1m
     },
     emails: [
-        // default { address: '', status: 0, uiid: 0  }
+        // { address: '', status: 0, uiid: 0  }
     ]
 }
 const getters = {
@@ -70,7 +70,6 @@ const mutations = {
         state.emails.splice(payload, 1)
     },
     [mType.CD_INTERVAL_CHECKS](state) {
-        // state.cd.cdw += 1
         state.cd.cdi -= 1
     },
     [mType.CD_SETTIMEOUT](state, payload) {
@@ -78,7 +77,6 @@ const mutations = {
     },
     [mType.CD_STOP](state) {
         clearTimeout(state.cd.t)
-        // state.cd.cdw = 0
         state.cd.cdi = state.cd.interval
     },
 }
@@ -100,6 +98,7 @@ const actions = {
             dispatch(mType.API_REQ_HIBP, obj)
         })
     },
+    // Request API
     // eslint-disable-next-line
     [mType.API_REQ_HIBP]({ commit }, payload) {
         return new Promise((reject) => {
@@ -108,14 +107,14 @@ const actions = {
                 let status
                 if (data) {
                     if (payload.status === 1) {
-                        console.log('skipping re-writing to db')
+                        console.log('skipping re-writing to state')
                         return false
                     }
                     else { status = Number(true) }
                 }
                 else {
                     if (payload.status === 0) {
-                        console.log('skipping re-writing to db')
+                        console.log('skipping re-writing to state')
                         return false
                     }
                     else { status = Number(false) }
@@ -125,7 +124,7 @@ const actions = {
                     address: payload.address,
                     uiid: payload.uiid
                 }
-                console.log('re-writing to db with new updated values...')
+                console.log('re-writing to state, with new updated values...')
                 commit(mType.ITEM_UPD_STATUS, obj)
             })
             .catch(err => {
@@ -134,11 +133,15 @@ const actions = {
             })
         })
     },
+
+    // Primary event of adding an email; updating the status of the recent addition
     [mType.ITEM_UPD_STATUS]({ commit }, payload) {
         setTimeout(() => {
             commit(mType.ITEM_UPD_STATUS, payload)
         }, 2600)
     },
+
+    // Countdown before checking _all_ emails
     [mType.CD_INTERVAL_CHECKS]({ commit, dispatch }) {
         commit(mType.CD_INTERVAL_CHECKS)
         dispatch(mType.CD_SETTIMEOUT)
@@ -154,18 +157,28 @@ const actions = {
         //  (state.cd.cdw < state.cd.interval) ? dispatch(mType.CD_INTERVAL_CHECKS) : commit(mType.CD_STOP)
         console.log(state.cd.cdi)
     },
-    [mType.EMAILS_CHECK_ALL]({ state, dispatch }) {
-        state.emails.forEach((n, i) => {
-            setTimeout(() => {
-                console.log(n.uiid, n.address, n.status)
-                let obj = {
-                    address: n.address,
-                    status: n.status,
-                    uiid: n.uiid,
-                }
-                dispatch(mType.API_REQ_HIBP, obj)
-            }, 4000 * i)
-        })
+
+    /**
+     * ASYNC IN FOREACH
+     * Timeout in between checking of each emails
+     */
+    [mType.CD_EA_EMAIL]() {
+        return new Promise(r => { setTimeout(r, 4000) })
+    },
+    async [mType.REQUEST_EA_EMAIL]({ state, dispatch }) {
+        for (let i = 0; i < state.emails.length; i++) {
+            let obj = {
+                address: state.emails[i].address,
+                status: state.emails[i].status,
+                uiid: state.emails[i].uiid
+            }
+            dispatch(mType.API_REQ_HIBP, obj)
+            await dispatch(mType.CD_EA_EMAIL)
+        }
+    },
+    async [mType.EMAILS_CHECK_ALL]({ dispatch }) {
+        await dispatch(mType.REQUEST_EA_EMAIL)
+        console.log('DONE')
     },
 }
 
