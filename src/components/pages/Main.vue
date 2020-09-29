@@ -21,7 +21,7 @@
       </div>
 
       <div class="ui-footer">
-        <small class="text-midgray">{{ text_timeago }}</small>
+        <small class="text-midgray">{{ text_timeago + ': ' + cd.cdi }}</small>
       </div>
     </div>
   </div>
@@ -61,7 +61,7 @@ export default {
     cd: {
       deep: true,
       handler(n) {
-        (n.cdi !== 0) ? this.set_text_timeago() : this.text_timeago = 'Checking...'
+        (n.cdi === 60) ? this.text_timeago = 'Checking...' : this.set_text_timeago()
       }
     },
   },
