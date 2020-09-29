@@ -34,9 +34,9 @@ const state = {
     cd: {
         t: 0,
         cdw: 0, // countdown to 0
-        cdi: 60, // countdown interval in s
+        cdi: 20, // countdown interval in s
         cde: 4000, // countdown each (email) in ms
-        interval: 60, // static: 60s|1m - change this and cdi if modifying interval checks
+        interval: 20, // static: 60s|1m - change this and cdi if modifying interval checks
     },
     emails: [
         // { address: '', status: 0, uiid: 0  }
@@ -147,8 +147,8 @@ const actions = {
 
     // Countdown before checking _all_ emails
     [mType.CD_INTERVAL_CHECKS]({ commit, dispatch }) {
-        commit(mType.CD_INTERVAL_CHECKS)
         dispatch(mType.CD_SETTIMEOUT)
+        commit(mType.CD_INTERVAL_CHECKS)
     },
     [mType.CD_SETTIMEOUT]({ commit, dispatch }) {
         let timeoutID = setTimeout(() => {
@@ -169,18 +169,24 @@ const actions = {
     [mType.CD_EA_EMAIL]({ state }) {
         return new Promise(r => { setTimeout(r, state.cd.cde) })
     },
-    async [mType.REQUEST_EA_EMAIL]({ state, dispatch }) {
-        for (let i = 0; i < state.emails.length; i++) {
-            let obj = {
-                address: state.emails[i].address,
-                status: state.emails[i].status,
-                uiid: state.emails[i].uiid
+    async [mType.REQUEST_EA_EMAIL]({ state, commit, dispatch }) {
+        if (state.emails.length) {
+            for (let i = 0; i < state.emails.length; i++) {
+                let obj = {
+                    address: state.emails[i].address,
+                    status: state.emails[i].status,
+                    uiid: state.emails[i].uiid
+                }
+                await dispatch(mType.API_REQ_HIBP, obj)
+                await dispatch(mType.CD_EA_EMAIL)
             }
-            await dispatch(mType.API_REQ_HIBP, obj)
-            await dispatch(mType.CD_EA_EMAIL)
+            console.log('DONE')
+            dispatch(mType.CD_INTERVAL_CHECKS)
         }
-        console.log('DONE')
-        dispatch(mType.CD_INTERVAL_CHECKS)
+        else {
+            commit(mType.CD_STOP)
+            dispatch(mType.CD_INTERVAL_CHECKS)
+        }
     },
     async [mType.EMAILS_CHECK_ALL]({ dispatch }) {
         await dispatch(mType.REQUEST_EA_EMAIL)

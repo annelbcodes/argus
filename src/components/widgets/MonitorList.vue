@@ -13,7 +13,7 @@
 </template>
 
 <script>
-// import { mType } from '../../store/mutationtypes'
+import { mType } from '../../store/mutationtypes'
 import { mapState } from 'vuex'
 import MonitorItem from './MonitorItem'
 
@@ -26,7 +26,8 @@ export default {
     }
   },
   mounted() {
-    // this.$store.dispatch(mType.CD_INTERVAL_CHECKS) // start interval timer
+    this.$store.commit(mType.CD_STOP)
+    this.$store.dispatch(mType.CD_INTERVAL_CHECKS) // start interval timer
   },
   computed: {
     ...mapState([
@@ -40,7 +41,7 @@ export default {
       handler(n) {
         if(n.cdi === 0) {
           console.log('interval ends, checking all emails...')
-          // this.$store.dispatch(mType.EMAILS_CHECK_ALL)
+          this.$store.dispatch(mType.EMAILS_CHECK_ALL)
         }
       }
     }
