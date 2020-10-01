@@ -1,4 +1,5 @@
 const isProd = process.env.NODE_ENV === 'production'
+
 module.exports = {
   chainWebpack: config => {
     config.module
@@ -10,5 +11,10 @@ module.exports = {
           }
           return options
         })
+  },
+  pluginOptions: {
+    electronBuilder: {
+      preload: 'src/preload.js',
+    }
   }
 }

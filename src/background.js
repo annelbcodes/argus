@@ -1,11 +1,17 @@
 'use strict'
 
-import { app, protocol, BrowserWindow } from 'electron'
+import { app, protocol, BrowserWindow, Menu } from 'electron'
+import path from 'path'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 import debug from 'electron-debug'
 
+import menu from './menu'
+import './bus'
+
 const isDevelopment = process.env.NODE_ENV !== 'production'
+
+console.log(process.env.ELECTRON_NODE_INTEGRATION)
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -20,7 +26,7 @@ debug()
 
 // Append a switch (with optional value) to Chromium's command line.
 // Disabling CORS temp
-if (process.env.NODE_ENV !== 'production') {
+if (isDevelopment) {
   app.commandLine.appendSwitch("disable-features", "OutOfBlinkCors")
 }
 
@@ -42,6 +48,8 @@ function createWindow() {
       nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
       spellcheck: false,
       webSecurity: process.env.NODE_ENV === 'production' ? true : false,
+      // enableRemoteModule: true,
+      preload: path.join(__dirname, 'preload.js'),
     }
   })
 
@@ -89,7 +97,8 @@ app.on('ready', async () => {
       console.error('Vue Devtools failed to install:', e.toString())
     }
   }
-  createWindow()
+  Menu.setApplicationMenu(menu)
+  await createWindow()
 })
 
 // Exit cleanly on request from parent process in development mode.
