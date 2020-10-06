@@ -1,34 +1,29 @@
-<template>
-  <div class="email-popup">
-    <div class="ui-popup">
-      <h1 class="text-left text-xs py-1">{{ default_texts.title }}</h1>
-      <div class="field-area">
-        <input
+<template lang="pug">
+
+  .email-popup
+    .ui-pop
+      h1.text-left.text-xs.py-1 {{ default_texts.title }}
+      .field-area
+        input(
           class="field-text mt-5"
           type="email"
-          id="email"
           v-model.trim="$v.item_name.$model"
           @keyup="onEnterKey($event)"
           required
           autofocus
-        >
-        <small
-            v-if="$v.item_name.required"
-            class="field-alert-error"
-            v-text="message_alert"
-        ></small>
-      </div>
-      <p class="mt-5 text-right">
-        <a class="link-secondary mx-2" @click.stop.prevent="closeModal()">{{ default_texts.cancel }}</a>
-        <a class="btn ml-2" @click.stop.prevent="validateFields()">{{ default_texts.btn }}</a>
-      </p>
-    </div>
-  </div>
+        )
+        small(
+          v-if="$v.item_name.required"
+          class="field-alert-error"
+          v-text="message_alert"
+        )
+      p.mt-5.text-right
+        a.link-secondary.mx-2(@click.stop.prevent="closeModal()") {{ default_texts.cancel }}
+        a.btn.ml-2(@click.stop.prevent="validateFields()") {{ default_texts.btn }}
+
 </template>
 
 <script>
-// import { mapGetters } from 'vuex'
-
 import { mType } from '../../store/mutationtypes'
 
 import {

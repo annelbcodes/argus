@@ -1,11 +1,11 @@
-<template>
-  <div class="item-container relative">
-  <em @click.stop.prevent="removeItem()"></em>
-  <li :class="['bg-licorice', textClass, { 'opacity-50': !$isLength(status) }]">
-    <strong>{{ item }}</strong>
-    <span :class="['self-center indicator', indicatorClass]"></span>
-  </li>
-  </div>
+<template lang="pug">
+
+  .item-container.relative
+    em(@click.stop.prevent="removeItem()")
+    li(:class="['bg-licorice', textClass, { 'opacity-50': !$isLength(status) }]")
+      strong {{ item }}
+      span(:class="['self-center indicator', indicatorClass]")
+
 </template>
 
 <script>

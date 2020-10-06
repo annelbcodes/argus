@@ -1,21 +1,21 @@
-<template>
-  <div :class='"widget-monitor-list-"+_uid'>
-    <ul class="list-monitor">
-      <monitor-item
+<template lang="pug">
+
+  div(:class='"widget-monitor-list-"+_uid')
+    ul.list-monitor
+      monitor-item(
         v-for="(n,i) in emails"
         :key="n+i"
         :item="n.address"
         :status="n.status"
         :id="i"
-      ></monitor-item>
-    </ul>
-  </div>
+      )
+
 </template>
 
 <script>
-import { mType } from '../../store/mutationtypes'
+import { mType }    from '../../store/mutationtypes'
 import { mapState } from 'vuex'
-import MonitorItem from './MonitorItem'
+import MonitorItem  from './MonitorItem'
 
 export default {
   components: {

@@ -36,6 +36,7 @@
     "sass-loader": "^10.0.1",
     "secure-ls": "^1.2.6",
     "vue-cli-plugin-electron-builder": "^2.0.0-rc.4",
+    "vue-cli-plugin-pug": "^1.0.7",
     "vue-cli-plugin-tailwind": "^1.4.2",
     "vue-router": "^3.4.3",
     "vue-template-compiler": "^2.6.10",

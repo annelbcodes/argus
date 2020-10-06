@@ -1,43 +1,50 @@
-<template>
-  <div class="ui">
-    <title-bar>EyesOnPwn</title-bar>
-    <div class="ui-body">
-      <modal v-if="modal">
-        <monitor-popup
+<template lang="pug">
+
+  .ui
+    title-bar EyesOnPwn
+
+    .ui-body
+      modal(v-if="modal")
+        monitor-popup(
           type="email"
           action="add"
-        ></monitor-popup>
-      </modal>
-
-      <div class="ui-content">
-        <monitor-list></monitor-list>
-
-        <monitor-btn
+        )
+      .ui-content
+        monitor-list
+        monitor-btn(
           type="email"
           action="add"
-        >
-        </monitor-btn>
+        )
+      .ui-footer
+        small.text-midgray
+          svg(
+            v-show="status_checking"
+            height="18"
+            width="18"
+            class="refresh-status"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="https://www.w3.org/2000/svg"
+          )
+            path(
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+            )
+          | {{ text_timeago }}
 
-      </div>
-
-      <div class="ui-footer">
-        <small class="text-midgray">
-          <svg v-show="status_checking" height="18" width="18" class="refresh-status" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
-          {{ text_timeago }}
-        </small>
-      </div>
-    </div>
-  </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import TitleBar from '../widgets/TitleBar'
-import Modal from '../widgets/Modal'
-import MonitorList from '../widgets/MonitorList'
-import MonitorBtn from '../widgets/MonitorBtn'
+import TitleBar     from '../widgets/TitleBar'
+import Modal        from '../widgets/Modal'
+import MonitorList  from '../widgets/MonitorList'
+import MonitorBtn   from '../widgets/MonitorBtn'
 import MonitorPopup from '../widgets/MonitorPopup'
-import moment from 'moment'
+import moment       from 'moment'
 
 export default {
   components: {

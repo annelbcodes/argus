@@ -1,7 +1,9 @@
-<template>
-  <div class="title-heading">
-      <h2><slot></slot></h2>
-  </div>
+<template lang="pug">
+
+  .title-heading
+    h2
+      slot
+
 </template>
 
 <script>

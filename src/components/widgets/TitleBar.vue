@@ -1,7 +1,9 @@
-<template>
-  <div class="titlebar">
-    <h1 class="text-xs"><slot></slot></h1>
-  </div>
+<template lang="pug">
+
+  .titlebar
+    h1.text-xs
+      slot
+
 </template>
 
 <script>

@@ -1,7 +1,8 @@
-<template>
-  <div class="modal">
-    <slot></slot>
-  </div>
+<template lang="pug">
+
+  .modal
+    slot
+
 </template>
 
 <script>
