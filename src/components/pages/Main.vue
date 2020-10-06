@@ -5,6 +5,7 @@
 
     .ui-body
       modal(v-if="modal")
+        pref-popup
         monitor-popup(
           type="email"
           action="add"
@@ -39,11 +40,12 @@
 
 <script>
 import { mapState } from 'vuex'
-import TitleBar     from '../widgets/TitleBar'
-import Modal        from '../widgets/Modal'
-import MonitorList  from '../widgets/MonitorList'
-import MonitorBtn   from '../widgets/MonitorBtn'
-import MonitorPopup from '../widgets/MonitorPopup'
+import TitleBar     from '@/components/widgets/TitleBar'
+import Modal        from '@/components/widgets/Modal'
+import MonitorList  from '@/components/widgets/MonitorList'
+import MonitorBtn   from '@/components/widgets/MonitorBtn'
+import MonitorPopup from '@/components/widgets/MonitorPopup'
+import PrefPopup    from '@/components/pages/PreferencesPopup'
 import moment       from 'moment'
 
 export default {
@@ -52,7 +54,8 @@ export default {
     MonitorList,
     MonitorBtn,
     Modal,
-    MonitorPopup
+    MonitorPopup,
+    PrefPopup,
   },
   data() {
     return {

@@ -1,30 +1,31 @@
 <template lang="pug">
 
-  .email-popup
-    .ui-pop
-      h1.text-left.text-xs.py-1 {{ default_texts.title }}
-      .field-area
-        input(
-          class="field-text mt-5"
-          type="email"
-          v-model.trim="$v.item_name.$model"
-          @keyup="onEnterKey($event)"
-          required
-          autofocus
-        )
-        small(
-          v-if="$v.item_name.required"
-          class="field-alert-error"
-          v-text="message_alert"
-        )
-      p.mt-5.text-right
-        a.link-secondary.mx-2(@click.stop.prevent="closeModal()") {{ default_texts.cancel }}
-        a.btn.ml-2(@click.stop.prevent="validateFields()") {{ default_texts.btn }}
+  popup
+    h1.text-left.text-xs.py-1 {{ default_texts.title }}
+    .field-area
+      input(
+        class="field-text mt-5"
+        type="email"
+        id="email"
+        v-model.trim="$v.item_name.$model"
+        @keyup="onEnterKey($event)"
+        required
+        autofocus
+      )
+      small(
+        v-if="$v.item_name.required"
+        class="field-alert-error"
+        v-text="message_alert"
+      )
+    p.mt-5.text-right
+      a.link-secondary.mx-2(@click.stop.prevent="closeModal()") {{ default_texts.cancel }}
+      a.btn.ml-2(@click.stop.prevent="validateFields()") {{ default_texts.btn }}
 
 </template>
 
 <script>
-import { mType } from '../../store/mutationtypes'
+import Popup from '@/components/layouts/Popup'
+import { mType } from '@/store/mutationtypes'
 
 import {
     required,
@@ -33,6 +34,7 @@ import {
 } from "vuelidate/lib/validators"
 
 export default {
+  components: { Popup },
   props: ['action', 'type'],
   data() {
     return {
@@ -119,7 +121,7 @@ export default {
 </script>
 
 <style lang="scss">
-.email-popup {
+.flex-popup {
   @apply flex;
   @apply text-center;
   @apply items-center;

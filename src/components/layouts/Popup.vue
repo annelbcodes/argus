@@ -1,14 +1,14 @@
 <template lang="pug">
-  div Test
+
+  .flex-popup
+    .ui-popup
+      slot
+
 </template>
 
 <script>
 export default {
-  data() {
-    return {
 
-    }
-  }
 }
 </script>
 

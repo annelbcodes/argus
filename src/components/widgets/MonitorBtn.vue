@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { mType } from '../../store/mutationtypes'
+import { mType } from '@/store/mutationtypes'
 
 export default {
   props: [

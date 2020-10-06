@@ -13,9 +13,9 @@
 </template>
 
 <script>
-import { mType }    from '../../store/mutationtypes'
-import { mapState } from 'vuex'
 import MonitorItem  from './MonitorItem'
+import { mType }    from '@/store/mutationtypes'
+import { mapState } from 'vuex'
 
 export default {
   components: {
