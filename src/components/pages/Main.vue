@@ -5,7 +5,9 @@
 
     .ui-body
       modal(v-if="modal")
-        pref-popup
+        //- pref-popup(
+        //-   title="Add API"
+        //- )
         monitor-popup(
           type="email"
           action="add"

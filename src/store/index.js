@@ -27,6 +27,7 @@ const hibpSearchOptions = {
 const state = {
     ui: {
         modal: false,
+        action: '',
     },
     db: {
         uiid: 100000,

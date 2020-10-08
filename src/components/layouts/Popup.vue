@@ -2,7 +2,10 @@
 
   .flex-popup
     .ui-popup
-      slot
+      slot(name="content")
+
+      p.mt-5.text-right
+        slot(name="footer")
 
 </template>
 
