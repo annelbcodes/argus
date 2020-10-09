@@ -5,12 +5,19 @@
 
     .ui-body
       modal(v-if="modal")
-        //- pref-popup(
-        //-   title="Add API"
-        //- )
-        monitor-popup(
+        popup-pref(
+          v-show="ui.type === 'pref'"
+          type="pref"
+          action="add"
+          title="Enter your API key"
+          ctabtn="Save API key"
+        )
+        popup-monitor(
+          v-show="ui.type === 'email'"
           type="email"
           action="add"
+          title="Add an email address to monitor"
+          ctabtn="Add to monitor"
         )
       .ui-content
         monitor-list
@@ -46,8 +53,8 @@ import TitleBar     from '@/components/widgets/TitleBar'
 import Modal        from '@/components/widgets/Modal'
 import MonitorList  from '@/components/widgets/MonitorList'
 import MonitorBtn   from '@/components/widgets/MonitorBtn'
-import MonitorPopup from '@/components/widgets/MonitorPopup'
-import PrefPopup    from '@/components/pages/PreferencesPopup'
+import PopupMonitor from '@/components/widgets/PopupMonitor'
+import PopupPref    from '@/components/widgets/PopupPreferences'
 import moment       from 'moment'
 
 export default {
@@ -56,8 +63,8 @@ export default {
     MonitorList,
     MonitorBtn,
     Modal,
-    MonitorPopup,
-    PrefPopup,
+    PopupMonitor,
+    PopupPref,
   },
   data() {
     return {
@@ -74,6 +81,7 @@ export default {
     }),
     ...mapState([
       'cd',
+      'ui',
     ]),
   },
   watch: {

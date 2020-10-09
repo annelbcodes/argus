@@ -1,8 +1,11 @@
 <template lang="pug">
 
-  popup
+  base-popup(
+      :type="type"
+      :action="action"
+      :title="title"
+  )
     template(#content)
-      h1.text-left.text-xs.py-1 {{ default_texts.title }}
       .field-area
         input(
           class="field-text mt-5"
@@ -18,14 +21,14 @@
           class="field-alert-error"
           v-text="message_alert"
         )
-    template(#footer)
-      a.link-secondary.mx-2(@click.stop.prevent="closeModal()") {{ default_texts.cancel }}
-      a.btn.ml-2(@click.stop.prevent="validateFields()") {{ default_texts.btn }}
+    template(#footer="{ defaults }")
+      a.link-secondary.mx-2(@click.stop.prevent="modalToggle()") {{ defaults.cancel }}
+      a.btn.ml-2(@click.stop.prevent="validateFields()") {{ ctabtn ? ctabtn : defaults.btn }}
 
 </template>
 
 <script>
-import Popup from '@/components/layouts/Popup'
+import BasePopup from '@/components/layouts/BasePopup'
 import { mType } from '@/store/mutationtypes'
 
 import {
@@ -35,8 +38,13 @@ import {
 } from "vuelidate/lib/validators"
 
 export default {
-  components: { Popup },
-  props: ['action', 'type'],
+  components: { BasePopup },
+  props: [
+    'action',
+    'type',
+    'title',
+    'ctabtn',
+    ],
   data() {
     return {
       item_name: '',
@@ -49,11 +57,6 @@ export default {
         default: '',
         error_added: 'Email already added',
         error_invalid: 'Must be a valid email address'
-      },
-      default_texts: {
-        cancel: 'cancel',
-        btn: 'add',
-        title: 'Add an email to monitor',
       },
     }
   },
@@ -82,7 +85,7 @@ export default {
       this.item_action_obj.type = this.type
 
       this.$store.dispatch(mType.ITEM_PROCESS, this.item_action_obj)
-      this.closeModal()
+      this.modalToggle()
     },
     findDuplicates() {
       if(this.get_duplicates.length) {
@@ -103,6 +106,7 @@ export default {
       if (this.$v.item_name.$invalid) {
         this.message_alert = this.messages.error_invalid
       }
+
       else {
         this.message_alert = this.messages.default
         this.monitorAction()
@@ -114,9 +118,9 @@ export default {
         this.validateFields()
       }
     },
-    closeModal() {
+    modalToggle() {
       this.$store.commit(mType.MODAL_TOGGLE)
-    }
+    },
   }
 }
 </script>

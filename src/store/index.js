@@ -26,17 +26,18 @@ const hibpSearchOptions = {
 
 const state = {
     ui: {
-        modal: false,
+        modal : false,
+        type  : '',
         action: '',
     },
     db: {
         uiid: 100000,
     },
     cd: {
-        t: 0,
-        cdw: 0, // countdown to 0
-        cdi: 20, // countdown interval in s
-        cde: 4000, // countdown each (email) in ms
+        t       : 0,
+        cdw     : 0, // countdown to 0
+        cdi     : 20, // countdown interval in s
+        cde     : 4000, // countdown each (email) in ms
         interval: 20, // static: 60s|1m - change this and cdi if modifying interval checks
     },
     emails: [
@@ -52,6 +53,11 @@ const getters = {
 }
 
 const mutations = {
+    [mType.UPDATE_UI](state, payload) {
+        console.log(payload)
+        state.ui.action = payload.action
+        state.ui.type = payload.type
+    },
     [mType.MODAL_TOGGLE](state) {
         state.ui.modal = !state.ui.modal
     },
@@ -84,6 +90,10 @@ const mutations = {
 }
 
 const actions = {
+    [mType.MODAL_TOGGLE]({ commit }, payload) {
+        commit(mType.UPDATE_UI, payload)
+        commit(mType.MODAL_TOGGLE)
+    },
     [mType.ITEM_PROCESS]({ state, commit, dispatch }, payload) {
         return new Promise(() => {
             let obj

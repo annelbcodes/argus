@@ -1,5 +1,6 @@
 export const mType = {
   MODAL_TOGGLE      : 'MODAL_TOGGLE',
+  UPDATE_UI         : 'UPDATE_UI',
 
   ITEM_ADD          : 'ITEM_ADD',
   ITEM_DEL          : 'ITEM_DEL',

@@ -15,7 +15,8 @@ export default {
   ],
   data() {
     return {
-      btn_text: ''
+      btn_text: '',
+      obj_action: {},
     }
   },
   mounted() {
@@ -28,9 +29,11 @@ export default {
       }
     },
     itemAction() {
-      if (this.action === 'add') {
-        this.$store.commit(mType.MODAL_TOGGLE)
+      this.obj_action = {
+        action: 'add',
+        type: 'email',
       }
+      this.$store.dispatch(mType.MODAL_TOGGLE, this.obj_action)
     }
   }
 }
