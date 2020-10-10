@@ -4,12 +4,16 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
   routes: [
     {
       path: '/',
       name: 'main',
       component: require('@/components/pages/Main').default
+    },
+    {
+      path: '/preferences',
+      name: 'preferences',
+      component: require('@/components/widgets/PopupPreferences').default
     },
     {
       path: '*',

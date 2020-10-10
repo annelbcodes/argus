@@ -11,12 +11,6 @@ export default {
     return {
     }
   },
-  mounted() {
-    window.ipcRenderer.send('requestStoreValue', 'hibpKey')
-    window.ipcRenderer.on('replyStoreValue', (e,a) => {
-      console.log(a)
-    })
-  },
 }
 </script>
 

@@ -1,7 +1,46 @@
 'use strict'
 
-import { app, Menu } from 'electron'
+import { app, Menu, BrowserWindow, ipcRenderer, ipcMain } from 'electron'
 import config from './config'
+
+let isDev = (process.env.WEBPACK_DEV_SERVER_URL) ? true : false
+
+let popupPref
+
+function openPopupPref() {
+
+  popupPref = new BrowserWindow({
+    parent: global.win,
+    modal: true,
+    show: false,
+    resizable: false,
+    maximizable: false,
+    minimizable: false,
+    height: 300,
+    width: 540,
+    backgroundColor: '#272735',
+    title: 'Preferences',
+  })
+
+  if (isDev) {
+    popupPref.loadURL(process.env.WEBPACK_DEV_SERVER_URL+'#preferences')
+  }
+  else {
+    popupPref.loadURL('app://./index.html#preferences')
+  }
+
+  popupPref.once('ready-to-show', (e) => {
+    popupPref.show()
+    global.win.show()
+    popupPref.focus()
+  })
+
+  popupPref.on('closed', () => { popupPref = null })
+
+  ipcMain.on('POPUP_CLOSE', (e, a) => {
+    popupPref.hide()
+  })
+}
 
 const isDarwin = process.platform === 'darwin'
 
@@ -11,8 +50,8 @@ const macosTemplate = [
     submenu: [
       {
         label: ' Preferences',
-        click() {
-          config.openInEditor()
+        click(menuItem, BrowserWindow, event) {
+          openPopupPref()
         },
       },
     ],
@@ -22,6 +61,12 @@ const macosTemplate = [
   },
   {
     role: 'viewMenu'
+  },
+  {
+    role: 'windowMenu'
+  },
+  {
+    role: 'helpMenu'
   }
 ]
 

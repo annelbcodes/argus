@@ -1,6 +1,6 @@
 'use strict'
 
-import { app, protocol, BrowserWindow, Menu } from 'electron'
+import { app, protocol, BrowserWindow, Menu, ipcMain } from 'electron'
 import path from 'path'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
@@ -30,6 +30,8 @@ if (isDevelopment) {
   app.commandLine.appendSwitch("disable-features", "OutOfBlinkCors")
 }
 
+global.win = null
+
 function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({
@@ -48,7 +50,6 @@ function createWindow() {
       nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
       spellcheck: false,
       webSecurity: process.env.NODE_ENV === 'production' ? true : false,
-      // enableRemoteModule: true,
       preload: path.join(__dirname, 'preload.js'),
     }
   })
@@ -66,6 +67,8 @@ function createWindow() {
   win.on('closed', () => {
     win = null
   })
+
+  global.win = (win !== null) ? win : null
 }
 
 // Quit when all windows are closed.
