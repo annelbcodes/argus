@@ -1,6 +1,7 @@
 'use strict'
 
 import { app, Menu, BrowserWindow, ipcRenderer, ipcMain } from 'electron'
+import path from 'path'
 import config from './config'
 
 let isDev = (process.env.WEBPACK_DEV_SERVER_URL) ? true : false
@@ -12,14 +13,14 @@ function openPopupPref() {
   popupPref = new BrowserWindow({
     parent: global.win,
     modal: true,
-    show: false,
-    resizable: false,
-    maximizable: false,
-    minimizable: false,
-    height: 300,
-    width: 540,
+    close: true,
+    height: 350,
+    width: 400,
     backgroundColor: '#272735',
     title: 'Preferences',
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js'),
+    }
   })
 
   if (isDev) {
@@ -30,15 +31,18 @@ function openPopupPref() {
   }
 
   popupPref.once('ready-to-show', (e) => {
-    popupPref.show()
+    popupPref.open()
     global.win.show()
     popupPref.focus()
   })
 
-  popupPref.on('closed', () => { popupPref = null })
-
   ipcMain.on('POPUP_CLOSE', (e, a) => {
-    popupPref.hide()
+    popupPref.webContents.closeDevTools()
+    popupPref.close()
+  })
+
+  popupPref.on('closed', () => {
+    popupPref = null
   })
 }
 
@@ -50,7 +54,8 @@ const macosTemplate = [
     submenu: [
       {
         label: ' Preferences',
-        click(menuItem, BrowserWindow, event) {
+        accelerator: 'Command+,',
+        click() {
           openPopupPref()
         },
       },
