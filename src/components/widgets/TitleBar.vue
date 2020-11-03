@@ -12,16 +12,15 @@ export default {
 }
 </script>
 
-<style>
-.titlebar {
-  -webkit-user-select: none;
-  -webkit-app-region: drag;
-  @apply text-center;
-  @apply py-3;
-  @apply text-bleudefrance;
-  @apply bg-valhalla;
-  @apply fixed;
-  @apply z-50;
-  @apply w-screen;
-}
+<style lang="sass">
+.titlebar
+  -webkit-user-select: none
+  -webkit-app-region: drag
+  @apply text-center
+  @apply py-3
+  @apply text-bleudefrance
+  @apply bg-valhalla
+  @apply fixed
+  @apply z-50
+  @apply w-screen
 </style>

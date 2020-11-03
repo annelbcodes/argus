@@ -63,56 +63,53 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.list-monitor li strong {
-  @apply not-italic;
-  @apply inline-block;
-  @apply w-10/12;
-  @apply font-normal;
-  transition: all 0.2s ease-in-out;
-}
-.item-container {
-  @apply flex;
-  @apply items-center;
-  @apply w-full;
+<style lang="sass">
+.list-monitor li strong
+  @apply not-italic
+  @apply inline-block
+  @apply w-10/12
+  @apply font-normal
+  transition: all 0.2s ease-in-out
 
-  &:hover strong {
-    @apply ml-6;
-  }
-  &:hover em {
-    @apply visible;
-    @apply opacity-100;
-  }
-}
-.item-container em {
-  height: 18px;
-  width: 18px;
-  left: 10px;
-  transition: all 0.3s ease-in-out;
-  @apply bg-nightshadz;
-  @apply rounded-full;
-  @apply absolute;
-  @apply z-10;
-  @apply cursor-pointer;
-  @apply inline-block;
-  @apply opacity-0;
-  @apply invisible;
+.item-container
+  @apply flex
+  @apply items-center
+  @apply w-full
 
-  &:before {
-    content: "-";
-    height: 18px;
-    width: 18px;
-    @apply text-white;
-    @apply absolute;
-    @apply inset-0;
-    @apply text-center;
-  }
-}
-.indicator {
-  height: 10px;
-  width: 10px;
-  @apply inline-block;
-  @apply rounded-full;
-  @apply ml-auto;
-}
+  &:hover strong
+    @apply ml-6
+
+  &:hover em
+    @apply visible
+    @apply opacity-100
+
+.item-container em
+  height: 18px
+  width: 18px
+  left: 10px
+  transition: all 0.3s ease-in-out
+  @apply bg-nightshadz
+  @apply rounded-full
+  @apply absolute
+  @apply z-10
+  @apply cursor-pointer
+  @apply inline-block
+  @apply opacity-0
+  @apply invisible
+
+  &:before
+    content: "-"
+    height: 18px
+    width: 18px
+    @apply text-white
+    @apply absolute
+    @apply inset-0
+    @apply text-center
+
+.indicator
+  height: 10px
+  width: 10px
+  @apply inline-block
+  @apply rounded-full
+  @apply ml-auto
 </style>

@@ -7,6 +7,7 @@
 
       p.mt-5.text-right
         slot(name="footer" :defaults="defaults")
+
 </template>
 
 <script>
@@ -29,7 +30,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-</style>

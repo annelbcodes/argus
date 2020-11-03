@@ -125,88 +125,84 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.flex-popup {
-  @apply flex;
-  @apply text-center;
-  @apply items-center;
-  @apply h-screen;
-  @apply w-screen;
-}
-.ui-popup {
-  @apply content-center;
-  @apply bg-licorice;
-  @apply rounded;
-  @apply w-10/12;
-  @apply mx-auto;
-  @apply p-5;
-  @apply shadow-md;
-}
-.field-area {
-  @apply pb-2;
-  @apply mb-8;
-  @apply relative;
-  @apply flex;
-  @apply flex-wrap;
-  @apply w-full;
-}
-.field-alert-error {
-  @apply text-orange-400;
-  @apply text-xs;
-  @apply text-left;
-  @apply rounded-sm;
-  @apply inline-block;
-  @apply w-full;
-  @apply absolute;
-  @apply inset-x-auto;
-  bottom: -20px;
-}
-.field-text {
-  @apply w-full;
-  @apply appearance-none;
-  @apply rounded-sm;
-  @apply p-1;
-  @apply px-2;
-  @apply border;
-  @apply border-valhalla;
-  @apply text-sm;
-  @apply text-mirage;
-  transition: all 0.3s ease-in-out;
+<style lang="sass">
+.flex-popup
+  @apply flex
+  @apply text-center
+  @apply items-center
+  @apply h-screen
+  @apply w-screen
 
-  &:hover {
-    @apply shadow-outline;
-  }
+.ui-popup
+  @apply content-center
+  @apply bg-licorice
+  @apply rounded
+  @apply w-10/12
+  @apply mx-auto
+  @apply p-5
+  @apply shadow-md
 
-  &:focus {
-    @apply outline-none;
-    @apply shadow-outline;
-    @apply border-brightbleudefrance;
-  }
-}
-.link-secondary {
-  @apply text-xs;
-  @apply capitalize;
-  @apply cursor-pointer;
-  transition: all 0.3s ease-in-out;
+.field-area
+  @apply pb-2
+  @apply mb-8
+  @apply relative
+  @apply flex
+  @apply flex-wrap
+  @apply w-full
 
-  &:hover {
-    @apply text-white;
-  }
-}
-.btn {
-  @apply inline-block;
-  @apply p-2;
-  @apply px-8;
-  @apply rounded;
-  @apply text-xs;
-  @apply cursor-pointer;
-  @apply capitalize;
-  @apply text-white;
-  @apply bg-bleudefrance;
-  transition: all 0.3s ease-in-out;
+.field-alert-error
+  @apply text-orange-400
+  @apply text-xs
+  @apply text-left
+  @apply rounded-sm
+  @apply inline-block
+  @apply w-full
+  @apply absolute
+  @apply inset-x-auto
+  bottom: -20px
 
-  &:hover {
-    @apply bg-bleudefrance;
-  }
-}
+.field-text
+  @apply w-full
+  @apply appearance-none
+  @apply rounded-sm
+  @apply p-1
+  @apply px-2
+  @apply border
+  @apply border-valhalla
+  @apply text-sm
+  @apply text-mirage
+
+  transition: all 0.3s ease-in-out
+
+  &:hover
+    @apply shadow-outline
+
+  &:focus
+    @apply outline-none
+    @apply shadow-outline
+    @apply border-brightbleudefrance
+
+.link-secondary
+  @apply text-xs
+  @apply capitalize
+  @apply cursor-pointer
+  transition: all 0.3s ease-in-out
+
+  &:hover
+    @apply text-white
+
+.btn
+  @apply inline-block
+  @apply p-2
+  @apply px-8
+  @apply rounded
+  @apply text-xs
+  @apply cursor-pointer
+  @apply capitalize
+  @apply text-white
+  @apply bg-bleudefrance
+  transition: all 0.3s ease-in-out
+
+  &:hover
+    @apply bg-bleudefrance
 </style>

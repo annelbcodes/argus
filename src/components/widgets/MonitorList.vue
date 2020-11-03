@@ -49,19 +49,16 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.list-monitor {
-  @apply text-xs;
+<style lang="sass">
+.list-monitor
+  @apply text-xs
 
-  li {
-    @apply my-2;
-    @apply p-2;
-    @apply px-3;
-    @apply rounded;
-    @apply break-words;
-    @apply flex;
-    // @apply self-stretch;
-    @apply w-full;
-  }
-}
+  li
+    @apply my-2
+    @apply p-2
+    @apply px-3
+    @apply rounded
+    @apply break-words
+    @apply flex
+    @apply w-full
 </style>

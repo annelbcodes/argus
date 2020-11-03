@@ -1,7 +1,8 @@
-<template>
-  <div id="app">
-    <router-view></router-view>
-  </div>
+<template lang="pug">
+
+  #app
+    router-view
+
 </template>
 
 <script>
@@ -14,14 +15,13 @@ export default {
 }
 </script>
 
-<style>
-body, html {
-  @apply text-white;
-  @apply font-sans;
-  @apply select-none;
-  @apply overflow-y-hidden;
-}
-button {
-  -webkit-app-region: no-drag;
-}
+<style lang="sass">
+body, html
+  @apply text-white
+  @apply font-sans
+  @apply select-none
+  @apply overflow-y-hidden
+
+button
+  -webkit-app-region: no-drag
 </style>
