@@ -17,7 +17,7 @@
           autofocus
         )
     template(#footer="{ defaults }")
-      a.link-secondary.mx-2(@click.stop.prevent="closePopup()") {{ defaults.cancel }}
+      a.link-secondary.mx-2(@click.stop.prevent="modalToggle()") {{ defaults.cancel }}
       a.btn.ml-2(@click.stop.prevent="") {{ ctabtn ? ctabtn : defaults.btn }}
 
 </template>
@@ -55,10 +55,6 @@ export default {
     modalToggle() {
       this.$store.commit(mType.MODAL_TOGGLE)
     },
-    closePopup() {
-      console.log(window.ipcRenderer)
-      window.ipcRenderer.send('POPUP_CLOSE', 'yes')
-    }
   },
 }
 </script>

@@ -19,7 +19,7 @@ const psOptions = {
 }
 
 const hibpSearchOptions = {
-    apiKey: process.env.VUE_APP_APIHIBP,
+    apiKey: '',
     userAgent: 'eyesonpwn-0.0.1',
     truncate: true,
 }
@@ -35,10 +35,10 @@ const state = {
     },
     cd: {
         t       : 0,
-        cdw     : 0, // countdown to 0
-        cdi     : 20, // countdown interval in s
+        cdw     : 0,    // countdown to 0
+        cdi     : 20,   // countdown interval in s
         cde     : 4000, // countdown each (email) in ms
-        interval: 20, // static: 60s|1m - change this and cdi if modifying interval checks
+        interval: 20,   // static - change this and cdi if modifying interval checks
     },
     emails: [
         // { address: '', status: 0, uiid: 0  }
@@ -107,46 +107,51 @@ const actions = {
                 }
                 commit(mType.ITEM_ADD, obj)
             }
-            dispatch(mType.API_REQ_HIBP, obj)
+
+            if (hibpSearchOptions.apiKey) {
+                dispatch(mType.API_REQ_HIBP, obj)
+            }
+            else return false
         })
     },
     // Request API
     // eslint-disable-next-line
     [mType.API_REQ_HIBP]({ commit }, payload) {
-        return new Promise((resolve, reject) => {
-            breachedAccount(payload.address, hibpSearchOptions)
-            .then(data => {
-                let status
-                if (data) {
-                    if (payload.status === 1) {
-                        console.log('skipping re-writing to state')
-                        resolve()
-                        return false
-                    }
-                    else { status = Number(true) }
-                }
-                else {
-                    if (payload.status === 0) {
-                        console.log('skipping re-writing to state')
-                        resolve()
-                        return false
-                    }
-                    else { status = Number(false) }
-                }
-                let obj = {
-                    status: status,
-                    address: payload.address,
-                    uiid: payload.uiid
-                }
-                console.log('re-writing to state, with new updated values...')
-                commit(mType.ITEM_UPD_STATUS, obj)
-                resolve()
-            })
-            .catch(err => {
-                console.log(err)
-                reject(err)
-            })
-        })
+        console.log(hibpSearchOptions.apiKey)
+        // return new Promise((resolve, reject) => {
+        //     breachedAccount(payload.address, hibpSearchOptions)
+        //     .then(data => {
+        //         let status
+        //         if (data) {
+        //             if (payload.status === 1) {
+        //                 console.log('skipping re-writing to state')
+        //                 resolve()
+        //                 return false
+        //             }
+        //             else { status = Number(true) }
+        //         }
+        //         else {
+        //             if (payload.status === 0) {
+        //                 console.log('skipping re-writing to state')
+        //                 resolve()
+        //                 return false
+        //             }
+        //             else { status = Number(false) }
+        //         }
+        //         let obj = {
+        //             status: status,
+        //             address: payload.address,
+        //             uiid: payload.uiid
+        //         }
+        //         console.log('re-writing to state, with new updated values...')
+        //         commit(mType.ITEM_UPD_STATUS, obj)
+        //         resolve()
+        //     })
+        //     .catch(err => {
+        //         console.log(err)
+        //         reject(err)
+        //     })
+        // })
     },
 
     // Primary event of adding an email; updating the status of the recent addition
@@ -195,6 +200,7 @@ const actions = {
             dispatch(mType.CD_INTERVAL_CHECKS)
         }
         else {
+            // when email array is empty, re-count interval
             commit(mType.CD_STOP)
             dispatch(mType.CD_INTERVAL_CHECKS)
         }

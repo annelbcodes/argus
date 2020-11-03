@@ -148,6 +148,7 @@ export default {
   @apply relative;
   @apply flex;
   @apply flex-wrap;
+  @apply w-full;
 }
 .field-alert-error {
   @apply text-orange-400;

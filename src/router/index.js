@@ -13,7 +13,7 @@ export default new Router({
     {
       path: '/preferences',
       name: 'preferences',
-      component: require('@/components/widgets/PopupPreferences').default
+      component: require('@/components/pages/Preferences').default
     },
     {
       path: '*',
