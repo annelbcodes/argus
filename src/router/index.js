@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Main from '@/components/pages/Main'
 
 Vue.use(Router)
 
@@ -8,12 +9,7 @@ export default new Router({
     {
       path: '/',
       name: 'main',
-      component: require('@/components/pages/Main').default
-    },
-    {
-      path: '/preferences',
-      name: 'preferences',
-      component: require('@/components/pages/Preferences').default
+      component: Main
     },
     {
       path: '*',

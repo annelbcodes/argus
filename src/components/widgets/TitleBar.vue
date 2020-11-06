@@ -21,6 +21,5 @@ export default {
   @apply text-bleudefrance
   @apply bg-valhalla
   @apply fixed
-  @apply z-50
   @apply w-screen
 </style>
