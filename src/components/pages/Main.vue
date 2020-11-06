@@ -6,15 +6,17 @@
     .ui-body
       modal(v-if="modal")
         popup-pref(
-          v-show="ui.type === 'pref'"
-          type="pref"
+          v-if="ui.type === 'pref'"
+          type="text"
           action="modify"
           title="Enter your API key"
           ctabtn="Save API key"
+          id="pref"
         )
         popup-monitor(
-          v-show="ui.type === 'email'"
+          v-if="ui.type === 'email'"
           type="email"
+          id="email"
           action="add"
           title="Add an email address to monitor"
           ctabtn="Add to monitor"

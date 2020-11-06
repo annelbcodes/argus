@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 import SecureLS from 'secure-ls'
-import { breachedAccount } from 'hibp'
+// import { breachedAccount } from 'hibp'
 
 import { mType } from './mutationtypes'
 
@@ -19,7 +19,6 @@ const psOptions = {
 }
 
 const hibpSearchOptions = {
-    apiKey: '',
     userAgent: 'eyesonpwn-0.0.1',
     truncate: true,
 }
@@ -40,6 +39,7 @@ const state = {
         cde     : 4000, // countdown each (email) in ms
         interval: 20,   // static - change this and cdi if modifying interval checks
     },
+    key: '',
     emails: [
         // { address: '', status: 0, uiid: 0  }
     ]
@@ -87,6 +87,10 @@ const mutations = {
         clearTimeout(state.cd.t)
         state.cd.cdi = state.cd.interval
     },
+    [mType.SAVE_KEY](state, payload) {
+        console.log(payload)
+        state.key = payload
+    },
 }
 
 const actions = {
@@ -108,7 +112,7 @@ const actions = {
                 commit(mType.ITEM_ADD, obj)
             }
 
-            if (hibpSearchOptions.apiKey) {
+            if (state.key) {
                 dispatch(mType.API_REQ_HIBP, obj)
             }
             else return false
@@ -116,8 +120,12 @@ const actions = {
     },
     // Request API
     // eslint-disable-next-line
-    [mType.API_REQ_HIBP]({ commit }, payload) {
-        console.log(hibpSearchOptions.apiKey)
+    [mType.API_REQ_HIBP]({ state, commit }, payload) {
+        let hibpOptions = { ...hibpSearchOptions }
+        hibpOptions.apiKey = state.key
+
+        console.log(hibpOptions)
+
         // return new Promise((resolve, reject) => {
         //     breachedAccount(payload.address, hibpSearchOptions)
         //     .then(data => {
@@ -208,10 +216,14 @@ const actions = {
     async [mType.EMAILS_CHECK_ALL]({ dispatch }) {
         await dispatch(mType.REQUEST_EA_EMAIL)
     },
+    [mType.SAVE_KEY]({ commit }, payload) {
+        commit('SAVE_KEY', payload)
+    },
 }
 
 export default new Vuex.Store({
     plugins: [createPersistedState(psOptions)],
+    // eslint-disable-next-line no-undef
     strict: process.env.NODE_ENV !== 'production',
     state,
     getters,

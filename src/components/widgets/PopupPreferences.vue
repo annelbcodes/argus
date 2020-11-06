@@ -10,15 +10,15 @@
       .field-area
         input(
           class="field-text mt-5"
-          type="text"
+          :type="type"
           id="pref"
-          v-model.trim="item_name"
+          v-model.trim="item_value"
           required
           autofocus
         )
     template(#footer="{ defaults }")
       a.link-secondary.mx-2(@click.stop.prevent="modalToggle()") {{ defaults.cancel }}
-      a.btn.ml-2(@click.stop.prevent="") {{ ctabtn ? ctabtn : defaults.btn }}
+      a.btn.ml-2(@click.stop.prevent="saveKey()") {{ ctabtn ? ctabtn : defaults.btn }}
 
 </template>
 
@@ -33,10 +33,11 @@ export default {
     'type',
     'title',
     'ctabtn',
+    'id',
   ],
   data() {
     return {
-      item_name: '',
+      item_value: '',
       item_action_obj: {
         item: '',
         type: '',
@@ -54,6 +55,10 @@ export default {
   methods: {
     modalToggle() {
       this.$store.commit(mType.MODAL_TOGGLE)
+    },
+    saveKey() {
+      this.$store.dispatch(mType.SAVE_KEY, this.item_value)
+      this.modalToggle()
     },
   },
 }

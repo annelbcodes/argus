@@ -6,10 +6,9 @@ module.exports = {
     extends: [
         "eslint:recommended",
         "plugin:vue/essential",
-        "plugin:vue/strongly-recommended"
     ],
     rules: {
-        // "no-console": "isProd" ? "error" : "off"
+        "no-console": isProd ? "error" : "off"
     },
     parserOptions: {
         "parser": "babel-eslint",

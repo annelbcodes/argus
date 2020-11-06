@@ -9,8 +9,8 @@
       .field-area
         input(
           class="field-text mt-5"
-          type="email"
-          id="email"
+          :type="type"
+          :id="id"
           v-model.trim="$v.item_name.$model"
           @keyup="onEnterKey($event)"
           required
@@ -44,6 +44,7 @@ export default {
     'type',
     'title',
     'ctabtn',
+    'id',
     ],
   data() {
     return {

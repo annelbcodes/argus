@@ -53,7 +53,7 @@ export default {
   @apply text-xs
   transition: all 0.3s ease-in-out
 
-  &:hover {
+  &:hover
     @apply border-solid
     @apply border-rockblue
     @apply text-rockblue

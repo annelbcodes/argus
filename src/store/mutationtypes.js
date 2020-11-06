@@ -18,4 +18,7 @@ export const mType = {
 
   REQUEST_EA_EMAIL  : 'REQUEST_EA_EMAIL',
   EMAILS_CHECK_ALL  : 'EMAILS_CHECK_ALL',
+
+  SAVE_KEY          : 'SAVE_KEY',
+
 }
