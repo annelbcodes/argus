@@ -14,6 +14,9 @@ const macosTemplate = [
     role: 'editMenu'
   },
   {
+    role: 'viewMenu'
+  },
+  {
     role: 'helpMenu'
   }
 ]
@@ -24,6 +27,12 @@ const otherTemplate = [
   },
   {
     role: 'editMenu',
+  },
+  {
+    role: 'viewMenu',
+  },
+  {
+    role: 'helpMenu',
   },
 ]
 
