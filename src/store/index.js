@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 import SecureLS from 'secure-ls'
-// import { breachedAccount } from 'hibp'
+import { breachedAccount } from 'hibp'
 
 import { mType } from './mutationtypes'
 
@@ -10,7 +10,7 @@ Vue.use(Vuex)
 
 const ls = new SecureLS({ compression: false })
 
-const psOptions = {
+const PS_CONFIG = {
     storage: {
       getItem: (key) => ls.get(key),
       setItem: (key, value) => ls.set(key, value),
@@ -18,12 +18,12 @@ const psOptions = {
     }
 }
 
-const hibpSearchOptions = {
+const HIBP_CONFIG = {
     userAgent: 'eyesonpwn-0.0.1',
     truncate: true,
 }
 
-const state = {
+let state = {
     ui: {
         modal : false,
         type  : '',
@@ -44,7 +44,7 @@ const state = {
         // { address: '', status: 0, uiid: 0  }
     ]
 }
-const getters = {
+let getters = {
     item_get: (state) => (payload) => {
         return state.emails.filter(email => {
             return (email.address === payload) ? true : false
@@ -52,7 +52,7 @@ const getters = {
     }
 }
 
-const mutations = {
+let mutations = {
     [mType.UPDATE_UI](state, payload) {
         console.log(payload)
         state.ui.action = payload.action
@@ -93,7 +93,7 @@ const mutations = {
     },
 }
 
-const actions = {
+let actions = {
     [mType.MODAL_TOGGLE]({ commit }, payload) {
         commit(mType.UPDATE_UI, payload)
         commit(mType.MODAL_TOGGLE)
@@ -121,45 +121,43 @@ const actions = {
     // Request API
     // eslint-disable-next-line
     [mType.API_REQ_HIBP]({ state, commit }, payload) {
-        let hibpOptions = { ...hibpSearchOptions }
-        hibpOptions.apiKey = state.key
+        let HIBP_KEYCONFIG = JSON.parse(JSON.stringify(HIBP_CONFIG))
+        HIBP_KEYCONFIG.apiKey = state.key
 
-        console.log(hibpOptions)
-
-        // return new Promise((resolve, reject) => {
-        //     breachedAccount(payload.address, hibpSearchOptions)
-        //     .then(data => {
-        //         let status
-        //         if (data) {
-        //             if (payload.status === 1) {
-        //                 console.log('skipping re-writing to state')
-        //                 resolve()
-        //                 return false
-        //             }
-        //             else { status = Number(true) }
-        //         }
-        //         else {
-        //             if (payload.status === 0) {
-        //                 console.log('skipping re-writing to state')
-        //                 resolve()
-        //                 return false
-        //             }
-        //             else { status = Number(false) }
-        //         }
-        //         let obj = {
-        //             status: status,
-        //             address: payload.address,
-        //             uiid: payload.uiid
-        //         }
-        //         console.log('re-writing to state, with new updated values...')
-        //         commit(mType.ITEM_UPD_STATUS, obj)
-        //         resolve()
-        //     })
-        //     .catch(err => {
-        //         console.log(err)
-        //         reject(err)
-        //     })
-        // })
+        return new Promise((resolve, reject) => {
+            breachedAccount(payload.address, HIBP_KEYCONFIG)
+            .then(data => {
+                let status
+                if (data) {
+                    if (payload.status === 1) {
+                        console.log('skipping re-writing to state')
+                        resolve()
+                        return false
+                    }
+                    else { status = Number(true) }
+                }
+                else {
+                    if (payload.status === 0) {
+                        console.log('skipping re-writing to state')
+                        resolve()
+                        return false
+                    }
+                    else { status = Number(false) }
+                }
+                let obj = {
+                    status: status,
+                    address: payload.address,
+                    uiid: payload.uiid
+                }
+                console.log('re-writing to state, with new updated values...')
+                commit(mType.ITEM_UPD_STATUS, obj)
+                resolve()
+            })
+            .catch(err => {
+                console.log(err)
+                reject(err)
+            })
+        })
     },
 
     // Primary event of adding an email; updating the status of the recent addition
@@ -222,7 +220,7 @@ const actions = {
 }
 
 export default new Vuex.Store({
-    plugins: [createPersistedState(psOptions)],
+    plugins: [createPersistedState(PS_CONFIG)],
     // eslint-disable-next-line no-undef
     strict: process.env.NODE_ENV !== 'production',
     state,
