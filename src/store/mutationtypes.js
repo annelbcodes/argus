@@ -1,5 +1,6 @@
 export const mType = {
   MODAL_TOGGLE      : 'MODAL_TOGGLE',
+  UPDATE_UI         : 'UPDATE_UI',
 
   ITEM_ADD          : 'ITEM_ADD',
   ITEM_DEL          : 'ITEM_DEL',
@@ -17,4 +18,7 @@ export const mType = {
 
   REQUEST_EA_EMAIL  : 'REQUEST_EA_EMAIL',
   EMAILS_CHECK_ALL  : 'EMAILS_CHECK_ALL',
+
+  SAVE_KEY          : 'SAVE_KEY',
+
 }

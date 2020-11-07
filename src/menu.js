@@ -1,27 +1,23 @@
 'use strict'
 
 import { app, Menu } from 'electron'
-import config from './config'
+
+let isDev = (process.env.WEBPACK_DEV_SERVER_URL) ? true : false
 
 const isDarwin = process.platform === 'darwin'
 
 const macosTemplate = [
   {
-    label: 'File',
-    submenu: [
-      {
-        label: ' Preferences',
-        click() {
-          config.openInEditor()
-        },
-      },
-    ],
+    role: 'fileMenu',
   },
   {
     role: 'editMenu'
   },
   {
     role: 'viewMenu'
+  },
+  {
+    role: 'helpMenu'
   }
 ]
 
@@ -33,8 +29,11 @@ const otherTemplate = [
     role: 'editMenu',
   },
   {
-    role: 'viewMenu'
-  }
+    role: 'viewMenu',
+  },
+  {
+    role: 'helpMenu',
+  },
 ]
 
 if (isDarwin) macosTemplate.unshift({

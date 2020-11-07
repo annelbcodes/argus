@@ -1,12 +1,16 @@
 <template lang="pug">
 
-  .email-popup
-    .ui-pop
-      h1.text-left.text-xs.py-1 {{ default_texts.title }}
+  base-popup(
+      :type="type"
+      :action="action"
+      :title="title"
+  )
+    template(#content)
       .field-area
         input(
           class="field-text mt-5"
-          type="email"
+          :type="type"
+          :id="id"
           v-model.trim="$v.item_name.$model"
           @keyup="onEnterKey($event)"
           required
@@ -17,14 +21,15 @@
           class="field-alert-error"
           v-text="message_alert"
         )
-      p.mt-5.text-right
-        a.link-secondary.mx-2(@click.stop.prevent="closeModal()") {{ default_texts.cancel }}
-        a.btn.ml-2(@click.stop.prevent="validateFields()") {{ default_texts.btn }}
+    template(#footer="{ defaults }")
+      a.link-secondary.mx-2(@click.stop.prevent="modalToggle()") {{ defaults.cancel }}
+      a.btn.ml-2(@click.stop.prevent="validateFields()") {{ ctabtn ? ctabtn : defaults.btn }}
 
 </template>
 
 <script>
-import { mType } from '../../store/mutationtypes'
+import BasePopup from '@/components/layouts/BasePopup'
+import { mType } from '@/store/mutationtypes'
 
 import {
     required,
@@ -33,7 +38,14 @@ import {
 } from "vuelidate/lib/validators"
 
 export default {
-  props: ['action', 'type'],
+  components: { BasePopup },
+  props: [
+    'action',
+    'type',
+    'title',
+    'ctabtn',
+    'id',
+    ],
   data() {
     return {
       item_name: '',
@@ -47,11 +59,6 @@ export default {
         error_added: 'Email already added',
         error_invalid: 'Must be a valid email address'
       },
-      default_texts: {
-        cancel: 'cancel',
-        btn: 'add',
-        title: 'Add an email to monitor',
-      },
     }
   },
   validations: {
@@ -62,7 +69,7 @@ export default {
     }
   },
   mounted() {
-    document.getElementById('email').focus();
+    document.getElementById('email').focus()
   },
   watch: {
     item_name: function() {
@@ -79,7 +86,7 @@ export default {
       this.item_action_obj.type = this.type
 
       this.$store.dispatch(mType.ITEM_PROCESS, this.item_action_obj)
-      this.closeModal()
+      this.modalToggle()
     },
     findDuplicates() {
       if(this.get_duplicates.length) {
@@ -100,6 +107,7 @@ export default {
       if (this.$v.item_name.$invalid) {
         this.message_alert = this.messages.error_invalid
       }
+
       else {
         this.message_alert = this.messages.default
         this.monitorAction()
@@ -111,94 +119,91 @@ export default {
         this.validateFields()
       }
     },
-    closeModal() {
+    modalToggle() {
       this.$store.commit(mType.MODAL_TOGGLE)
-    }
+    },
   }
 }
 </script>
 
-<style lang="scss">
-.email-popup {
-  @apply flex;
-  @apply text-center;
-  @apply items-center;
-  @apply h-screen;
-  @apply w-screen;
-}
-.ui-popup {
-  @apply content-center;
-  @apply bg-licorice;
-  @apply rounded;
-  @apply w-10/12;
-  @apply mx-auto;
-  @apply p-5;
-  @apply shadow-md;
-}
-.field-area {
-  @apply pb-2;
-  @apply mb-8;
-  @apply relative;
-  @apply flex;
-  @apply flex-wrap;
-}
-.field-alert-error {
-  @apply text-orange-400;
-  @apply text-xs;
-  @apply text-left;
-  @apply rounded-sm;
-  @apply inline-block;
-  @apply w-full;
-  @apply absolute;
-  @apply inset-x-auto;
-  bottom: -20px;
-}
-.field-text {
-  @apply w-full;
-  @apply appearance-none;
-  @apply rounded-sm;
-  @apply p-1;
-  @apply px-2;
-  @apply border;
-  @apply border-valhalla;
-  @apply text-sm;
-  @apply text-mirage;
-  transition: all 0.3s ease-in-out;
+<style lang="sass">
+.flex-popup
+  @apply flex
+  @apply text-center
+  @apply items-center
+  @apply h-screen
+  @apply w-screen
 
-  &:hover {
-    @apply shadow-outline;
-  }
+.ui-popup
+  @apply content-center
+  @apply bg-licorice
+  @apply rounded
+  @apply w-10/12
+  @apply mx-auto
+  @apply p-5
+  @apply shadow-md
 
-  &:focus {
-    @apply outline-none;
-    @apply shadow-outline;
-    @apply border-brightbleudefrance;
-  }
-}
-.link-secondary {
-  @apply text-xs;
-  @apply capitalize;
-  @apply cursor-pointer;
-  transition: all 0.3s ease-in-out;
+.field-area
+  @apply pb-2
+  @apply mb-8
+  @apply relative
+  @apply flex
+  @apply flex-wrap
+  @apply w-full
 
-  &:hover {
-    @apply text-white;
-  }
-}
-.btn {
-  @apply inline-block;
-  @apply p-2;
-  @apply px-8;
-  @apply rounded;
-  @apply text-xs;
-  @apply cursor-pointer;
-  @apply capitalize;
-  @apply text-white;
-  @apply bg-bleudefrance;
-  transition: all 0.3s ease-in-out;
+.field-alert-error
+  @apply text-orange-400
+  @apply text-xs
+  @apply text-left
+  @apply rounded-sm
+  @apply inline-block
+  @apply w-full
+  @apply absolute
+  @apply inset-x-auto
+  bottom: -20px
 
-  &:hover {
-    @apply bg-bleudefrance;
-  }
-}
+.field-text
+  @apply w-full
+  @apply appearance-none
+  @apply rounded-sm
+  @apply p-1
+  @apply px-2
+  @apply border
+  @apply border-valhalla
+  @apply text-sm
+  @apply text-mirage
+
+  transition: all 0.3s ease-in-out
+
+  &:hover
+    @apply shadow-outline
+
+  &:focus
+    @apply outline-none
+    @apply shadow-outline
+    @apply border-brightbleudefrance
+
+.link-secondary
+  @apply text-xs
+  @apply capitalize
+  @apply cursor-pointer
+  transition: all 0.3s ease-in-out
+
+  &:hover
+    @apply text-white
+
+.btn
+  @apply inline-block
+  @apply p-2
+  @apply px-8
+  @apply rounded
+  @apply text-xs
+  @apply cursor-pointer
+  @apply capitalize
+  @apply text-white
+  @apply bg-bleudefrance
+  transition: all 0.3s ease-in-out
+
+  &:hover
+    @apply bg-bleudefrance
 </style>

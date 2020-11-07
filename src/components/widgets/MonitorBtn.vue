@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { mType } from '../../store/mutationtypes'
+import { mType } from '@/store/mutationtypes'
 
 export default {
   props: [
@@ -15,7 +15,8 @@ export default {
   ],
   data() {
     return {
-      btn_text: ''
+      btn_text: '',
+      obj_action: {},
     }
   },
   mounted() {
@@ -28,32 +29,32 @@ export default {
       }
     },
     itemAction() {
-      if (this.action === 'add') {
-        this.$store.commit(mType.MODAL_TOGGLE)
+      this.obj_action = {
+        action: 'add',
+        type: 'email',
       }
+      this.$store.dispatch(mType.MODAL_TOGGLE, this.obj_action)
     }
   }
 }
 </script>
 
-<style lang="scss">
-.btn-action {
-  @apply w-full;
-  @apply inline-block;
-  @apply p-2;
-  @apply border;
-  @apply border-solid;
-  @apply border-steelgray;
-  @apply border-dashed;
-  @apply rounded;
-  @apply text-center;
-  @apply text-xs;
-  transition: all 0.3s ease-in-out;
+<style lang="sass">
+.btn-action
+  @apply w-full
+  @apply inline-block
+  @apply p-2
+  @apply border
+  @apply border-solid
+  @apply border-steelgray
+  @apply border-dashed
+  @apply rounded
+  @apply text-center
+  @apply text-xs
+  transition: all 0.3s ease-in-out
 
-  &:hover {
-    @apply border-solid;
-    @apply border-rockblue;
-    @apply text-rockblue;
-  }
-}
+  &:hover
+    @apply border-solid
+    @apply border-rockblue
+    @apply text-rockblue
 </style>

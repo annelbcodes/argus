@@ -1,15 +1,15 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Main from '@/components/pages/Main'
 
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
   routes: [
     {
       path: '/',
       name: 'main',
-      component: require('@/components/pages/Main').default
+      component: Main
     },
     {
       path: '*',

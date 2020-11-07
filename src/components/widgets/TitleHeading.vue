@@ -12,11 +12,10 @@ export default {
 }
 </script>
 
-<style>
-h2 {
-    @apply text-base;
-    @apply text-rockblue;
-    @apply font-normal;
-    @apply py-2;
-}
+<style lang="sass">
+h2
+  @apply text-base
+  @apply text-rockblue
+  @apply font-normal
+  @apply py-2
 </style>

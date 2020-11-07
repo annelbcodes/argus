@@ -7,11 +7,8 @@ import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 import debug from 'electron-debug'
 
 import menu from './menu'
-import './bus'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
-
-console.log(process.env.ELECTRON_NODE_INTEGRATION)
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -29,6 +26,8 @@ debug()
 if (isDevelopment) {
   app.commandLine.appendSwitch("disable-features", "OutOfBlinkCors")
 }
+
+global.win = null
 
 function createWindow() {
   // Create the browser window.
@@ -48,8 +47,8 @@ function createWindow() {
       nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
       spellcheck: false,
       webSecurity: process.env.NODE_ENV === 'production' ? true : false,
-      // enableRemoteModule: true,
       preload: path.join(__dirname, 'preload.js'),
+      // enableRemoteModule: true,
     }
   })
 
@@ -66,6 +65,8 @@ function createWindow() {
   win.on('closed', () => {
     win = null
   })
+
+  global.win = (win !== null) ? win : null
 }
 
 // Quit when all windows are closed.

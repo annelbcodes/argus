@@ -10,7 +10,7 @@ Vue.use(Vuex)
 
 const ls = new SecureLS({ compression: false })
 
-const psOptions = {
+const PS_CONFIG = {
     storage: {
       getItem: (key) => ls.get(key),
       setItem: (key, value) => ls.set(key, value),
@@ -18,31 +18,33 @@ const psOptions = {
     }
 }
 
-const hibpSearchOptions = {
-    apiKey: process.env.VUE_APP_APIHIBP,
+const HIBP_CONFIG = {
     userAgent: 'eyesonpwn-0.0.1',
     truncate: true,
 }
 
-const state = {
+let state = {
     ui: {
-        modal: false,
+        modal : false,
+        type  : '',
+        action: '',
     },
     db: {
         uiid: 100000,
     },
     cd: {
-        t: 0,
-        cdw: 0, // countdown to 0
-        cdi: 20, // countdown interval in s
-        cde: 4000, // countdown each (email) in ms
-        interval: 20, // static: 60s|1m - change this and cdi if modifying interval checks
+        t       : 0,
+        cdw     : 0,    // countdown to 0
+        cdi     : 1800,   // countdown interval in s
+        cde     : 4000, // countdown each (email) in ms
+        interval: 1800,   // static - change this and cdi if modifying interval checks
     },
+    key: '',
     emails: [
         // { address: '', status: 0, uiid: 0  }
     ]
 }
-const getters = {
+let getters = {
     item_get: (state) => (payload) => {
         return state.emails.filter(email => {
             return (email.address === payload) ? true : false
@@ -50,7 +52,12 @@ const getters = {
     }
 }
 
-const mutations = {
+let mutations = {
+    [mType.UPDATE_UI](state, payload) {
+        console.log(payload)
+        state.ui.action = payload.action
+        state.ui.type = payload.type
+    },
     [mType.MODAL_TOGGLE](state) {
         state.ui.modal = !state.ui.modal
     },
@@ -80,9 +87,17 @@ const mutations = {
         clearTimeout(state.cd.t)
         state.cd.cdi = state.cd.interval
     },
+    [mType.SAVE_KEY](state, payload) {
+        console.log(payload)
+        state.key = payload
+    },
 }
 
-const actions = {
+let actions = {
+    [mType.MODAL_TOGGLE]({ commit }, payload) {
+        commit(mType.UPDATE_UI, payload)
+        commit(mType.MODAL_TOGGLE)
+    },
     [mType.ITEM_PROCESS]({ state, commit, dispatch }, payload) {
         return new Promise(() => {
             let obj
@@ -96,14 +111,21 @@ const actions = {
                 }
                 commit(mType.ITEM_ADD, obj)
             }
-            dispatch(mType.API_REQ_HIBP, obj)
+
+            if (state.key) {
+                dispatch(mType.API_REQ_HIBP, obj)
+            }
+            else return false
         })
     },
     // Request API
     // eslint-disable-next-line
-    [mType.API_REQ_HIBP]({ commit }, payload) {
+    [mType.API_REQ_HIBP]({ state, commit }, payload) {
+        let HIBP_KEYCONFIG = JSON.parse(JSON.stringify(HIBP_CONFIG))
+        HIBP_KEYCONFIG.apiKey = state.key
+
         return new Promise((resolve, reject) => {
-            breachedAccount(payload.address, hibpSearchOptions)
+            breachedAccount(payload.address, HIBP_KEYCONFIG)
             .then(data => {
                 let status
                 if (data) {
@@ -184,6 +206,7 @@ const actions = {
             dispatch(mType.CD_INTERVAL_CHECKS)
         }
         else {
+            // when email array is empty, re-count interval
             commit(mType.CD_STOP)
             dispatch(mType.CD_INTERVAL_CHECKS)
         }
@@ -191,10 +214,14 @@ const actions = {
     async [mType.EMAILS_CHECK_ALL]({ dispatch }) {
         await dispatch(mType.REQUEST_EA_EMAIL)
     },
+    [mType.SAVE_KEY]({ commit }, payload) {
+        commit('SAVE_KEY', payload)
+    },
 }
 
 export default new Vuex.Store({
-    plugins: [createPersistedState(psOptions)],
+    plugins: [createPersistedState(PS_CONFIG)],
+    // eslint-disable-next-line no-undef
     strict: process.env.NODE_ENV !== 'production',
     state,
     getters,
