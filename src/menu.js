@@ -1,15 +1,38 @@
 'use strict'
 
 import { app, Menu } from 'electron'
+import {
+  is,
+  appMenu,
+  openUrlMenuItem,
+  showAboutWindow,
+} from 'electron-util'
 
-let isDev = (process.env.WEBPACK_DEV_SERVER_URL) ? true : false
+import path from 'path'
 
 const isDarwin = process.platform === 'darwin'
 
-const macosTemplate = [
+const helpSubmenu = [
+	openUrlMenuItem({
+		label: 'Source Code',
+		url: 'https://github.com/justanne/eyesonpwn'
+  }),
   {
-    role: 'fileMenu',
-  },
+    label: 'About',
+    click() {
+      showAboutWindow({
+        icon: path.join(__dirname, 'fixtures/Icon.png'),
+        title: 'About '+app.getName(),
+        copyright: 'Made by Anne Barrios',
+        text: 'This app is powered by HaveIBeenPwned.com',
+        website: 'https://github.com/justanne/eyesonpwn',
+      });
+    }
+  }
+]
+
+const macosTemplate = [
+  appMenu(),
   {
     role: 'editMenu'
   },
@@ -17,7 +40,11 @@ const macosTemplate = [
     role: 'viewMenu'
   },
   {
-    role: 'helpMenu'
+    role: 'windowMenu'
+  },
+  {
+    role: 'help',
+    submenu: helpSubmenu,
   }
 ]
 
@@ -32,13 +59,14 @@ const otherTemplate = [
     role: 'viewMenu',
   },
   {
-    role: 'helpMenu',
+    role: 'help',
+    submenu: helpSubmenu,
   },
 ]
 
-if (isDarwin) macosTemplate.unshift({
-  label: app.getName(),
-})
+// if (isDarwin) macosTemplate.unshift({
+//   label: app.getName(),
+// })
 
 const template = (isDarwin) ? macosTemplate : otherTemplate
 

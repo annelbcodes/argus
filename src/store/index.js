@@ -19,7 +19,7 @@ const PS_CONFIG = {
 }
 
 const HIBP_CONFIG = {
-    userAgent: 'eyesonpwn-0.0.1',
+    userAgent: 'pwnlook-0.0.1',
     truncate: true,
 }
 
