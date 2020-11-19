@@ -1,4 +1,4 @@
-# PwnLook
+# Argus
 
 Monitor all your emails for pwnage in one single dashboard.
 

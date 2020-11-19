@@ -2,7 +2,6 @@
 
 import { app, Menu } from 'electron'
 import {
-  is,
   appMenu,
   openUrlMenuItem,
   showAboutWindow,
@@ -15,7 +14,7 @@ const isDarwin = process.platform === 'darwin'
 const helpSubmenu = [
 	openUrlMenuItem({
 		label: 'Source Code',
-		url: 'https://github.com/justanne/eyesonpwn'
+		url: 'https://github.com/annelbco/argus'
   }),
   {
     label: 'About',
@@ -25,7 +24,7 @@ const helpSubmenu = [
         title: 'About '+app.getName(),
         copyright: 'Made by Anne Barrios',
         text: 'This app is powered by HaveIBeenPwned.com',
-        website: 'https://github.com/justanne/eyesonpwn',
+        website: 'https://github.com/annelbco/argus',
       });
     }
   }
