@@ -1,10 +1,10 @@
-# Eyes on Pwnage
+# Argus
 
-Monitor all your emails and passwords for pwnage in one single dashboard.
+Monitor all your emails for pwnage in one single dashboard.
 
-### First of all, Privacy
+## First of all, Privacy
 
-* Emails and passwords added are stored in the app, on your machine locally, encrypted, safe and sound
+* Emails added are stored in the app, locally, encrypted, safe and sound
 
 * No logging, no collection of any information
 
@@ -15,21 +15,24 @@ Monitor all your emails and passwords for pwnage in one single dashboard.
 An API key is required from the haveibeenpwned website, which cost $3.50/mo. [Acquire API Key here](https://haveibeenpwned.com/API/Key).
 
 - - -
-**Todos**:
 
+#### Todos:
+
+- [x] Indication of last checked status
 - [ ] Dropdown details on each monitoring item (if pwnage has been detected)
-- [ ] Indication of last checked status
 - [ ] Options for checking intervals
 
-<br />
-
+<br>
 
 # License
 
 Any derivative works are required to be released under the same license with the modified source code remains open source.
 
-Please review and more about the license: [GNU General Public License v3](/LICENSE) before releasing your derivative works.
+Please review and more about the license: [GNU General Public License v3](/LICENSE).
 
 <br>
 
-###### Powered by: [HaveIBeenPwned](https://haveibeenpwned.com/)
+#### Attribution:
+Icons by: [Freepik](https://www.flaticon.com/)
+
+Powered by: [HaveIBeenPwned](https://haveibeenpwned.com/)

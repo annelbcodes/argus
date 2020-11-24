@@ -17,6 +17,10 @@ Vue.config.productionTip = isProd ? false : true
 Vue.config.silent        = isProd ? true : false
 Vue.config.debug = isProd ? false : true
 
+const isConsoleReady = isProd ? console.log = (() => { }) : ''
+
+isConsoleReady
+
 Vue.use(Vuelidate)
 
 new Vue({

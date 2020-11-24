@@ -1,15 +1,37 @@
 'use strict'
 
-import { app, Menu } from 'electron'
-
-let isDev = (process.env.WEBPACK_DEV_SERVER_URL) ? true : false
+import path from 'path'
+import { app, shell, Menu } from 'electron'
+import {
+  is,
+  appMenu,
+  openUrlMenuItem,
+  showAboutWindow,
+} from 'electron-util'
 
 const isDarwin = process.platform === 'darwin'
 
-const macosTemplate = [
+const helpSubmenu = [
+	openUrlMenuItem({
+		label: 'Source Code',
+		url: 'https://github.com/annelbco/argus'
+  }),
   {
-    role: 'fileMenu',
-  },
+    label: 'About',
+    click() {
+      showAboutWindow({
+        icon: path.join(__dirname, 'fixtures/Icon.png'),
+        title: 'About Argus',
+        copyright: 'Made by Anne Barrios',
+        text: 'This app is powered by HaveIBeenPwned.com',
+        website: 'https://github.com/annelbco/argus',
+      });
+    }
+  }
+]
+
+const macosTemplate = [
+  appMenu(),
   {
     role: 'editMenu'
   },
@@ -17,7 +39,11 @@ const macosTemplate = [
     role: 'viewMenu'
   },
   {
-    role: 'helpMenu'
+    role: 'windowMenu'
+  },
+  {
+    role: 'help',
+    submenu: helpSubmenu,
   }
 ]
 
@@ -32,13 +58,37 @@ const otherTemplate = [
     role: 'viewMenu',
   },
   {
-    role: 'helpMenu',
+    role: 'help',
+    submenu: helpSubmenu,
   },
 ]
 
-if (isDarwin) macosTemplate.unshift({
-  label: app.getName(),
-})
+const debugSubmenu = [
+  {
+    label: 'Show App Data',
+    click() {
+      shell.openPath(app.getPath('userData'))
+    }
+  },
+  {
+    type: 'separator'
+  },
+  {
+    label: 'Delete App Data',
+    click() {
+      shell.moveItemToTrash(app.getPath('userData'))
+      app.relaunch()
+      app.quit()
+    }
+  }
+]
+
+if (is.development) {
+	macosTemplate.push({
+		label: 'Debug',
+		submenu: debugSubmenu
+	})
+}
 
 const template = (isDarwin) ? macosTemplate : otherTemplate
 

@@ -48,7 +48,7 @@ function createWindow() {
       spellcheck: false,
       webSecurity: process.env.NODE_ENV === 'production' ? true : false,
       preload: path.join(__dirname, 'preload.js'),
-      // enableRemoteModule: true,
+      enableRemoteModule: false,
     }
   })
 

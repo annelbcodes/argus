@@ -1,7 +1,7 @@
 <template lang="pug">
 
   .ui
-    title-bar EyesOnPwn
+    title-bar
 
     .ui-body
       modal(v-if="modal")
