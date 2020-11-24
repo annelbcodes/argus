@@ -32,4 +32,7 @@ Please review and more about the license: [GNU General Public License v3](/LICEN
 
 <br>
 
-###### Powered by: [HaveIBeenPwned](https://haveibeenpwned.com/)
+#### Attribution:
+Icons by: [Freepik](https://www.flaticon.com/)
+
+Powered by: [HaveIBeenPwned](https://haveibeenpwned.com/)

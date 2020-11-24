@@ -35,9 +35,9 @@ let state = {
     cd: {
         t       : 0,
         cdw     : 0,    // countdown to 0
-        cdi     : 1800,   // countdown interval in s
+        cdi     : 1800, // countdown interval in s
         cde     : 4000, // countdown each (email) in ms
-        interval: 1800,   // static - change this and cdi if modifying interval checks
+        interval: 1800, // static - change this and cdi if modifying interval checks
     },
     key: '',
     emails: [
@@ -88,7 +88,6 @@ let mutations = {
         state.cd.cdi = state.cd.interval
     },
     [mType.SAVE_KEY](state, payload) {
-        console.log(payload)
         state.key = payload
     },
 }

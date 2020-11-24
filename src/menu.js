@@ -1,13 +1,13 @@
 'use strict'
 
-import { app, Menu } from 'electron'
+import path from 'path'
+import { app, shell, Menu } from 'electron'
 import {
+  is,
   appMenu,
   openUrlMenuItem,
   showAboutWindow,
 } from 'electron-util'
-
-import path from 'path'
 
 const isDarwin = process.platform === 'darwin'
 
@@ -21,7 +21,7 @@ const helpSubmenu = [
     click() {
       showAboutWindow({
         icon: path.join(__dirname, 'fixtures/Icon.png'),
-        title: 'About '+app.getName(),
+        title: 'About Argus',
         copyright: 'Made by Anne Barrios',
         text: 'This app is powered by HaveIBeenPwned.com',
         website: 'https://github.com/annelbco/argus',
@@ -63,9 +63,32 @@ const otherTemplate = [
   },
 ]
 
-// if (isDarwin) macosTemplate.unshift({
-//   label: app.getName(),
-// })
+const debugSubmenu = [
+  {
+    label: 'Show App Data',
+    click() {
+      shell.openPath(app.getPath('userData'))
+    }
+  },
+  {
+    type: 'separator'
+  },
+  {
+    label: 'Delete App Data',
+    click() {
+      shell.moveItemToTrash(app.getPath('userData'))
+      app.relaunch()
+      app.quit()
+    }
+  }
+]
+
+if (is.development) {
+	macosTemplate.push({
+		label: 'Debug',
+		submenu: debugSubmenu
+	})
+}
 
 const template = (isDarwin) ? macosTemplate : otherTemplate
 
