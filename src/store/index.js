@@ -216,6 +216,7 @@ let actions = {
     [mType.SAVE_KEY]({ commit }, payload) {
         commit('SAVE_KEY', payload)
     },
+
 }
 
 export default new Vuex.Store({

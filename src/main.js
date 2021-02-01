@@ -23,6 +23,12 @@ isConsoleReady
 
 Vue.use(Vuelidate)
 
+Vue.directive('focus', {
+    inserted: function (el) {
+        el.focus()
+    }
+})
+
 new Vue({
   store,
   router,

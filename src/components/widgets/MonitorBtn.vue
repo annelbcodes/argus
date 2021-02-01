@@ -7,6 +7,7 @@
 
 <script>
 import { mType } from '@/store/mutationtypes'
+import { mapActions } from 'vuex'
 
 export default {
   props: [
@@ -16,13 +17,19 @@ export default {
   data() {
     return {
       btn_text: '',
-      obj_action: {},
+      obj_action: {
+        action: '',
+        type: ''
+      }
     }
   },
   mounted() {
     this.checkAction()
   },
   methods: {
+    ...mapActions({
+      addEmail: mType.MODAL_TOGGLE
+    }),
     checkAction() {
       if (this.action === 'add') {
         this.btn_text = 'Add &#x002B;'
@@ -33,7 +40,7 @@ export default {
         action: 'add',
         type: 'email',
       }
-      this.$store.dispatch(mType.MODAL_TOGGLE, this.obj_action)
+      this.addEmail(this.obj_action)
     }
   }
 }
