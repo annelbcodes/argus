@@ -1,29 +1,28 @@
 {
   "name": "argus",
   "version": "0.1.0",
-  "license": "GPL-3.0-or-later",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "eb": "vue-cli-service electron:build",
-    "es": "vue-cli-service electron:serve",
     "eba": "vue-cli-service electron:build -mwl",
+    "es": "vue-cli-service electron:serve",
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps"
   },
   "main": "background.js",
   "dependencies": {
-    "core-js": "^2.6.5",
+    "core-js": "^3.6.5",
     "electron-util": "^0.14.2",
     "moment": "^2.29.1",
     "vue": "^2.6.10"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.12.0",
-    "@vue/cli-plugin-eslint": "^3.12.0",
-    "@vue/cli-service": "^3.12.0",
+    "@vue/cli-plugin-babel": "~4.5.11",
+    "@vue/cli-plugin-eslint": "~4.5.11",
+    "@vue/cli-service": "~4.5.11",
     "axios": "^0.21.0",
     "babel-eslint": "^10.1.0",
     "electron": "^9.3.4",
@@ -42,8 +41,8 @@
     "sass-loader": "^10.0.5",
     "secure-ls": "^1.2.6",
     "vue-cli-plugin-electron-builder": "^2.0.0-rc.5",
-    "vue-cli-plugin-pug": "^1.0.7",
-    "vue-cli-plugin-tailwind": "^1.5.0",
+    "vue-cli-plugin-pug": "~2.0.0",
+    "vue-cli-plugin-tailwind": "~2.0.6",
     "vue-router": "^3.4.9",
     "vue-template-compiler": "^2.6.10",
     "vuelidate": "^0.7.6",
@@ -74,5 +73,6 @@
   "browserslist": [
     "> 1%",
     "last 2 versions"
-  ]
+  ],
+  "license": "GPL-3.0-or-later"
 }
