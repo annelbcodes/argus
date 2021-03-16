@@ -1,13 +1,21 @@
 <template lang="pug">
 
-  .modal
+  .modal(@keyup.esc="escKey()" tabindex="0" v-focus)
     slot
 
 </template>
 
 <script>
 export default {
+  data() {
+    return {}
+  },
 
+  methods: {
+    escKey() {
+
+    }
+  }
 }
 </script>
 

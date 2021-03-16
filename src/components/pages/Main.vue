@@ -1,6 +1,6 @@
 <template lang="pug">
 
-  .ui
+  .ui(@keydown.65="addKey()" tabindex="0" v-focus)
     title-bar
 
     .ui-body
@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import { mType }    from '@/store/mutationtypes'
 import TitleBar     from '@/components/widgets/TitleBar'
 import Modal        from '@/components/widgets/Modal'
@@ -109,9 +109,14 @@ export default {
     },
   },
   methods: {
+    ...mapActions({
+      toggleModal: mType.MODAL_TOGGLE
+    }),
+
     setTimeAgo() {
       this.text_timeago = moment.duration(-(this.cd.interval), 'seconds').humanize(true)
     },
+
     setInterval() {
       if (this.cd.cdi === this.cd.interval) {
         this.text_timeago = ''
@@ -122,18 +127,30 @@ export default {
         this.status_checking = false
       }
     },
+
     openPref() {
       this.obj_action = {
         action: 'add',
         type: 'pref',
       }
-      this.$store.dispatch(mType.MODAL_TOGGLE, this.obj_action)
+      this.toggleModal(this.obj_action)
+    },
+
+    addKey() {
+      this.obj_action = {
+        action: 'add',
+        type: 'email'
+      }
+      this.toggleModal(this.obj_action)
     },
   },
 }
 </script>
 
 <style lang="sass">
+:focus
+  outline: none
+
 .ui-body
   @apply text-rockblue
   @apply bg-valhalla

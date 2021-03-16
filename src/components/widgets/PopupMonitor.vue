@@ -12,9 +12,9 @@
           :type="type"
           :id="id"
           v-model.trim="$v.item_name.$model"
-          @keyup="onEnterKey($event)"
+          @keyup.enter="onEnterKey()"
           required
-          autofocus
+          v-focus
         )
         small(
           v-if="$v.item_name.required"
@@ -22,7 +22,7 @@
           v-text="message_alert"
         )
     template(#footer="{ defaults }")
-      a.link-secondary.mx-2(@click.stop.prevent="modalToggle()") {{ defaults.cancel }}
+      a.link-secondary.mx-2(@click.stop.prevent="toggleModal()") {{ defaults.cancel }}
       a.btn.ml-2(@click.stop.prevent="validateFields()") {{ ctabtn ? ctabtn : defaults.btn }}
 
 </template>
@@ -30,6 +30,7 @@
 <script>
 import BasePopup from '@/components/layouts/BasePopup'
 import { mType } from '@/store/mutationtypes'
+import { mapMutations } from 'vuex'
 
 import {
     required,
@@ -81,12 +82,16 @@ export default {
     get_duplicates() { return this.$store.getters.item_get(this.item_name) }
   },
   methods: {
+    ...mapMutations({
+      toggleModal: mType.MODAL_TOGGLE
+    }),
+
     monitorAction() {
       this.item_action_obj.item = (this.item_name).toLowerCase()
       this.item_action_obj.type = this.type
 
       this.$store.dispatch(mType.ITEM_PROCESS, this.item_action_obj)
-      this.modalToggle()
+      this.toggleModal()
     },
     findDuplicates() {
       if(this.get_duplicates.length) {
@@ -113,14 +118,8 @@ export default {
         this.monitorAction()
       }
     },
-    onEnterKey(e) {
-      // if triggered key is Enter
-      if(e.key === 'Enter' || e.keyCode === 13) {
+    onEnterKey() {
         this.validateFields()
-      }
-    },
-    modalToggle() {
-      this.$store.commit(mType.MODAL_TOGGLE)
     },
   }
 }
