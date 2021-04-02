@@ -13,8 +13,9 @@
           :id="id"
           v-model.trim="$v.item_name.$model"
           @keyup.enter="onEnterKey()"
+          @keyup.27="toggleModal()"
           required
-          v-focus
+          autofocus
         )
         small(
           v-if="$v.item_name.required"
@@ -70,7 +71,7 @@ export default {
     }
   },
   mounted() {
-    document.getElementById('email').focus()
+    document.getElementById(this.id).focus()
   },
   watch: {
     item_name: function() {
