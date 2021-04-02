@@ -1,6 +1,6 @@
 <template lang="pug">
 
-  .ui(@keydown.65="addKey()" tabindex="0" v-focus)
+  .ui(@keydown.ctrl.65="addKey()" tabindex="0")
     title-bar
 
     .ui-body

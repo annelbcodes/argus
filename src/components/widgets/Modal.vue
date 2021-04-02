@@ -1,19 +1,25 @@
 <template lang="pug">
 
-  .modal(@keyup.esc="escKey()" tabindex="0" v-focus)
+  .modal(@keydown.27="escKey()" tabindex="0")
     slot
 
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+import { mType } from '@/store/mutationtypes'
+
 export default {
   data() {
     return {}
   },
 
   methods: {
+    ...mapMutations({
+      toggleModal: mType.MODAL_TOGGLE
+    }),
     escKey() {
-
+      this.toggleModal()
     }
   }
 }
