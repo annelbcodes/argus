@@ -40,7 +40,6 @@ export default {
       deep: true,
       handler(n) {
         if(n.cdi === 0) {
-          console.log('interval ends, checking all emails...')
           this.$store.dispatch(mType.EMAILS_CHECK_ALL)
         }
       }
