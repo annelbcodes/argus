@@ -2,6 +2,10 @@
 
 Monitor all your emails for pwnage in one single dashboard.
 
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/1003597/113602116-cc20b380-9674-11eb-967b-29812314fc43.png" width="462">
+</p>
+
 ## First of all, Privacy
 
 * Emails added are stored in the app, locally, encrypted, safe and sound
