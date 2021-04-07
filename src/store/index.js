@@ -35,9 +35,9 @@ let state = {
     cd: {
         t       : 0,
         cdw     : 0,    // countdown to 0
-        cdi     : 1800, // countdown interval in s
+        cdi     : 20, // countdown interval in s
         cde     : 4000, // countdown each (email) in ms
-        interval: 1800, // static - change this and cdi if modifying interval checks
+        interval: 20, // static - change this and cdi if modifying interval checks
     },
     key: '',
     emails: [
@@ -198,8 +198,13 @@ let actions = {
                     status: state.emails[i].status,
                     uiid: state.emails[i].uiid
                 }
+                let objstatus = state.emails[i].status
+                obj.status = 2
+                await dispatch(mType.ITEM_UPD_STATUS, obj)
                 await dispatch(mType.API_REQ_HIBP, obj)
                 await dispatch(mType.CD_EA_EMAIL)
+                obj.status = objstatus
+                await dispatch(mType.ITEM_UPD_STATUS, obj)
             }
             console.log('DONE')
             dispatch(mType.CD_INTERVAL_CHECKS)

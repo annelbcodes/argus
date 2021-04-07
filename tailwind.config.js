@@ -23,6 +23,7 @@ module.exports = {
         lightforestgreen  : '#5AA074', // green - indicator
         nightshadz        : '#A33B5C', // red - indicator
         bluebayoux        : '#666C82', // undefined indicator
+        energyyellow      : '#F59E0B', // yellow
       },
       opacity: {
         '90': '0.90',
@@ -80,7 +81,7 @@ module.exports = {
         // 200: '#fefcbf',
         // 300: '#faf089',
         // 400: '#f6e05e',
-        // 500: '#ecc94b',
+        500: '#ecc94b',
         // 600: '#d69e2e',
         // 700: '#b7791f',
         // 800: '#975a16',
