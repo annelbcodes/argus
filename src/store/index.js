@@ -9,7 +9,7 @@ import { mType } from './mutationtypes'
 Vue.use(Vuex)
 
 const ls = new SecureLS({
-    isCompression: false,
+    isCompression: true,
     encodingType: 'aes',
     encryptionSecret: process.env.ENCRYPTION_SECRET
 })
@@ -74,7 +74,9 @@ let mutations = {
     [mType.ITEM_UPD_STATUS](state, payload) {
         // using UIID (unique assigned id) to filter email and update status
         return state.emails.filter(email => {
-            return (email.uiid === payload.uiid) ? email.status = payload.status : true
+            if (email.uiid === payload.uiid) {
+                email.status = payload.status
+            }
         })
     },
     [mType.ITEM_DEL](state, payload) {
@@ -130,28 +132,29 @@ let actions = {
             breachedAccount(payload.address, HIBP_KEYCONFIG)
             .then(data => {
                 let status
+                console.log(data)
                 if (data) {
-                    if (payload.status === 1) {
-                        console.log('skipping re-writing to state')
-                        resolve()
-                        return false
-                    }
-                    else { status = Number(true) }
+                    status = Number(true)
+                    // if (payload.status === 1) {
+                    //     resolve()
+                    //     return false
+                    // }
+                    // else {  }
                 }
                 else {
-                    if (payload.status === 0) {
-                        console.log('skipping re-writing to state')
-                        resolve()
-                        return false
-                    }
-                    else { status = Number(false) }
+                    status = Number(false)
+                    // if (payload.status === 0) {
+                    //     resolve()
+                    //     return false
+                    // }
+                    // else { status = Number(false) }
                 }
                 let obj = {
                     status: status,
                     address: payload.address,
                     uiid: payload.uiid
                 }
-                console.log('re-writing to state, with new updated values...')
+                console.log('saving state:', obj)
                 commit(mType.ITEM_UPD_STATUS, obj)
                 resolve()
             })
@@ -211,7 +214,6 @@ let actions = {
                 obj.status = objstatus
                 await dispatch(mType.ITEM_UPD_STATUS, obj)
             }
-            console.log('DONE')
             dispatch(mType.CD_INTERVAL_CHECKS)
         }
         else {

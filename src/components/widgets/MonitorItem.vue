@@ -43,6 +43,7 @@ export default {
   },
   methods: {
     updateClasses(oldValue) {
+      console.log('status changed...',this.status)
       switch(this.status) {
         case 0:
           this.textClass      += this.indicatorGood
