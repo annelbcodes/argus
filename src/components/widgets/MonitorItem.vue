@@ -4,7 +4,7 @@
     em(@click.stop.prevent="removeItem()")
     li(:class="['bg-licorice', textClass, { 'opacity-50': !$isLength(status) }]")
       strong {{ item }}
-      span(:class="['self-center indicator', indicatorClass]")
+      span(:class='[`self-center indicator`, { "animate-pulse": status === 2 }, indicatorClass]')
 
 </template>
 
@@ -19,14 +19,15 @@ export default {
   ],
   data() {
     return {
-      indicatorClass    : 'bg-',
-      textClass         : 'text-',
-      indicatorGood     : 'lightforestgreen',
-      indicatorBad      : 'nightshadz',
-      indicatorUndefined: 'bluebayoux',
-      rootClass         : {
-        indicatorClass  : 'bg-',
-        textClass       : 'text-',
+      indicatorClass     : 'bg-',
+      textClass          : 'text-',
+      indicatorGood      : 'lightforestgreen',
+      indicatorBad       : 'nightshadz',
+      indicatorUndefined : 'bluebayoux',
+      indicatorProcessing: 'energyyellow',
+      rootClass          : {
+        indicatorClass   : 'bg-',
+        textClass        : 'text-',
       },
     }
   },
@@ -34,14 +35,15 @@ export default {
     this.updateClasses()
   },
   watch: {
-    status: function() {
+    status: function(n, o) {
       this.indicatorClass = this.rootClass.indicatorClass
-      this.textClass = this.rootClass.textClass
-      this.updateClasses()
+      this.textClass      = this.rootClass.textClass
+      this.updateClasses(o)
     }
   },
   methods: {
-    updateClasses() {
+    updateClasses(oldValue) {
+      console.log('status changed...',this.status)
       switch(this.status) {
         case 0:
           this.textClass      += this.indicatorGood
@@ -50,6 +52,12 @@ export default {
         case 1:
           this.textClass      += this.indicatorBad
           this.indicatorClass += this.indicatorBad
+          break
+        case 2:
+          (oldValue === 1)
+            ? this.textClass += this.indicatorBad
+            : this.textClass += this.indicatorGood
+          this.indicatorClass += this.indicatorProcessing
           break
         default:
           this.textClass      += this.indicatorUndefined

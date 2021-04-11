@@ -8,7 +8,11 @@ import { mType } from './mutationtypes'
 
 Vue.use(Vuex)
 
-const ls = new SecureLS({ compression: false })
+const ls = new SecureLS({
+    isCompression: true,
+    encodingType: 'aes',
+    encryptionSecret: process.env.ENCRYPTION_SECRET
+})
 
 const PS_CONFIG = {
     storage: {
@@ -19,7 +23,7 @@ const PS_CONFIG = {
 }
 
 const HIBP_CONFIG = {
-    userAgent: 'pwnlook-0.0.1',
+    userAgent: 'argus-0.1.0a',
     truncate: true,
 }
 
@@ -35,9 +39,9 @@ let state = {
     cd: {
         t       : 0,
         cdw     : 0,    // countdown to 0
-        cdi     : 1800, // countdown interval in s
+        cdi     : 20, // countdown interval in s
         cde     : 4000, // countdown each (email) in ms
-        interval: 1800, // static - change this and cdi if modifying interval checks
+        interval: 20, // static - change this and cdi if modifying interval checks
     },
     key: '',
     emails: [
@@ -70,7 +74,9 @@ let mutations = {
     [mType.ITEM_UPD_STATUS](state, payload) {
         // using UIID (unique assigned id) to filter email and update status
         return state.emails.filter(email => {
-            return (email.uiid === payload.uiid) ? email.status = payload.status : true
+            if (email.uiid === payload.uiid) {
+                email.status = payload.status
+            }
         })
     },
     [mType.ITEM_DEL](state, payload) {
@@ -118,7 +124,6 @@ let actions = {
         })
     },
     // Request API
-    // eslint-disable-next-line
     [mType.API_REQ_HIBP]({ state, commit }, payload) {
         let HIBP_KEYCONFIG = JSON.parse(JSON.stringify(HIBP_CONFIG))
         HIBP_KEYCONFIG.apiKey = state.key
@@ -127,28 +132,29 @@ let actions = {
             breachedAccount(payload.address, HIBP_KEYCONFIG)
             .then(data => {
                 let status
+                console.log(data)
                 if (data) {
-                    if (payload.status === 1) {
-                        console.log('skipping re-writing to state')
-                        resolve()
-                        return false
-                    }
-                    else { status = Number(true) }
+                    status = Number(true)
+                    // if (payload.status === 1) {
+                    //     resolve()
+                    //     return false
+                    // }
+                    // else {  }
                 }
                 else {
-                    if (payload.status === 0) {
-                        console.log('skipping re-writing to state')
-                        resolve()
-                        return false
-                    }
-                    else { status = Number(false) }
+                    status = Number(false)
+                    // if (payload.status === 0) {
+                    //     resolve()
+                    //     return false
+                    // }
+                    // else { status = Number(false) }
                 }
                 let obj = {
                     status: status,
                     address: payload.address,
                     uiid: payload.uiid
                 }
-                console.log('re-writing to state, with new updated values...')
+                console.log('saving state:', obj)
                 commit(mType.ITEM_UPD_STATUS, obj)
                 resolve()
             })
@@ -198,10 +204,16 @@ let actions = {
                     status: state.emails[i].status,
                     uiid: state.emails[i].uiid
                 }
+                const objstatus = state.emails[i].status
+                obj.status = 2
+                await dispatch(mType.ITEM_UPD_STATUS, obj)
+
                 await dispatch(mType.API_REQ_HIBP, obj)
                 await dispatch(mType.CD_EA_EMAIL)
+
+                obj.status = objstatus
+                await dispatch(mType.ITEM_UPD_STATUS, obj)
             }
-            console.log('DONE')
             dispatch(mType.CD_INTERVAL_CHECKS)
         }
         else {
