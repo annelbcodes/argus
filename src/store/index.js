@@ -8,7 +8,11 @@ import { mType } from './mutationtypes'
 
 Vue.use(Vuex)
 
-const ls = new SecureLS({ compression: false })
+const ls = new SecureLS({
+    isCompression: false,
+    encodingType: 'aes',
+    encryptionSecret: process.env.ENCRYPTION_SECRET
+})
 
 const PS_CONFIG = {
     storage: {
@@ -19,7 +23,7 @@ const PS_CONFIG = {
 }
 
 const HIBP_CONFIG = {
-    userAgent: 'pwnlook-0.0.1',
+    userAgent: 'argus-0.1.0a',
     truncate: true,
 }
 
@@ -118,7 +122,6 @@ let actions = {
         })
     },
     // Request API
-    // eslint-disable-next-line
     [mType.API_REQ_HIBP]({ state, commit }, payload) {
         let HIBP_KEYCONFIG = JSON.parse(JSON.stringify(HIBP_CONFIG))
         HIBP_KEYCONFIG.apiKey = state.key
@@ -198,11 +201,13 @@ let actions = {
                     status: state.emails[i].status,
                     uiid: state.emails[i].uiid
                 }
-                let objstatus = state.emails[i].status
+                const objstatus = state.emails[i].status
                 obj.status = 2
                 await dispatch(mType.ITEM_UPD_STATUS, obj)
+
                 await dispatch(mType.API_REQ_HIBP, obj)
                 await dispatch(mType.CD_EA_EMAIL)
+
                 obj.status = objstatus
                 await dispatch(mType.ITEM_UPD_STATUS, obj)
             }
