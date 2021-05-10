@@ -1,7 +1,6 @@
 <template lang="pug">
 
   .ui(@keydown.ctrl.65="addKey()" tabindex="0")
-    title-bar
 
     .ui-body
       modal(v-if="modal")
@@ -22,11 +21,15 @@
           ctabtn="Add to monitor"
         )
       .ui-content
-        monitor-list
-        monitor-btn(
-          type="email"
-          action="add"
-        )
+        .sidebar
+        .content
+          title-bar Emails
+
+        //- monitor-list
+        //- monitor-btn(
+        //-   type="email"
+        //-   action="add"
+        //- )
       .ui-footer
         .left
           svg(
@@ -159,11 +162,12 @@ export default {
   @apply to-mirage
 
 .ui-content
-  @apply p-5
-  @apply pt-12
-  @apply h-screen
-  @apply pb-12
+  // @apply p-5
+  // @apply pt-10
+  // @apply h-screen
+  // @apply pb-12
   @apply overflow-y-auto
+  @apply flex
 
 .ui-footer
   bottom: 0
@@ -199,4 +203,17 @@ export default {
     transform: rotate(360deg)
   to
     transform: rotate(0deg)
+
+.sidebar
+  @apply w-3/12
+  @apply bg-transparent
+  @apply flex-none
+  @apply h-screen
+
+.content
+  @apply flex-auto
+  @apply h-screen
+  @apply bg-gradient-to-b
+  @apply from-white
+  @apply to-gray-100
 </style>

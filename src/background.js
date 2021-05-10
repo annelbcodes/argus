@@ -40,7 +40,7 @@ function createWindow() {
     frame          : false,
     maximizable    : false,
     hasShadow      : true,
-    thickFrame     : true,
+    thickFrame     : false,
     transparent    : true,
     titleBarStyle  : 'hiddenInset',
     backgroundColor: '#272735',
