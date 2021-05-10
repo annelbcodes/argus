@@ -32,16 +32,19 @@ global.win = null
 function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({
-    title: app.name,
-    width: 350,
-    minWidth: 350,
-    maxWidth: 350,
-    height: 'auto',
-    frame: false,
-    maximizable: false,
-    titleBarStyle: 'hiddenInset',
+    title          : app.name,
+    width          : 350,
+    minWidth       : 350,
+    maxWidth       : 350,
+    height         : 'auto',
+    frame          : false,
+    maximizable    : false,
+    hasShadow      : true,
+    thickFrame     : true,
+    transparent    : true,
+    titleBarStyle  : 'hiddenInset',
     backgroundColor: '#272735',
-    webPreferences: {
+    webPreferences : {
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
       nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
