@@ -154,7 +154,9 @@ export default {
 
 .ui-body
   @apply text-rockblue
-  @apply bg-valhalla
+  @apply bg-gradient-to-b
+  @apply from-valhalla
+  @apply to-mirage
 
 .ui-content
   @apply p-5
