@@ -23,7 +23,7 @@
       .ui-content
         .sidebar
         .content
-          title-bar Emails
+          title-bar Argus
 
         //- monitor-list
         //- monitor-btn(
