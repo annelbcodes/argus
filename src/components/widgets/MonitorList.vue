@@ -50,7 +50,7 @@ export default {
 
 <style lang="sass">
 .list-monitor
-  @apply text-xs
+  @apply text-sm
 
   li
     @apply my-2

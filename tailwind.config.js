@@ -29,6 +29,9 @@ module.exports = {
         '90': '0.90',
         '100': '1',
       },
+      fontSize: {
+        xxs: '0.55rem',
+      }
     },
 
     screens: {
@@ -45,7 +48,7 @@ module.exports = {
 
       gray: {
         100: '#f7fafc',
-        // 200: '#edf2f7',
+        200: '#edf2f7',
         // 300: '#e2e8f0',
         // 400: '#cbd5e0',
         500: '#a0aec0',
@@ -59,7 +62,7 @@ module.exports = {
         // 200: '#fed7d7',
         // 300: '#feb2b2',
         // 400: '#fc8181',
-        // 500: '#f56565',
+        500: '#f56565',
         // 600: '#e53e3e',
         // 700: '#c53030',
         // 800: '#9b2c2c',
@@ -92,7 +95,7 @@ module.exports = {
         // 200: '#c6f6d5',
         // 300: '#9ae6b4',
         // 400: '#68d391',
-        // 500: '#48bb78',
+        500: '#48bb78',
         // 600: '#38a169',
         // 700: '#2f855a',
         // 800: '#276749',
@@ -260,18 +263,18 @@ module.exports = {
     },
     fontFamily: {
       sans: [
-        '-apple-system',
-        'BlinkMacSystemFont',
-        '"Segoe UI"',
-        'Roboto',
-        '"Helvetica Neue"',
         'Arial',
+        '"Helvetica Neue"',
         '"Noto Sans"',
+        'Roboto',
         'sans-serif',
         '"Apple Color Emoji"',
         '"Segoe UI Emoji"',
         '"Segoe UI Symbol"',
         '"Noto Color Emoji"',
+        '-apple-system',
+        'BlinkMacSystemFont',
+        '"Segoe UI"',
       ],
       // serif: [
       //   'Georgia',
@@ -325,8 +328,8 @@ module.exports = {
       // tighter: '-0.05em',
       // tight: '-0.025em',
       // normal: '0',
-      // wide: '0.025em',
-      // wider: '0.05em',
+      wide: '0.025em',
+      wider: '0.05em',
       // widest: '0.1em',
     },
     lineHeight: {

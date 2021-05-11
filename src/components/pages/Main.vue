@@ -24,8 +24,7 @@
         .sidebar
         .content
           title-bar Argus
-
-        //- monitor-list
+          monitor-list
         //- monitor-btn(
         //-   type="email"
         //-   action="add"

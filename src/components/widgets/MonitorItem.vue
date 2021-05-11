@@ -2,7 +2,9 @@
 
   .item-container.relative
     em(@click.stop.prevent="removeItem()")
-    li(:class="['bg-licorice', textClass, { 'opacity-50': !$isLength(status) }]")
+      svg(xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="#a0aec0")
+        path(fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd")
+    li(:class="[textClass, { 'opacity-50': !$isLength(status) }]")
       strong {{ item }}
       span(:class='[`self-center indicator`, { "animate-pulse": status === 2 }, indicatorClass]')
 
@@ -21,8 +23,8 @@ export default {
     return {
       indicatorClass     : 'bg-',
       textClass          : 'text-',
-      indicatorGood      : 'lightforestgreen',
-      indicatorBad       : 'nightshadz',
+      indicatorGood      : 'green-500',
+      indicatorBad       : 'red-500',
       indicatorUndefined : 'bluebayoux',
       indicatorProcessing: 'energyyellow',
       rootClass          : {
@@ -92,27 +94,20 @@ export default {
     @apply opacity-100
 
 .item-container em
-  height: 18px
-  width: 18px
   left: 10px
   transition: all 0.3s ease-in-out
-  @apply bg-nightshadz
-  @apply rounded-full
   @apply absolute
   @apply z-10
   @apply cursor-pointer
   @apply inline-block
   @apply opacity-0
   @apply invisible
-
-  &:before
-    content: "-"
-    height: 18px
-    width: 18px
-    @apply text-white
-    @apply absolute
-    @apply inset-0
-    @apply text-center
+  @apply text-white
+  @apply text-xxs
+  @apply uppercase
+  @apply not-italic
+  @apply tracking-wider
+  @apply w-auto
 
 .indicator
   height: 10px
