@@ -53,11 +53,14 @@ export default {
   @apply text-sm
 
   li
-    @apply my-2
-    @apply p-2
-    @apply px-3
-    @apply rounded
+    // @apply my-2
+    @apply p-3
     @apply break-words
     @apply flex
     @apply w-full
+    @apply relative
+    @apply z-10
+
+  li:hover
+    @apply bg-gray-100
 </style>

@@ -97,7 +97,7 @@ export default {
   left: 10px
   transition: all 0.3s ease-in-out
   @apply absolute
-  @apply z-10
+  @apply z-50
   @apply cursor-pointer
   @apply inline-block
   @apply opacity-0

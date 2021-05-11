@@ -19,6 +19,8 @@ export default {
   @apply p-0
   @apply h-10
   @apply text-sm
+  @apply relative
+  @apply z-50
   @apply bg-gradient-to-b
   @apply from-white
   @apply to-gray-100
