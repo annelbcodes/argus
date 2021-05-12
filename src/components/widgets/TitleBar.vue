@@ -23,7 +23,7 @@ export default {
   @apply h-10
   @apply text-sm
   @apply relative
-  @apply z-40
+  @apply z-30
   @apply bg-gradient-to-b
   @apply from-white
   @apply to-gray-100
