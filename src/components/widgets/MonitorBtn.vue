@@ -1,7 +1,7 @@
 <template lang="pug">
 
   .monitor-btn
-    a.btn-action.cursor-pointer(@click.stop.prevent="itemAction()" v-html="this.btn_text")
+    a.btn-action(@click.stop.prevent="itemAction()" v-html="text ? text : ``")
 
 </template>
 
@@ -12,7 +12,8 @@ import { mapActions } from 'vuex'
 export default {
   props: [
     'type',
-    'action'
+    'action',
+    'text',
   ],
   data() {
     return {
@@ -24,17 +25,11 @@ export default {
     }
   },
   mounted() {
-    this.checkAction()
   },
   methods: {
     ...mapActions({
       addEmail: mType.MODAL_TOGGLE
     }),
-    checkAction() {
-      if (this.action === 'add') {
-        this.btn_text = 'Add &#x002B;'
-      }
-    },
     itemAction() {
       this.obj_action = {
         action: 'add',
@@ -50,18 +45,21 @@ export default {
 .btn-action
   @apply w-full
   @apply inline-block
-  @apply p-2
-  @apply border
-  @apply border-solid
-  @apply border-steelgray
-  @apply border-dashed
-  @apply rounded
+  @apply px-2
+  @apply py-0
+  // @apply bg-gray-200
+  // @apply border
+  // @apply border-solid
+  // @apply border-gray-300
+  // @apply border-dashed
+  @apply rounded-sm
   @apply text-center
-  @apply text-xs
+  @apply text-lg
   transition: all 0.3s ease-in-out
 
   &:hover
-    @apply border-solid
-    @apply border-rockblue
+    @apply cursor-pointer
+    // @apply border-solid
+    // @apply border-rockblue
     @apply text-rockblue
 </style>

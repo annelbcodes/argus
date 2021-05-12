@@ -23,12 +23,15 @@
       .ui-content
         .sidebar
         .content
-          title-bar Argus
+          title-bar
+            | Argus
+            template(#btn-trigger)
+              monitor-btn(
+                type="email"
+                action="add"
+                text="+"
+              )
           monitor-list
-        //- monitor-btn(
-        //-   type="email"
-        //-   action="add"
-        //- )
       .ui-footer
         .left
           svg(
