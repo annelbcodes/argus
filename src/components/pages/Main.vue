@@ -120,6 +120,12 @@ export default {
     }),
 
     setTimeAgo() {
+      moment.updateLocale('en', {
+          relativeTime : {
+            ss: this.cd.cdi +"s"
+          }
+      })
+      moment.relativeTimeThreshold('ss', 3)
       this.text_timeago = moment.duration(-(this.cd.interval), 'seconds').humanize(true)
     },
 
