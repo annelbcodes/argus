@@ -126,7 +126,8 @@ export default {
           }
       })
       moment.relativeTimeThreshold('ss', 3)
-      this.text_timeago = moment.duration(-(this.cd.interval), 'seconds').humanize(true)
+      let timeago = this.cd.interval - this.cd.cdi
+      this.text_timeago = timeago +'s ago'
     },
 
     setInterval() {
