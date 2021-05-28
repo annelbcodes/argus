@@ -18,15 +18,8 @@ Monitor all your emails for pwnage in one single dashboard.
 
 An API key is required from the haveibeenpwned website, which cost $3.50/mo. [Acquire API Key here](https://haveibeenpwned.com/API/Key).
 
-- - -
-
-#### Todos:
-
-- [x] Indication of last checked status
-- [ ] Dropdown details on each monitoring item (if pwnage has been detected)
-- [ ] Options for checking intervals
-
-<br>
+<br />
+<br />
 
 # License
 
