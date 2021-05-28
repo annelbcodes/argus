@@ -39,9 +39,9 @@ let state = {
     cd: {
         t       : 0,
         cdw     : 0,    // countdown to 0
-        cdi     : 60, // countdown interval in s
+        cdi     : 120, // countdown interval in s
         cde     : 4000, // countdown each (email) in ms
-        interval: 60, // static - change this and cdi if modifying interval checks
+        interval: 120, // static - change this and cdi if modifying interval checks
     },
     key: '',
     emails: [

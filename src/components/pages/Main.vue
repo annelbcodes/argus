@@ -125,9 +125,18 @@ export default {
             ss: this.cd.cdi +"s"
           }
       })
-      moment.relativeTimeThreshold('ss', 3)
+      // moment.relativeTimeThreshold('ss', 3)
       let timeago = this.cd.interval - this.cd.cdi
-      this.text_timeago = timeago +'s ago'
+
+      switch (true) {
+        case (this.cd.interval < 60):
+          this.text_timeago = timeago +'s ago'
+          break
+        case (this.cd.interval >= 60):
+          this.text_timeago = moment.duration(-this.cd.interval, 'seconds').humanize(true)
+          break
+      }
+
     },
 
     setInterval() {
