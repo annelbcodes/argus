@@ -1,17 +1,13 @@
 <template lang="pug">
-
-  .titlebar
+.titlebar
     h1
-      slot
+        slot
     .btn-trigger
-      slot(name="btn-trigger")
-
+        slot(name='btn-trigger')
 </template>
 
 <script>
-export default {
-
-}
+export default {}
 </script>
 
 <style lang="sass">
@@ -21,25 +17,25 @@ export default {
   @apply p-0
   @apply px-2
   @apply h-10
+  @apply z-30
+  @apply flex
   @apply text-sm
   @apply relative
-  @apply z-30
-  @apply bg-gradient-to-b
+  @apply font-bold
   @apply from-white
   @apply to-gray-100
-  @apply shadow-default
   @apply text-center
   @apply text-midgray
-  @apply font-bold
-  @apply flex
+  @apply shadow-default
+  @apply bg-gradient-to-b
 
   h1
     @apply m-auto
 
   .btn-trigger
-    @apply cursor-pointer
-    @apply absolute
-    @apply right-1
-    @apply top-2
     @apply z-50
+    @apply top-2
+    @apply right-1
+    @apply absolute
+    @apply cursor-pointer
 </style>

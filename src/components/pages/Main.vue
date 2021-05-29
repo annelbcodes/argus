@@ -18,90 +18,78 @@
             )
         .ui-content
             .sidebar
+                .ui-footer
+                    svg.status-icon.animate-spin(
+                        v-show='status_checking'
+                        height='18'
+                        width='18'
+                        fill='none'
+                        stroke='currentColor'
+                        viewBox='0 0 24 24'
+                        xmlns='https://www.w3.org/2000/svg'
+                    )
+                        circle.opacity-25(
+                            cx='12'
+                            cy='12'
+                            r='10'
+                            stroke='currentColor'
+                            stroke-width='4'
+                        )
+                        path.opacity-75(
+                            fill='currentColor'
+                            d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z'
+                        )
+                    | {{ text_timeago }}
             .content
                 title-bar
                     | Argus
                     template(#btn-trigger)
                         monitor-btn(type='email' action='add' text='+')
                 monitor-list
-        .ui-footer
-            .left
-                p
-                    a.cursor-pointer(@click='pauseIntervalChecks()')
-                        svg.h-5.w-5(
+                .ui-footer
+                    .right
+                        svg.pref-icon(
+                            @click.stop.prevent='openPref()'
+                            height='18'
+                            width='18'
+                            fill='none'
+                            stroke='currentColor'
+                            viewBox='0 0 24 24'
                             xmlns='http://www.w3.org/2000/svg'
-                            viewBox='0 0 20 20'
-                            fill='currentColor'
                         )
                             path(
-                                fill-rule='evenodd'
-                                d='M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z'
-                                clip-rule='evenodd'
+                                stroke-linecap='round'
+                                stroke-linejoin='round'
+                                stroke-width='2'
+                                d='M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z'
                             )
-                svg.status-icon.animate-spin(
-                    v-show='status_checking'
-                    height='18'
-                    width='18'
-                    fill='none'
-                    stroke='currentColor'
-                    viewBox='0 0 24 24'
-                    xmlns='https://www.w3.org/2000/svg'
-                )
-                    circle.opacity-25(
-                        cx='12'
-                        cy='12'
-                        r='10'
-                        stroke='currentColor'
-                        stroke-width='4'
-                    )
-                    path.opacity-75(
-                        fill='currentColor'
-                        d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z'
-                    )
-                | {{ text_timeago }}
-            .right
-                svg.pref-icon(
-                    @click.stop.prevent='openPref()'
-                    height='18'
-                    width='18'
-                    fill='none'
-                    stroke='currentColor'
-                    viewBox='0 0 24 24'
-                    xmlns='http://www.w3.org/2000/svg'
-                )
-                    path(
-                        stroke-linecap='round'
-                        stroke-linejoin='round'
-                        stroke-width='2'
-                        d='M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z'
-                    )
-                    path(
-                        stroke-linecap='round'
-                        stroke-linejoin='round'
-                        stroke-width='2'
-                        d='M15 12a3 3 0 11-6 0 3 3 0 016 0z'
-                    )
+                            path(
+                                stroke-linecap='round'
+                                stroke-linejoin='round'
+                                stroke-width='2'
+                                d='M15 12a3 3 0 11-6 0 3 3 0 016 0z'
+                            )
 </template>
 
 <script>
+import moment from 'moment'
 import { mapState, mapActions } from 'vuex'
 import { mType } from '@/store/mutationtypes'
-import TitleBar from '@/components/widgets/TitleBar'
 import Modal from '@/components/widgets/Modal'
-import MonitorList from '@/components/widgets/MonitorList'
+import TitleBar from '@/components/widgets/TitleBar'
 import MonitorBtn from '@/components/widgets/MonitorBtn'
+import MonitorList from '@/components/widgets/MonitorList'
 import PopupMonitor from '@/components/widgets/PopupMonitor'
 import PopupPref from '@/components/widgets/PopupPreferences'
-import moment from 'moment'
 
 export default {
     components: {
-        TitleBar,
-        MonitorList,
-        MonitorBtn,
         Modal,
-        PopupMonitor,
+        TitleBar,
         PopupPref,
+        MonitorBtn,
+        MonitorList,
+        PopupMonitor,
     },
     data() {
         return {
@@ -190,67 +178,66 @@ export default {
 
 <style lang="sass">
 :focus
-  outline: none
+    outline: none
 
 .ui-body
-  @apply text-rockblue
-  @apply bg-gradient-to-b
-  @apply from-valhalla
-  @apply to-mirage
+    @apply text-rockblue
+    @apply bg-gradient-to-b
+    @apply from-valhalla
+    @apply to-mirage
 
 .ui-content
-  // @apply p-5
-  // @apply pt-10
-  // @apply h-screen
-  // @apply pb-12
-  @apply overflow-y-auto
-  @apply flex
+    // @apply p-5
+    // @apply pt-10
+    // @apply h-screen
+    // @apply pb-12
+    @apply overflow-y-auto
+    @apply flex
 
 .ui-footer
-  bottom: 0
-  @apply p-2
-  @apply fixed
-  @apply flex
-  @apply flex-wrap
-  @apply w-full
-  @apply text-midgray
-  @apply text-xs
+    bottom: 0
+    @apply p-2
+    @apply fixed
+    @apply w-full
+    @apply text-xs
+    @apply text-midgray
 
-  .left, .right
-    @apply w-6/12
-    @apply text-left
+    .left, .right
+        @apply w-6/12
+        @apply text-left
 
-  .right
-    @apply text-right
+    .right
+        @apply text-right
 
 .status-icon
-  animate: loading-spinner 2s linear infinite
-  @apply inline-block
-  @apply text-left
+    animate: loading-spinner 2s linear infinite
+    @apply text-left
+    @apply inline-block
 
 .pref-icon
-  @apply text-right
-  @apply inline-block
+    @apply text-right
+    @apply inline-block
 
-  &:hover
-    @apply cursor-pointer
+    &:hover
+        @apply cursor-pointer
 
 @keyframes loading-spinner
-  from
-    transform: rotate(360deg)
-  to
-    transform: rotate(0deg)
+    from
+        transform: rotate(360deg)
+    to
+        transform: rotate(0deg)
 
 .sidebar
-  @apply w-3/12
-  @apply bg-transparent
-  @apply flex-none
-  @apply h-screen
+    @apply w-3/12
+    @apply h-screen
+    @apply flex-none
+    @apply bg-transparent
 
 .content
-  @apply flex-auto
-  @apply h-screen
-  @apply bg-gradient-to-b
-  @apply from-white
-  @apply to-gray-100
+    @apply w-9/12
+    @apply h-screen
+    @apply flex-auto
+    @apply from-white
+    @apply to-gray-100
+    @apply bg-gradient-to-b
 </style>
