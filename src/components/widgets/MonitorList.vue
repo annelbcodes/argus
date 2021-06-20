@@ -1,58 +1,52 @@
 <template lang="pug">
-
-  div(:class='"widget-monitor-list-"+_uid')
+div(:class='"widget-monitor-list-" + _uid')
     ul.list-monitor
-      monitor-item(
-        v-for="(n,i) in emails"
-        :key="n+i"
-        :item="n.address"
-        :status="n.status"
-        :id="i"
-      )
-
+        monitor-item(
+            v-for='(n, i) in emails'
+            :key='n + i'
+            :item='n.address'
+            :status='n.status'
+            :id='i'
+        )
 </template>
 
 <script>
-import MonitorItem  from './MonitorItem'
-import { mType }    from '@/store/mutationtypes'
+import MonitorItem from './MonitorItem'
+import { mType } from '@/store/mutationtypes'
 import { mapState } from 'vuex'
 
 export default {
-  components: {
-    MonitorItem
-  },
-  data() {
-    return {
-    }
-  },
-  mounted() {
-    this.$store.commit(mType.CD_STOP)
-    this.$store.dispatch(mType.CD_INTERVAL_CHECKS) // start interval timer
-  },
-  computed: {
-    ...mapState([
-      'emails',
-      'cd',
-    ]),
-  },
-  watch: {
-    cd: {
-      deep: true,
-      handler(n) {
-        if(n.cdi === 0) {
-          this.$store.dispatch(mType.EMAILS_CHECK_ALL)
-        }
-      }
-    }
-  },
+    components: {
+        MonitorItem,
+    },
+    data() {
+        return {}
+    },
+    mounted() {
+        this.$store.commit(mType.CD_STOP)
+        this.$store.dispatch(mType.CD_INTERVAL_CHECKS) // start interval timer
+    },
+    computed: {
+        ...mapState(['emails', 'cd']),
+    },
+    watch: {
+        cd: {
+            deep: true,
+            handler(n) {
+                if (n.cdi === 0) {
+                    this.$store.dispatch(mType.EMAILS_CHECK_ALL)
+                }
+            },
+        },
+    },
 }
 </script>
 
 <style lang="sass">
 .list-monitor
-  @apply text-sm
+    @apply text-sm
 
-  li
+li
     // @apply my-2
     @apply p-3
     @apply break-words
@@ -61,6 +55,6 @@ export default {
     @apply relative
     @apply z-10
 
-  li:hover
-    @apply bg-gray-100
+    li:hover
+        @apply bg-gray-100
 </style>

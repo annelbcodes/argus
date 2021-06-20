@@ -6,12 +6,12 @@ module.exports = {
         es6: true,
     },
     extends: [
+        'prettier',
         'eslint:recommended',
         'plugin:vue/essential',
         'plugin:prettier/recommended',
     ],
     rules: {
-        'prettier/prettier': 'error',
         'no-console': isProd ? 'error' : 'off',
     },
     parserOptions: {

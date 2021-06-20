@@ -11,15 +11,15 @@ Vue.use(Vuex)
 const ls = new SecureLS({
     isCompression: true,
     encodingType: 'aes',
-    encryptionSecret: process.env.ENCRYPTION_SECRET
+    encryptionSecret: process.env.ENCRYPTION_SECRET,
 })
 
 const PS_CONFIG = {
     storage: {
-      getItem: (key) => ls.get(key),
-      setItem: (key, value) => ls.set(key, value),
-      removeItem: (key) => ls.remove(key),
-    }
+        getItem: (key) => ls.get(key),
+        setItem: (key, value) => ls.set(key, value),
+        removeItem: (key) => ls.remove(key),
+    },
 }
 
 const HIBP_CONFIG = {
@@ -29,31 +29,31 @@ const HIBP_CONFIG = {
 
 let state = {
     ui: {
-        modal : false,
-        type  : '',
+        modal: false,
+        type: '',
         action: '',
     },
     db: {
         uiid: 100000,
     },
     cd: {
-        t       : 0,
-        cdw     : 0,    // countdown to 0
-        cdi     : 120, // countdown interval in s
-        cde     : 4000, // countdown each (email) in ms
+        t: 0,
+        cdw: 0, // countdown to 0
+        cdi: 120, // countdown interval in s
+        cde: 4000, // countdown each (email) in ms
         interval: 120, // static - change this and cdi if modifying interval checks
     },
     key: '',
     emails: [
         // { address: '', status: 0, uiid: 0  }
-    ]
+    ],
 }
 let getters = {
     item_get: (state) => (payload) => {
-        return state.emails.filter(email => {
-            return (email.address === payload) ? true : false
+        return state.emails.filter((email) => {
+            return email.address === payload ? true : false
         })
-    }
+    },
 }
 
 let mutations = {
@@ -73,7 +73,7 @@ let mutations = {
     },
     [mType.ITEM_UPD_STATUS](state, payload) {
         // using UIID (unique assigned id) to filter email and update status
-        return state.emails.filter(email => {
+        return state.emails.filter((email) => {
             if (email.uiid === payload.uiid) {
                 email.status = payload.status
             }
@@ -112,15 +112,14 @@ let actions = {
                 obj = {
                     address: payload.item,
                     status: '',
-                    uiid: state.db.uiid
+                    uiid: state.db.uiid,
                 }
                 commit(mType.ITEM_ADD, obj)
             }
 
             if (state.key) {
                 dispatch(mType.API_REQ_HIBP, obj)
-            }
-            else return false
+            } else return false
         })
     },
     // Request API
@@ -130,38 +129,37 @@ let actions = {
 
         return new Promise((resolve, reject) => {
             breachedAccount(payload.address, HIBP_KEYCONFIG)
-            .then(data => {
-                let status
-                console.log(data)
-                if (data) {
-                    status = Number(true)
-                    // if (payload.status === 1) {
-                    //     resolve()
-                    //     return false
-                    // }
-                    // else {  }
-                }
-                else {
-                    status = Number(false)
-                    // if (payload.status === 0) {
-                    //     resolve()
-                    //     return false
-                    // }
-                    // else { status = Number(false) }
-                }
-                let obj = {
-                    status: status,
-                    address: payload.address,
-                    uiid: payload.uiid
-                }
-                console.log('saving state:', obj)
-                commit(mType.ITEM_UPD_STATUS, obj)
-                resolve()
-            })
-            .catch(err => {
-                console.log(err)
-                reject(err)
-            })
+                .then((data) => {
+                    let status
+                    console.log(data)
+                    if (data) {
+                        status = Number(true)
+                        // if (payload.status === 1) {
+                        //     resolve()
+                        //     return false
+                        // }
+                        // else {  }
+                    } else {
+                        status = Number(false)
+                        // if (payload.status === 0) {
+                        //     resolve()
+                        //     return false
+                        // }
+                        // else { status = Number(false) }
+                    }
+                    let obj = {
+                        status: status,
+                        address: payload.address,
+                        uiid: payload.uiid,
+                    }
+                    console.log('saving state:', obj)
+                    commit(mType.ITEM_UPD_STATUS, obj)
+                    resolve()
+                })
+                .catch((err) => {
+                    console.log(err)
+                    reject(err)
+                })
         })
     },
 
@@ -184,7 +182,9 @@ let actions = {
         commit(mType.CD_SETTIMEOUT, timeoutID)
     },
     [mType.CD_START]({ state, commit, dispatch }) {
-        (state.cd.cdi !== state.cd.cdw) ? dispatch(mType.CD_INTERVAL_CHECKS) : commit(mType.CD_STOP)
+        state.cd.cdi !== state.cd.cdw
+            ? dispatch(mType.CD_INTERVAL_CHECKS)
+            : commit(mType.CD_STOP)
         console.log(state.cd.cdi)
     },
 
@@ -194,7 +194,9 @@ let actions = {
      * Default: 4s
      */
     [mType.CD_EA_EMAIL]({ state }) {
-        return new Promise(r => { setTimeout(r, state.cd.cde) })
+        return new Promise((r) => {
+            setTimeout(r, state.cd.cde)
+        })
     },
     async [mType.REQUEST_EA_EMAIL]({ state, commit, dispatch }) {
         if (state.emails.length) {
@@ -202,7 +204,7 @@ let actions = {
                 let obj = {
                     address: state.emails[i].address,
                     status: state.emails[i].status,
-                    uiid: state.emails[i].uiid
+                    uiid: state.emails[i].uiid,
                 }
                 const objstatus = state.emails[i].status
                 obj.status = 2
@@ -215,8 +217,7 @@ let actions = {
                 await dispatch(mType.ITEM_UPD_STATUS, obj)
             }
             dispatch(mType.CD_INTERVAL_CHECKS)
-        }
-        else {
+        } else {
             // when email array is empty, re-count interval
             commit(mType.CD_STOP)
             dispatch(mType.CD_INTERVAL_CHECKS)
@@ -228,7 +229,6 @@ let actions = {
     [mType.SAVE_KEY]({ commit }, payload) {
         commit('SAVE_KEY', payload)
     },
-
 }
 
 export default new Vuex.Store({
