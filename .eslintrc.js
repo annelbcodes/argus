@@ -4,15 +4,12 @@ module.exports = {
     env: {
         node: true,
         es6: true,
+        es2021: true,
     },
-    extends: [
-        'prettier',
-        'eslint:recommended',
-        'plugin:vue/essential',
-        'plugin:prettier/recommended',
-    ],
+    extends: ['prettier', 'eslint:recommended', 'plugin:vue/essential'],
     rules: {
         'no-console': isProd ? 'error' : 'off',
+        'prettier/prettier': 'error',
     },
     parserOptions: {
         parser: 'babel-eslint',
