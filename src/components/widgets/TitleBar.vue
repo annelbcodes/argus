@@ -2,7 +2,7 @@
 .titlebar
     h1
         slot
-    .btn-trigger
+    .btn-trigger.cursor-pointer
         slot(name='btn-trigger')
 </template>
 

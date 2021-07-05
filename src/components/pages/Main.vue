@@ -15,6 +15,14 @@
                 action='add'
                 title='Add an email address to monitor'
                 ctabtn='Add to monitor'
+                has-input
+            )
+            popup-monitor#email-remove(
+                v-if='ui.type === `email`'
+                type='email'
+                action='remove'
+                title='You are about to remove the email from the list'
+                ctabtn='Yes, remove the email address'
             )
         .ui-content
             .sidebar

@@ -81,7 +81,7 @@ export default {
         removeItem() {
             this.obj_action = {
                 action: 'remove',
-                type: '',
+                type: 'email',
             }
             this.toggleModal(this.obj_action)
             // this.$store.commit(mType.ITEM_DEL, this.id)

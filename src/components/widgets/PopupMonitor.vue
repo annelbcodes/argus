@@ -1,7 +1,7 @@
 <template lang="pug">
 base-popup(:type='type' :action='action' :title='title')
     template(#content)
-        .field-area
+        .field-area(v-if='hasInput')
             input.field-text.mt-5(
                 :type='type'
                 :id='id'
@@ -29,7 +29,7 @@ import { required, email, minLength } from 'vuelidate/lib/validators'
 
 export default {
     components: { BasePopup },
-    props: ['action', 'type', 'title', 'ctabtn', 'id'],
+    props: ['action', 'type', 'title', 'ctabtn', 'id', 'has-input'],
     data() {
         return {
             item_name: '',
@@ -53,7 +53,7 @@ export default {
         },
     },
     mounted() {
-        document.getElementById(this.id).focus()
+        if (this.hasInput) document.getElementById(this.id).focus()
     },
     watch: {
         item_name: function () {
